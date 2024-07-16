@@ -1,0 +1,5 @@
+Si_sig_data_XX.txt and Si_das_data_XX.txt for Si-28, Si-29, and Si-30 contain pickled ENDF/B-VII data for total cross sections (MF = 3) and angular distributions (MF = 4), respectively, for elastic scatters (MT = 2)
+
+See sample usage of files in HVeV-n-Bknd/python/plotting_Si_el.ipynb
+
+Data was scraped from tapes at https://www-nds.iaea.org/exfor/servlet/X4sShowData?File=E4R2294_e4.zvd and http://t2.lanl.gov/nis/data/data/ENDFB-VII.1-neutron/Si/28 for Si-28, and similarly for Si-29 and Si-30
