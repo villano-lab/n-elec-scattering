@@ -142,10 +142,23 @@ def al(lterms=[0],endffile='xn_data/n-014_Si_028.endf'): #En in eV
 
   return f
 
-def fetch_diff_xn(sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+def fetch_diff_xn(En=1e6,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
 
   global directory
 
-  return
+  #fetch the necessary info
+  l = np.arange(0,37)
+  a = al(l,endffile=endffile)
+  f = fetch_elastic(filename=sigtotfile)
+  prel = 2*l+1/2
+
+  #loop through and get coeffs
+  c=np.zeros(np.shape(l))
+  for i,obj in enumerate(a):
+    print(a[obj](En))
+    c[i] = prel[i]*a[obj](En)*f(En/1e6)
+
+  fout = np.polynomial.legendre.Legendre(c)   
+  return fout
 
 
