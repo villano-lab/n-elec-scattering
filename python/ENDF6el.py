@@ -3,6 +3,18 @@ import pandas as pds
 import scipy
 import numpy as np
 
+directory='./xn_data/'
+
+def set_dir(d='xn_data/'):
+  global directory
+  directory=d
+  return
+
+def print_dir():
+  global directory
+  print(directory)
+  return
+
 def fetch_elastic(filename='xn_data/si28_el.txt'):
   el = pds.read_csv(filename, skiprows=11,skipfooter=2, \
           names=['neutE', 'xn'],sep='\s+',engine='python')
