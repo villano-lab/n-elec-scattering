@@ -52,7 +52,7 @@ def fetch_elastic_angular(filename='xn_data/n-014_Si_028.endf'):
   #get number of data points
   arr=np.str_.split(sec[3])
   num=int(arr[0])
-  print(num)
+  #print(num)
   al = np.zeros((num,36)) #assume no more than 36 legendre coeffs
   en = np.zeros((num,))
 
@@ -99,5 +99,48 @@ def fetch_elastic_angular(filename='xn_data/n-014_Si_028.endf'):
 
   return (en,al)
 
+def al(l=0,endffile='xn_data/n-014_Si_028.endf'): #En in eV
+
+  global directory
+  
+  #get the data 
+  (en,al)=fetch_elastic_angular(endffile)
+
+  #get the zeroth coefficient which is understood to be 1
+  a0 = np.ones(np.shape(en))
+
+  #default
+  err = np.zeros(np.shape(en))
+
+  #set up
+  #make sure we are strictly increasing
+  d = np.diff(en)
+  d=np.append(d,0)
+  en = en[d>0]
+
+
+  #return the correct coefficient as a function of neutron energy
+  if l==0:
+    cdat = a0[d>0]
+  elif l<np.shape(al)[1]:
+    cdat = al[d>0,l-1]
+  else:
+    cdat = err[d>0]
+
+  #get an interpolant function
+  f=scipy.interpolate.UnivariateSpline(
+        en,
+        cdat,
+        k=3,
+        s=0,
+        check_finite=True)
+
+  return f
+
+def fetch_diff_xn(sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+
+  global directory
+
+  return
 
 
