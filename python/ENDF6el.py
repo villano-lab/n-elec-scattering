@@ -11,7 +11,7 @@ def fetch_elastic(filename='xn_data/si28_el.txt'):
   xn = np.asarray(el["xn"],dtype=float)
 
   #make sure we are strictly increasing
-  d = diff(neute)
+  d = np.diff(neute)
   d=np.append(d,0)
   neute = neute[d>0]
   xn = xn[d>0]
