@@ -99,7 +99,7 @@ def fetch_elastic_angular(filename='xn_data/n-014_Si_028.endf'):
 
   return (en,al)
 
-def al(l=0,endffile='xn_data/n-014_Si_028.endf'): #En in eV
+def al(lterms=[0],endffile='xn_data/n-014_Si_028.endf'): #En in eV
 
   global directory
   
@@ -119,21 +119,26 @@ def al(l=0,endffile='xn_data/n-014_Si_028.endf'): #En in eV
   en = en[d>0]
 
 
-  #return the correct coefficient as a function of neutron energy
-  if l==0:
-    cdat = a0[d>0]
-  elif l<np.shape(al)[1]:
-    cdat = al[d>0,l-1]
-  else:
-    cdat = err[d>0]
+  f={}
+  for l in lterms:
+    #return the correct coefficient as a function of neutron energy
+    if l==0:
+      cdat = a0[d>0]
+    elif l<np.shape(al)[1]:
+      cdat = al[d>0,l-1]
+    else:
+      cdat = err[d>0]
 
-  #get an interpolant function
-  f=scipy.interpolate.UnivariateSpline(
-        en,
-        cdat,
-        k=3,
-        s=0,
-        check_finite=True)
+    #get an interpolant function
+    tempf=scipy.interpolate.UnivariateSpline(
+          en,
+          cdat,
+          k=3,
+          s=0,
+          check_finite=True)
+
+    label='a{}'.format(l)
+    f[label] = tempf
 
   return f
 
