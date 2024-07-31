@@ -57,7 +57,8 @@ def read_float(v):
         return float(v)
     except ValueError:
         # ENDF6 may omit the e for exponent
-        return float(v.replace('+', 'e+').replace('-', 'e-'))
+        #return float(v.replace('+', 'e+').replace('-', 'e-'))
+        return float(v.replace("-", "e-").replace("+", "e+").lstrip("e"))
 
 
 def read_line(l):
