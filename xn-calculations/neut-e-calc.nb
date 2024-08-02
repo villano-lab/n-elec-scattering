@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      4474,        134]
-NotebookOptionsPosition[      3719,        114]
-NotebookOutlinePosition[      4115,        130]
-CellTagsIndexPosition[      4072,        127]
+NotebookDataLength[      8916,        265]
+NotebookOptionsPosition[      7659,        238]
+NotebookOutlinePosition[      8055,        254]
+CellTagsIndexPosition[      8012,        251]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -68,7 +68,7 @@ Cell[BoxData[{
  CellChangeTimes->{{3.931530959853786*^9, 3.931530985550983*^9}, {
   3.931531159571123*^9, 3.931531232467987*^9}, {3.931531271810033*^9, 
   3.931531274951332*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"13fa71da-7619-42e4-9192-652b5bf9dfad"],
+ CellLabel->"In[4]:=",ExpressionUUID->"13fa71da-7619-42e4-9192-652b5bf9dfad"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -81,8 +81,8 @@ Cell[BoxData[
  CellChangeTimes->{
   3.931530692580165*^9, 3.9315309429576483`*^9, 3.931530988312284*^9, {
    3.931531025969734*^9, 3.931531079660081*^9}, {3.931531123650502*^9, 
-   3.9315311504586763`*^9}, 3.931531276362705*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"bb523c5e-f482-4ac3-9fb7-af3eb62b01bb"],
+   3.9315311504586763`*^9}, 3.931531276362705*^9, 3.931600685452339*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"56fc797b-b4ed-4b41-859e-7c1470867973"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -94,8 +94,9 @@ Cell[BoxData[
  CellChangeTimes->{
   3.931530692580165*^9, 3.9315309429576483`*^9, 3.931530988312284*^9, {
    3.931531025969734*^9, 3.931531079660081*^9}, {3.931531123650502*^9, 
-   3.9315311504586763`*^9}, 3.931531276363759*^9},
- CellLabel->"Out[6]=",ExpressionUUID->"a3cac18e-7a43-4352-af88-55a2aa4c808b"],
+   3.9315311504586763`*^9}, 3.931531276362705*^9, 3.931600685453166*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"38b9cbe6-f0ee-48e7-ac6c-e6c8af644fa2"]
+}, Open  ]],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -104,12 +105,135 @@ Cell[BoxData[
     RowBox[{"0", ",", 
      RowBox[{"-", "\[ImaginaryI]"}]}], "}"}], ",", 
    RowBox[{"{", 
-    RowBox[{"\[ImaginaryI]", ",", "0"}], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{
-  3.931530692580165*^9, 3.9315309429576483`*^9, 3.931530988312284*^9, {
-   3.931531025969734*^9, 3.931531079660081*^9}, {3.931531123650502*^9, 
-   3.9315311504586763`*^9}, 3.931531276364479*^9},
- CellLabel->"Out[7]=",ExpressionUUID->"7962a840-a5b4-460c-ab4b-c1c8b0efa496"]
+    RowBox[{"\[ImaginaryI]", ",", "0"}], "}"}]}], "}"}]], "Input",
+ CellChangeTimes->{{3.931600851490077*^9, 
+  3.931600853857142*^9}},ExpressionUUID->"d1731e0e-4b29-43a4-87b0-\
+28d4c6788076"],
+
+Cell["\<\
+Below is useful code from my StackExchange post: \
+https://mathematica.stackexchange.com/questions/305766/vector-and-matrix-\
+indices-for-physics-calculations/305773#305773
+\
+\>", "Text",
+ CellChangeTimes->{{3.931600901085881*^9, 
+  3.931600925213789*^9}},ExpressionUUID->"3c7e85d8-109b-49e8-a3e5-\
+2437818ecd00"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "vcalc", "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.931600629707431*^9, 3.931600629709695*^9}, {
+  3.9316006623685713`*^9, 3.931600663785818*^9}, {3.931600697435988*^9, 
+  3.931600718292674*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"82087f18-2a3d-4d7a-8b30-84fda0598f37"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"vcalc", "[", 
+    RowBox[{
+     RowBox[{"q_", ":", 
+      RowBox[{"{", 
+       RowBox[{"_", ",", "_", ",", "_"}], "}"}]}], ",", 
+     RowBox[{"psi_", ":", 
+      RowBox[{"{", 
+       RowBox[{"_", ",", "_"}], "}"}]}], ",", 
+     RowBox[{"phi_", ":", 
+      RowBox[{"{", 
+       RowBox[{"_", ",", "_"}], "}"}]}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "pm", "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"psi", ".", 
+        RowBox[{"(", 
+         RowBox[{"#", "/.", 
+          RowBox[{"pm", "->", "PauliMatrix"}]}], ")"}], ".", "phi"}], "&"}], "/@", 
+      RowBox[{"Cross", "[", 
+       RowBox[{"q", ",", 
+        RowBox[{"pm", "/@", 
+         RowBox[{"Range", "[", "3", "]"}]}]}], "]"}]}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.931600736562377*^9, 3.9316007365646353`*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"f234515b-2256-4279-92b8-5d1fb85abb4f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vcalc", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"q1", ",", "q2", ",", "q3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"\[Psi]1", ",", "\[Psi]2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"\[Phi]1", ",", "\[Phi]2"}], "}"}]}], "]"}], "//", 
+  "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.931600757061075*^9, 3.931600783686646*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"910487ba-8299-41fd-b282-213227d67fcc"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", 
+   TagBox[GridBox[{
+      {
+       RowBox[{
+        RowBox[{"\[Phi]2", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[ImaginaryI]", " ", "q3", " ", "\[Psi]1"}], "-", 
+           RowBox[{"q2", " ", "\[Psi]2"}]}], ")"}]}], "+", 
+        RowBox[{"\[Phi]1", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"q2", " ", "\[Psi]1"}], "-", 
+           RowBox[{"\[ImaginaryI]", " ", "q3", " ", "\[Psi]2"}]}], 
+          ")"}]}]}]},
+      {
+       RowBox[{
+        RowBox[{"\[Phi]2", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"q3", " ", "\[Psi]1"}], "+", 
+           RowBox[{"q1", " ", "\[Psi]2"}]}], ")"}]}], "+", 
+        RowBox[{"\[Phi]1", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "q1"}], " ", "\[Psi]1"}], "+", 
+           RowBox[{"q3", " ", "\[Psi]2"}]}], ")"}]}]}]},
+      {
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "\[ImaginaryI]"}], " ", "q1"}], "-", "q2"}], ")"}], 
+         " ", "\[Phi]2", " ", "\[Psi]1"}], "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[ImaginaryI]", " ", "q1"}], "-", "q2"}], ")"}], " ", 
+         "\[Phi]1", " ", "\[Psi]2"}]}]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}],
+    Column], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.931600757533484*^9, 3.93160078407865*^9}},
+ CellLabel->
+  "Out[21]//MatrixForm=",ExpressionUUID->"b115b68b-585e-4a9d-b9d2-\
+cee085d6720b"]
 }, Open  ]]
 },
 WindowSize->{867, 851},
@@ -132,9 +256,16 @@ Notebook[{
 Cell[558, 20, 682, 16, 75, "Input",ExpressionUUID->"fa0d759d-d79c-49da-a6dc-4b829d2300d4"],
 Cell[CellGroupData[{
 Cell[1265, 40, 971, 30, 75, "Input",ExpressionUUID->"13fa71da-7619-42e4-9192-652b5bf9dfad"],
-Cell[2239, 72, 485, 12, 34, "Output",ExpressionUUID->"bb523c5e-f482-4ac3-9fb7-af3eb62b01bb"],
-Cell[2727, 86, 464, 11, 34, "Output",ExpressionUUID->"a3cac18e-7a43-4352-af88-55a2aa4c808b"],
-Cell[3194, 99, 509, 12, 34, "Output",ExpressionUUID->"7962a840-a5b4-460c-ab4b-c1c8b0efa496"]
+Cell[2239, 72, 507, 12, 34, "Output",ExpressionUUID->"56fc797b-b4ed-4b41-859e-7c1470867973"],
+Cell[2749, 86, 486, 11, 34, "Output",ExpressionUUID->"38b9cbe6-f0ee-48e7-ac6c-e6c8af644fa2"]
+}, Open  ]],
+Cell[3250, 100, 341, 10, 30, "Input",ExpressionUUID->"d1731e0e-4b29-43a4-87b0-28d4c6788076"],
+Cell[3594, 112, 323, 8, 81, "Text",ExpressionUUID->"3c7e85d8-109b-49e8-a3e5-2437818ecd00"],
+Cell[3920, 122, 346, 6, 52, "Input",ExpressionUUID->"82087f18-2a3d-4d7a-8b30-84fda0598f37"],
+Cell[4269, 130, 960, 29, 52, "Input",ExpressionUUID->"f234515b-2256-4279-92b8-5d1fb85abb4f"],
+Cell[CellGroupData[{
+Cell[5254, 163, 463, 12, 30, "Input",ExpressionUUID->"910487ba-8299-41fd-b282-213227d67fcc"],
+Cell[5720, 177, 1923, 58, 83, "Output",ExpressionUUID->"b115b68b-585e-4a9d-b9d2-cee085d6720b"]
 }, Open  ]]
 }
 ]
