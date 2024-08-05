@@ -37,4 +37,4 @@ def getMass(Z0=0,A0=1):
 
   azdel = delta[(Z==Z0)&(A==A0)]
 
-  return (A0)*mnbar + (azdel/1000) -Z0*m_e;
+  return (A0)*mnbar + (azdel[0]/1000) -Z0*m_e;
