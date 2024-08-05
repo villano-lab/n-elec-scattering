@@ -155,7 +155,7 @@ def fetch_diff_xn(En=1e6,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-01
   #loop through and get coeffs
   c=np.zeros(np.shape(l))
   for i,obj in enumerate(a):
-    print(a[obj](En))
+    #print(a[obj](En))
     c[i] = prel[i]*a[obj](En)*f(En/1e6)*(1/(2*np.pi))
 
   fout = np.polynomial.legendre.Legendre(c)   
