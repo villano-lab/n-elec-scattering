@@ -2,6 +2,7 @@ import ENDF6
 import pandas as pds
 import scipy
 import numpy as np
+import masses as ms
 
 directory='./xn_data/'
 
@@ -161,4 +162,40 @@ def fetch_diff_xn(En=1e6,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-01
   fout = np.polynomial.legendre.Legendre(c)   
   return fout
 
+def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
 
+  global directory
+
+  #units change
+  En=En/1e6
+  
+  #get the angular cross section in CM
+  dsdomeg=fetch_diff_xn(En=En*1e6)
+  dsdomegv=np.vectorize(dsdomeg)
+
+  #nuclear mass
+  M = ms.getMass(Z,A)
+
+  #get jacobian and stuff
+  fac = M*ms.m_n/(M+ms.m_n)**2
+  jac = (1/(2*fac))*2*np.pi
+
+  #get a pointwise description of cross section dsig/dEr (1/MeV)
+  ct = np.linspace(-1.0,1.0,pts)
+  escale = 2*fac*(1-np.linspace(-1.0,1.0,pts))
+  X=En*escale
+  Y=(jac/En)*dsdomegv(ct)
+
+  #add a point just past the end
+  X = np.append([np.max(X)+eps],X)
+  Y = np.append([0],Y)
+
+  #get an interpolant function
+  f=scipy.interpolate.UnivariateSpline(
+          np.flip(X),
+          np.flip(Y),
+          k=1,
+          s=0,
+          check_finite=True)
+  
+  return f                
