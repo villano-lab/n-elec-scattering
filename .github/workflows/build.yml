@@ -18,4 +18,4 @@ jobs:
         environment-file: environment.yml
     - run: |
         pip install nbmake
-        pytest --nbmake 0-
+        conda run -n fano_5_2024 pytest --nbmake 0-
