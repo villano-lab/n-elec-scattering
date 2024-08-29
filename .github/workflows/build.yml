@@ -2,7 +2,7 @@ name: Conda env install test
 #eventually it should do more but let's start here
 on:
   push:
-  pull-request:
+  pull_request:
 
 permissions:
   contents: read
