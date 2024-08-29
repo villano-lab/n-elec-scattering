@@ -1,15 +1,15 @@
 # n-elec-scattering
 Neutron-electron scattering as a low-energy DM background
 
-# Overview
+## Overview
 
-# Important Files
+## Important Files
 
 The `python` directory contains some sets of useful functions, many of which are self-explanatory.
 
-## Numbered Directories
+### Numbered Directories
 
-## Organization to do
+### Organization to do
 * Rename notebooks so that there is a clear order
 * Write instructions for running notebooks
 * Create READMEs in each directory that lacks one
@@ -19,7 +19,7 @@ The `python` directory contains some sets of useful functions, many of which are
 * Anything that we have copied from elsewhere should include a license and link back to the original. Verify that this is the case.
 * Sign thy name in the contributors list.
 
-## Considerations
+### Considerations
 * Should we move all the data to one folder, instead of being split like this?
 * Do figures and paper_figures need to stay split? (If yes, maybe the important figures can go top-level?)
 * Have any notebooks become 'defunct'/do any no longer contain unique information that is relevant to the paper? (If yes we should move these, either to their own directory, or to another branch or repository, or just delete them)
@@ -46,4 +46,4 @@ The `python` directory contains some sets of useful functions, many of which are
 
 Kitty Mickelson  
 
-*Last updated 29 August 2024, v2.1.0*
+*Last updated 29 August 2024, v?*
