@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: conda-incubator/setup-miniconda@v3
-        with:
-          activate-environment: fano_5_2024
-          environment-file: environment.yml
+      with:
+        activate-environment: fano_5_2024
+        environment-file: environment.yml
