@@ -94,7 +94,7 @@ dependencies:
   - libedit=3.1.20191231
   - libev=4.33
   - libffi=3.4.2
-  - libgfortran=5.0
+  - libgfortran
   - libgfortran5=13.2.0
   - libjpeg-turbo=3.0.0
   - liblapack=3.9.0
@@ -154,8 +154,6 @@ dependencies:
   - pydantic-core=2.3.0
   - pyerfa=2.0.1.2
   - pygments=2.17.2=pyhd8ed1ab_0
-  - pyobjc-core=10
-  - pyobjc-framework-cocoa=10
   - pyparsing=3.1.2=pyhd8ed1ab_0
   - pysocks=1.7.1=pyha2e5f31_6
   - pytest=7.1.2
