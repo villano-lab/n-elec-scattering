@@ -22,7 +22,7 @@ The `python` directory contains some sets of useful functions, many of which are
 ### Considerations
 * Should we move all the data to one folder, instead of being split like this?
 * Do figures and paper_figures need to stay split? (If yes, maybe the important figures can go top-level?)
-* Have any notebooks become 'defunct'/do any no longer contain unique information that is relevant to the paper? (If yes we should move these, either to their own directory, or to another branch or repository, or just delete them)
+* Have any notebooks become 'defunct'/do any no longer contain unique information that is relevant to the paper? (If yes we should move these, either to their own directory or to another branch or repository, or just delete them)
 * Are any of the python libraries used in other repostiories of ours? (If yes we should make them packages to prevent de-syncing.)
 * Can any of our directories become hidden or nested (e.g. mplstyles)?
 * Are any files extraneous? (What is _MACOSX directory, that seems like it may be an accidental push)
@@ -32,7 +32,7 @@ The `python` directory contains some sets of useful functions, many of which are
 #### Specific Suggestions
 (I can implement these if they're what we want to do, just don't know what's what here so didn't want to jump to conclusions)
 * RGTC appears to be an external library of some kind. Remove the RGTC directories and zip. If they are needed, use whatever is the equivalent of a pip requirements file to make sure they get included.
-* Move important figures to the top level in numbered directories.
+* Move important figures to top-level numbered directories.
 * lindhard.py and other copied libraries should be uploaded to pypi. 
     * Maybe I should upload my mplstyles as well? they seem to be getting reused a lot. =^.^=
     * Should we make a fork of ENDF6 (was it modified) or can we simply create cloning instructions?
