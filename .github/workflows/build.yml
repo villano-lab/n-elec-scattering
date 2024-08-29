@@ -1,4 +1,4 @@
-name: Conda env install test
+name: jupyter notebooks test
 #eventually it should do more but let's start here
 on:
   push:
@@ -16,3 +16,6 @@ jobs:
       with:
         activate-environment: fano_5_2024
         environment-file: environment.yml
+    - run: |
+        pip install nbmake
+        pytest --nbmake 0-
