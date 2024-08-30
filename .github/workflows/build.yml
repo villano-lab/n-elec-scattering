@@ -16,9 +16,12 @@ jobs:
       with:
         activate-environment: fano_5_2024
         environment-file: environment.yml
-    - run: |
+    - name: Finish conda setup
+      run: |
         conda install nbmake pytest -n fano_5_2024
         conda env list
         conda init
+    - name: Test ipython notebooks
+      run: |
         conda activate fano_5_2024
         conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 0-
