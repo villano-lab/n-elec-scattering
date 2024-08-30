@@ -20,5 +20,5 @@ jobs:
     - name: Finish conda setup
       run: |
         conda install nbmake pytest -n fano_5_2024
-        conda env list
+        conda run python -m ipykernel install --user --name fano_5_2024
         conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 0-
