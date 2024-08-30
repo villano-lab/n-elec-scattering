@@ -19,4 +19,5 @@ jobs:
     - run: |
         conda install nbmake pytest -n fano_5_2024
         conda env list
-        conda run pytest --nbmake --nbmake-kernel=fano_5_2024 0-
+        conda activate fano_5_2024
+        conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 0-
