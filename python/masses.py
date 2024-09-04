@@ -7,7 +7,7 @@ m_n = co.physical_constants['neutron mass energy equivalent in MeV'][0]
 m_e = co.physical_constants['electron mass energy equivalent in MeV'][0]
 
 
-def readFile(filename='isotope_data/mass_1.mas20.txt'):
+def readFile(filename='../data_files/isotope_data/mass_1.mas20.txt'):
 
   format = ff.FortranRecordReader('(a1,i3,i5,i5,i5,1x,a3,a4,1x,f14.6,f12.6,f13.5,1x,f10.5,1x,a2,f13.5,f11.5,1x,i3,1x,f13.6,f12.6)')
   f = open(filename, 'r')
@@ -28,7 +28,7 @@ def getMass(Z0=0,A0=1):
   A=np.zeros((len(masses),))
   delta=np.zeros((len(masses),))
   edelta=np.zeros((len(masses),))
-  
+
   for i,a in enumerate(masses):
     delta[i] = masses[i][7]
     edelta[i] = masses[i][7]

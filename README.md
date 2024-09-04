@@ -42,9 +42,11 @@ The `python` directory contains some sets of useful functions, many of which are
 * Remove the 'papers' directory, instead referencing the papers in this README.
 
 # References
+1. SuperCDMS Collaboration, October 4, 2016. Projected Sensitivity of the SuperCDMS SNOLAB experiment. [arXiv:1610.00006](https://arxiv.org/abs/1610.00006), [DOI:10.1103/PhysRevD.95.082002](https://doi.org/10.1103/PhysRevD.95.082002).
+2. A.J. Biffl and A.N. Villano, July 11, 2024. Analytical computation of neutron recoil spectra for rare-event backgrounds.
 
 # Contributors
 
-Kitty Mickelson
+Kitty C. Mickelson
 
 *Last updated 4 September 2024, v?*
