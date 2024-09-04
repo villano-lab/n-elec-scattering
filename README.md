@@ -7,6 +7,8 @@ Neutron-electron scattering as a low-energy DM background
 
 The `python` directory contains some sets of useful functions, many of which are self-explanatory.
 
+* `neut-e-calc.nb` checks the cross-sectiion calculations with a different method.
+
 ### Numbered Directories
 
 ### Organization to do
@@ -16,7 +18,6 @@ The `python` directory contains some sets of useful functions, many of which are
 * Describe purpose of each notebook
 * Highlight python functions
 * Write an overview of the repository
-* Anything that we have copied from elsewhere should include a license and link back to the original. Verify that this is the case.
 * Sign thy name in the contributors list.
 
 ### Considerations
@@ -33,7 +34,7 @@ The `python` directory contains some sets of useful functions, many of which are
 (I can implement these if they're what we want to do, just don't know what's what here so didn't want to jump to conclusions)
 * RGTC appears to be an external library of some kind. Remove the RGTC directories and zip. If they are needed, use whatever is the equivalent of a pip requirements file to make sure they get included.
 * Move important figures to top-level numbered directories.
-* lindhard.py and other copied libraries should be uploaded to pypi. 
+* lindhard.py and other copied libraries should be uploaded to pypi.
     * Maybe I should upload my mplstyles as well? they seem to be getting reused a lot. =^.^=
     * Should we make a fork of ENDF6 (was it modified) or can we simply create cloning instructions?
 * Combine useful notebooks into a single directory numbered "0" and then number the notebooks.
@@ -44,6 +45,6 @@ The `python` directory contains some sets of useful functions, many of which are
 
 # Contributors
 
-Kitty Mickelson  
+Kitty Mickelson
 
-*Last updated 29 August 2024, v?*
+*Last updated 4 September 2024, v?*
