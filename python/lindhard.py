@@ -1,12 +1,11 @@
-#this file gives some functions for computation of Lindhard function 
+#this file gives some functions for computation of Lindhard function
 import numpy as np
-
 
 #get the equivalent charge energy for a recoil of energy E with parameters in the structure par
 #def getLindhard(E,par=None):
 def getLindhard(par=None,calck=False):
     #units of E should be eV
- 
+
     #if E==None:
     #  raise ArgumentTypeError('getLindhard: you need an E variable')
 
@@ -41,12 +40,12 @@ def getLindhard(par=None,calck=False):
     #g = a*eps**b + c*eps**d + eps
     g = lambda x: a*eps(x)**b + c*eps(x)**d + eps(x)
 
-    #return k*g/(1+k*g) 
-    return lambda x: k*g(x)/(1+k*g(x)) 
+    #return k*g/(1+k*g)
+    return lambda x: k*g(x)/(1+k*g(x))
 #function to get par lists for various materials
 def getLindhardPars(mat='Ge',calck = False):
 
-    #check that the material is supported 
+    #check that the material is supported
     if  mat not in set({'Ge', 'Si'}):
       raise ArgumentTypeError('getLindhardPars: do not have requested material use (Ge,Si)')
 
@@ -63,8 +62,8 @@ def getLindhardPars(mat='Ge',calck = False):
       par['c'] = 0.7
       par['d'] = 0.6
     elif mat=='Si':
-      par['Z'] = 14 
-      par['A'] = 28 
+      par['Z'] = 14
+      par['A'] = 28
       if not calck:
         par['k'] = 0.146 #not sure of this variable, essentially same as calc value
       else:
