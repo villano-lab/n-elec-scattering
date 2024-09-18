@@ -6,6 +6,10 @@ import itertools
 import pickle
 from scipy import signal
 
+# extrapolate line from lower-energy fast neutrons
+E_thresh = 2e-2 # upper bound of linear region
+E_therm = 0.15e-6 # near boundary of where thermal distribution has peak
+
 def integrate_df(df):
     # (left-sided rectangular integral)
     dE = -df['E'].diff(periods = -1)
@@ -13,7 +17,11 @@ def integrate_df(df):
     A = df['spec']*dE
     return A.sum()
 
-def SNOLAB_flux(Emax=1):
+def fast_extrapolation_line(E,fitted_line):
+    # return height of fitted loglog line, if energy is larger than thermal threshold
+    return np.exp(fitted_line.intercept + fitted_line.slope*np.log(E))*(E > E_therm)
+
+def SNOLAB_flux_10keV(Emax=1):
 
   # read in fast neutron flux spectrum (from reading_n_spectra.ipynb)
   fast_flux_df = pd.read_pickle('../data_files/FDF.txt') # 'E' in MeV, 'spec' in neutrons cm^-2 sec^-1 MeV^-1
@@ -29,4 +37,51 @@ def SNOLAB_flux(Emax=1):
   #smooth the data
   ffspec_smooth = signal.savgol_filter(ffspec, 501, 3) # window size 501, polynomial order 3
 
-  return 
+  cutoff=0.3
+
+  ffhe = ff[ff>cutoff]
+  ffhespec = ffspec[ff>cutoff]
+  
+  #smooth the data
+  ffhespec_smooth = signal.savgol_filter(ffhespec, 2001, 3) # window size 1001, polynomial order 3
+  
+  ffle = ff[ff<=cutoff]
+  fflespec = ffspec[ff<=cutoff]
+  print(np.size(ffle))
+  
+  #smooth the data
+  fflespec_smooth = signal.savgol_filter(fflespec, 75, 3) # window size 1001, polynomial order 3
+
+  etot = np.concatenate((ffle,ffhe))
+  etot = np.unique(etot)
+  etotspec = np.zeros((np.size(etot),),dtype=np.float64)
+  print(np.size(etot),np.size(etotspec))
+
+  etotspec[(etot<=ffle[-1])] = fflespec_smooth
+  etotspec[(etot>ffle[-1])] = ffhespec_smooth
+
+  
+  fast_lin_df = ffle[ffle < E_thresh]
+  fast_lin_df_spec = fflespec_smooth[ffle< E_thresh]
+  
+  fitted_line = ss.linregress(np.log(fast_lin_df), np.log(fast_lin_df_spec))
+  print(fitted_line)
+  
+  EE = np.geomspace(1000e-6, 2e-2, 10_000)
+
+  #ax1.plot(ff, ffspec,label='simulated flux')
+  #ax1.plot(etot, etotspec,color='orange',label="smoothed flux")
+  #plt.plot(EE, fast_extrapolation_line(EE), color='orange', linestyle = 'dashed',label="extrapolated flux")
+
+  #trim the extrapolated part
+  upperE=np.min(etot)
+  EE=EE[EE<upperE]
+  EF=fast_extrapolation_line(EE,fitted_line)
+
+  #cat them together
+  E=np.append(EE,etot)
+  F=np.append(EF,etotspec)
+
+  print(np.max(EE),np.min(etot))
+
+  return E,F,ff,ffspec
