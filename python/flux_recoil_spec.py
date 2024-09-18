@@ -5,6 +5,7 @@ import scipy.stats as ss
 import itertools
 import pickle
 from scipy import signal
+import ENDF6el as endfel
 
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
@@ -85,3 +86,27 @@ def SNOLAB_flux_10keV(Emax=1):
   print(np.max(EE),np.min(etot))
 
   return E,F,ff,ffspec
+
+def dRdEr(Er,En,F,N=100):
+
+  idx=np.arange(0,len(En),1)
+  cidx=idx%N==0
+  En=En[cidx]
+  F=F[cidx]
+  print(np.shape(En))
+  dsig=np.zeros(np.shape(En))
+  for i,E in enumerate(En):
+    E*=1e6
+    dsder = endfel.fetch_der_xn(En=E,Z=14,A=28,pts=1000,eps=1e-5)
+    val = dsder(Er)
+    if val>0:
+      dsig[i] = val 
+    #print(E,dsig[i])
+
+
+  d = {'E':En,'spec':F*dsig}
+  df = pd.DataFrame(data=d)
+  #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
+  integral = integrate_df(df)
+
+  return integral
