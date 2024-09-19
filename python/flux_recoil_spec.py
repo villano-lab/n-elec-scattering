@@ -107,6 +107,9 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   En=En[cEn]
   F=F[cEn]
 
+  if(np.shape(En)[0]<2):
+    return 0.0
+
   #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
