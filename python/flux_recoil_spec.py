@@ -93,7 +93,7 @@ def dRdEr(Er,En,F,N=100):
   cidx=idx%N==0
   En=En[cidx]
   F=F[cidx]
-  print(np.shape(En))
+  #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
     E*=1e6
