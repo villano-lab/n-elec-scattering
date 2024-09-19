@@ -6,6 +6,7 @@ import itertools
 import pickle
 from scipy import signal
 import ENDF6el as endfel
+import masses as ms
 
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
@@ -87,12 +88,25 @@ def SNOLAB_flux_10keV(Emax=1):
 
   return E,F,ff,ffspec
 
-def dRdEr(Er,En,F,N=100):
+def dRdEr(Er,En,F,N=100,Z=14,A=28):
 
+
+  #get min neutron energy
+  mass = ms.getMass(Z,A)
+  Enmin = Er/(4*mass*ms.m_n/(mass+ms.m_n)**2)
+  #print(Enmin)
+
+  #cut down the density of points
   idx=np.arange(0,len(En),1)
   cidx=idx%N==0
   En=En[cidx]
   F=F[cidx]
+
+  #trim the flux energies for ones that can actually contribute
+  cEn=En>=Enmin
+  En=En[cEn]
+  F=F[cEn]
+
   #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
