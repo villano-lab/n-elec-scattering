@@ -167,7 +167,7 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffi
   fout = np.polynomial.legendre.Legendre(c)   
   return fout
 
-def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
 
   global directory
 
@@ -175,8 +175,8 @@ def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,sigtotfile='xn_data/si28_el
   En=En/1e6
   
   #get the angular cross section in CM
-  dsdomeg=fetch_diff_xn(En=En*1e6)
-  dsdomegv=np.vectorize(dsdomeg)
+  dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a)
+  #dsdomegv=np.vectorize(dsdomeg)
 
   #nuclear mass
   M = ms.getMass(Z,A)
@@ -189,7 +189,7 @@ def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,sigtotfile='xn_data/si28_el
   ct = np.linspace(-1.0,1.0,pts)
   escale = 2*fac*(1-np.linspace(-1.0,1.0,pts))
   X=En*escale
-  Y=(jac/En)*dsdomegv(ct)
+  Y=(jac/En)*dsdomeg(ct)
 
   #add a point just past the end
   X = np.append([np.max(X)+eps],X)
