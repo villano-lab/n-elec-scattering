@@ -127,3 +127,49 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   integral = integrate_df(df)
 
   return integral
+
+def dRdErfast(Er,En,F,N=100,Z=14,A=28):
+
+  #vectorize Er
+  if isinstance(Er, float):
+        Er=[Er]
+  Er = np.asarray(Er)
+  print(np.shape(Er))
+  return 0
+
+  #get min neutron energy
+  mass = ms.getMass(Z,A)
+  Enmin = Er/(4*mass*ms.m_n/(mass+ms.m_n)**2)
+  #print(Enmin)
+
+  #cut down the density of points
+  idx=np.arange(0,len(En),1)
+  cidx=idx%N==0
+  En=En[cidx]
+  F=F[cidx]
+
+  #trim the flux energies for ones that can actually contribute
+  cEn=En>=Enmin
+  En=En[cEn]
+  F=F[cEn]
+
+  if(np.shape(En)[0]<2):
+    return 0.0
+
+  #print(np.shape(En))
+  dsig=np.zeros(np.shape(En))
+  for i,E in enumerate(En):
+    E*=1e6
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    val = dsder(Er)
+    if val>0:
+      dsig[i] = val 
+    #print(E,dsig[i])
+
+
+  d = {'E':En,'spec':F*dsig}
+  df = pd.DataFrame(data=d)
+  #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
+  integral = integrate_df(df)
+
+  return integral
