@@ -114,7 +114,7 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
     E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,Z=14,A=28,pts=1000,eps=1e-5)
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
     val = dsder(Er)
     if val>0:
       dsig[i] = val 
