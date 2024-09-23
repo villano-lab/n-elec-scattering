@@ -23,7 +23,7 @@ def fast_extrapolation_line(E,fitted_line):
     # return height of fitted loglog line, if energy is larger than thermal threshold
     return np.exp(fitted_line.intercept + fitted_line.slope*np.log(E))*(E > E_therm)
 
-def SNOLAB_flux_10keV(Emax=1):
+def SNOLAB_flux(Enmin=1e-3):
 
   # read in fast neutron flux spectrum (from reading_n_spectra.ipynb)
   fast_flux_df = pd.read_pickle('../data_files/FDF.txt') # 'E' in MeV, 'spec' in neutrons cm^-2 sec^-1 MeV^-1
@@ -69,7 +69,7 @@ def SNOLAB_flux_10keV(Emax=1):
   fitted_line = ss.linregress(np.log(fast_lin_df), np.log(fast_lin_df_spec))
   print(fitted_line)
   
-  EE = np.geomspace(1000e-6, 2e-2, 10_000)
+  EE = np.geomspace(Enmin, 2e-2, 10_000)
 
   #ax1.plot(ff, ffspec,label='simulated flux')
   #ax1.plot(etot, etotspec,color='orange',label="smoothed flux")
