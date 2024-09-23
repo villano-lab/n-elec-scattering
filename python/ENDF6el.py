@@ -167,7 +167,7 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffi
   fout = np.polynomial.legendre.Legendre(c)   
   return fout
 
-def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
 
   global directory
 
@@ -177,9 +177,6 @@ def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,f=None,a=None,sigtotfile='x
   #get the angular cross section in CM
   dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a)
   #dsdomegv=np.vectorize(dsdomeg)
-
-  #nuclear mass
-  M = ms.getMass(Z,A)
 
   #get jacobian and stuff
   fac = M*ms.m_n/(M+ms.m_n)**2
@@ -203,4 +200,21 @@ def fetch_der_xn(En=1e6,*,Z=14,A=28,pts=100,eps=1e-5,f=None,a=None,sigtotfile='x
           s=0,
           check_finite=True)
   
-  return f                
+  return f  
+              
+def calc_der_xn(Er,*,En=1,M=ms.getMass(14,28),fd=None):
+
+  global directory
+
+  if(fd==None):
+    return -1 
+
+
+  #get jacobian and stuff
+  fac = M*ms.m_n/(M+ms.m_n)**2
+  jac = (1/(2*fac))*2*np.pi
+
+  ct = 1-(Er/(2*fac))
+
+
+  return jac*fd(ct)                
