@@ -134,8 +134,6 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   if isinstance(Er, float):
         Er=[Er]
   Er = np.asarray(Er)
-  print(np.shape(Er))
-  return 0
 
   #get min neutron energy
   mass = ms.getMass(Z,A)
@@ -148,28 +146,39 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   En=En[cidx]
   F=F[cidx]
 
-  #trim the flux energies for ones that can actually contribute
-  cEn=En>=Enmin
-  En=En[cEn]
-  F=F[cEn]
-
   if(np.shape(En)[0]<2):
     return 0.0
 
-  #print(np.shape(En))
-  dsig=np.zeros(np.shape(En))
+  #make big ole matrix
+  dsig=np.zeros((np.shape(En)[0],np.shape(Er)[0]))
   for i,E in enumerate(En):
     E*=1e6
     dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
-    val = dsder(Er)
-    if val>0:
-      dsig[i] = val 
-    #print(E,dsig[i])
+    dsig[i,:] = dsder(Er)
 
 
-  d = {'E':En,'spec':F*dsig}
-  df = pd.DataFrame(data=d)
-  #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
-  integral = integrate_df(df)
+  #remove negatives 
+  dsig[dsig<0]=0
 
-  return integral
+
+  #integrate
+  integral=np.zeros(np.shape(Er))
+  for i,E in enumerate(Er): 
+
+    #trim the flux energies for ones that can actually contribute
+    enidx=np.arange(0,len(En),1)
+    cEn=En>=Enmin[i]
+    En=En[cEn]
+    F=F[cEn]
+    enidx=enidx[cEn]
+    xn=dsig[enidx,i]
+    if(np.shape(enidx)[0]<2):
+      integral[i]=0
+    else:
+      print(np.shape(enidx))
+      d = {'E':En,'spec':F*xn}
+      df = pd.DataFrame(data=d)
+      #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
+      integral[i] = integrate_df(df)
+
+  return integral,dsig
