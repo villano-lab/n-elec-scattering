@@ -7,6 +7,11 @@ import pickle
 from scipy import signal
 import ENDF6el as endfel
 import masses as ms
+import scipy.constants as co
+
+#constants
+NA = co.physical_constants['Avogadro constant'][0]
+s2day = 1/(60*60*24)
 
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
@@ -122,11 +127,14 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
     #print(E,dsig[i])
 
 
+  dsig*=endfel.barns2cm2/endfel.keV2MeV
   d = {'E':En,'spec':F*dsig}
   df = pd.DataFrame(data=d)
   #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
   integral = integrate_df(df)
 
+  integral*=(1/s2day) 
+  integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral
 
 def dRdErfast(Er,En,F,N=100,Z=14,A=28):
@@ -175,6 +183,7 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
     Ftemp=F[cEn]
     enidx=enidx[cEn]
     xn=dsig[enidx,i]
+    xn*=endfel.barns2cm2/endfel.keV2MeV
     if(np.shape(enidx)[0]<2):
       integral[i]=-999999999
     else:
@@ -185,4 +194,6 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
       integral[i] = integrate_df(df)
 
 
+  integral*=(1/s2day) 
+  integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
