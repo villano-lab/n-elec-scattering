@@ -4,6 +4,9 @@ import scipy
 import numpy as np
 import masses as ms
 
+barns2cm2 = 1e-28
+keV2MeV = 1e-3
+
 directory='./xn_data/'
 
 def set_dir(d='xn_data/'):
