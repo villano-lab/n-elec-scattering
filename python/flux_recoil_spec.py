@@ -56,6 +56,7 @@ def SNOLAB_flux(Enmin=1e-3):
 
   etot = np.concatenate((ffle,ffhe))
   etot = np.unique(etot)
+  print('shape of etot: {}'.format(np.shape(etot)))
   etotspec = np.zeros((np.size(etot),),dtype=np.float64)
   print(np.size(etot),np.size(etotspec))
 
