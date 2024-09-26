@@ -59,3 +59,8 @@ def getAMU(Z0=0,A0=1):
   mu = mu[(Z==Z0)&(A==A0)][0]/1e6
 
   return (u+mu);
+
+def getMaxNRecoil(En=1.0,Z0=0,A0=1):
+
+  M = getMass(Z0,A0) 
+  return (4*(m_n*M)/(m_n+M)**2)*En
