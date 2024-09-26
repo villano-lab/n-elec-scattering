@@ -127,7 +127,7 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
     #print(E,dsig[i])
 
 
-  dsig*=endfel.barns2cm2/endfel.keV2MeV
+  dsig*=(endfel.barns2cm2*endfel.keV2MeV)
   d = {'E':En,'spec':F*dsig}
   df = pd.DataFrame(data=d)
   #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
@@ -183,7 +183,7 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
     Ftemp=F[cEn]
     enidx=enidx[cEn]
     xn=dsig[enidx,i]
-    xn*=endfel.barns2cm2/endfel.keV2MeV
+    xn*=(endfel.barns2cm2*endfel.keV2MeV)
     if(np.shape(enidx)[0]<2):
       integral[i]=-999999999
     else:
