@@ -7,9 +7,9 @@ import masses as ms
 barns2cm2 = 1e-24
 keV2MeV = 1e-3
 
-directory='./xn_data/'
+directory='../xn_data/'
 
-def set_dir(d='xn_data/'):
+def set_dir(d='../xn_data/'):
   global directory
   directory=d
   return
@@ -19,7 +19,7 @@ def print_dir():
   print(directory)
   return
 
-def fetch_elastic(filename='xn_data/si28_el.txt'):
+def fetch_elastic(filename='../xn_data/si28_el.txt'):
   el = pds.read_csv(filename, skiprows=11,skipfooter=2, \
           names=['neutE', 'xn'],sep='\s+',engine='python')
 
@@ -42,7 +42,7 @@ def fetch_elastic(filename='xn_data/si28_el.txt'):
 
   return f 
 
-def fetch_elastic_angular(filename='xn_data/n-014_Si_028.endf'):
+def fetch_elastic_angular(filename='../xn_data/n-014_Si_028.endf'):
 
   #check if it's an ENDF file somehow?
 
@@ -103,7 +103,7 @@ def fetch_elastic_angular(filename='xn_data/n-014_Si_028.endf'):
 
   return (en,al)
 
-def al(lterms=[0],endffile='xn_data/n-014_Si_028.endf'): #En in eV
+def al(lterms=[0],endffile='../xn_data/n-014_Si_028.endf'): #En in eV
 
   global directory
   
@@ -146,7 +146,7 @@ def al(lterms=[0],endffile='xn_data/n-014_Si_028.endf'): #En in eV
 
   return f
 
-def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../xn_data/si28_el.txt',endffile='../xn_data/n-014_Si_028.endf'):
 
   global directory
 
@@ -170,7 +170,7 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffi
   fout = np.polynomial.legendre.Legendre(c)   
   return fout
 
-def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile='xn_data/si28_el.txt',endffile='xn_data/n-014_Si_028.endf'):
+def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile='../xn_data/si28_el.txt',endffile='../xn_data/n-014_Si_028.endf'):
 
   global directory
 
