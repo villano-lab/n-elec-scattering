@@ -178,7 +178,7 @@ def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sig
   En=En/1e6
   
   #get the angular cross section in CM
-  dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a)
+  dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a,sigtotfile=sigtotfile,endffile=endffile)
   #dsdomegv=np.vectorize(dsdomeg)
 
   #get jacobian and stuff
