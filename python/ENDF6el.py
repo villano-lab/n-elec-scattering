@@ -149,12 +149,12 @@ def al(lterms=[0],endffile='../xn_data/n-014_Si_028.endf'): #En in eV
 
   return f
 
-def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../xn_data/si28_el.txt',endffile='../xn_data/n-014_Si_028.endf'):
+def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../xn_data/si28_el.txt',endffile='../xn_data/n-014_Si_028.endf',NL=64):
 
   global directory
 
   #fetch the necessary info
-  l = np.arange(0,37)
+  l = np.arange(0,NL)
   if(a==None):
     a = al(l,endffile=endffile)
 
