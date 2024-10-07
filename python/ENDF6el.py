@@ -40,7 +40,7 @@ def fetch_elastic(filename='../data_files/xn_data/si28_el.txt'):
         s=0,
         check_finite=True)
 
-  return f 
+  return f
 
 def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
 
@@ -95,22 +95,22 @@ def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
            linecnt=0
            ecnt+=1
            readl=True
-          
+
       arr = np.char.split(ln)
       #print(np.shape(arr))
       if(np.shape(arr)==()): continue
       #print([np.fromstring(x) for x in arr])
- 
+
   #close file
-  f.close() 
+  f.close()
 
   return (en,al)
 
 def al(lterms=[0],endffile='../data_files/xn_data/n-014_Si_028.endf'): #En in eV
 
   global directory
-  
-  #get the data 
+
+  #get the data
   (en,al)=fetch_elastic_angular(endffile)
 
   #get the zeroth coefficient which is understood to be 1
@@ -154,13 +154,13 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../data_files/xn_data/si28_
   global directory
 
   #fetch the necessary info
-  l = np.arange(0,37)
+  l = np.arange(0,NL)
   if(a==None):
     a = al(l,endffile=endffile)
 
   if(f==None):
     f = fetch_elastic(filename=sigtotfile)
-    
+
 
   prel = (2*l+1)/2
 
@@ -170,7 +170,7 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../data_files/xn_data/si28_
     #print(a[obj](En))
     c[i] = prel[i]*a[obj](En)*f(En/1e6)*(1/(2*np.pi))
 
-  fout = np.polynomial.legendre.Legendre(c)   
+  fout = np.polynomial.legendre.Legendre(c)
   return fout
 
 def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile='../data_files/xn_data/si28_el.txt',endffile='../data_files/xn_data/n-014_Si_028.endf'):
@@ -179,7 +179,7 @@ def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sig
 
   #units change
   En=En/1e6
-  
+
   #get the angular cross section in CM
   dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a,sigtotfile=sigtotfile,endffile=endffile)
   #dsdomegv=np.vectorize(dsdomeg)
@@ -205,15 +205,15 @@ def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sig
           k=1,
           s=0,
           check_finite=True)
-  
-  return f  
-              
+
+  return f
+
 def calc_der_xn(Er,*,En=1,M=ms.getMass(14,28),fd=None):
 
   global directory
 
   if(fd==None):
-    return -1 
+    return -1
 
 
   #get jacobian and stuff
@@ -223,4 +223,4 @@ def calc_der_xn(Er,*,En=1,M=ms.getMass(14,28),fd=None):
   ct = 1-(Er/(2*fac))
 
 
-  return jac*fd(ct)                
+  return jac*fd(ct)
