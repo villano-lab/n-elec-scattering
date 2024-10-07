@@ -24,7 +24,6 @@ dependencies:
       - uproot==4.3.3
       - jupyterlab
       - pytest
-      - pytest-timeout
       - contourpy
       - astropy
       - lmfit
