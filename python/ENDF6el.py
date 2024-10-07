@@ -57,7 +57,7 @@ def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
   arr=np.str_.split(sec[3])
   num=int(arr[0])
   #print(num)
-  al = np.zeros((num,36)) #assume no more than 36 legendre coeffs
+  al = np.zeros((num,64)) #assume no more than 64 legendre coeffs
   en = np.zeros((num,))
 
   #get the coeffs into the data structure
@@ -68,8 +68,9 @@ def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
   mpoles=0
   for ln in sec[4:-1]:
       #print(ln)
+      #print(ecnt)
       #break away if you're done reading e points
-      if ecnt==tote:
+      if ecnt==(tote-1):
         break
       #read the number of multipoles
       if readl:
@@ -85,6 +86,8 @@ def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
         i1=linecnt*6
         i2=i1+6
         #print(i1,i2)
+        #print(mpoles,en[ecnt])
+        #print(np.shape(al),np.shape(a))
         al[ecnt,i1:i2] = a
         #ecnt+=1
         linecnt+=1
@@ -178,7 +181,7 @@ def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sig
   En=En/1e6
   
   #get the angular cross section in CM
-  dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a)
+  dsdomeg=fetch_diff_xn(En=En*1e6,f=f,a=a,sigtotfile=sigtotfile,endffile=endffile)
   #dsdomegv=np.vectorize(dsdomeg)
 
   #get jacobian and stuff
