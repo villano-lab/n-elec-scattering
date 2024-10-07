@@ -149,7 +149,7 @@ def al(lterms=[0],endffile='../data_files/xn_data/n-014_Si_028.endf'): #En in eV
 
   return f
 
-def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../data_files/xn_data/si28_el.txt',endffile='../data_files/xn_data/n-014_Si_028.endf'):
+def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile='../data_files/xn_data/si28_el.txt',endffile='../data_files/xn_data/n-014_Si_028.endf',NL=64):
 
   global directory
 

@@ -27,4 +27,5 @@ dependencies:
       - contourpy
       - astropy
       - lmfit
+      - sympy
 prefix: /opt/anaconda3/envs/fano_5_2024
