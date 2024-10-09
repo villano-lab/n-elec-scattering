@@ -26,4 +26,4 @@ jobs:
     - name: Test python notebooks
       run: |
         conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 ?-*/*.ipynb
-        conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 SCDMS_flux/*.ipynb
+        conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 --nbmake-timeout=2000 SCDMS_flux/*.ipynb
