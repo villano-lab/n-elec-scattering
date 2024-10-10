@@ -12,6 +12,18 @@ import scipy.constants as co
 #constants
 NA = co.physical_constants['Avogadro constant'][0]
 s2day = 1/(60*60*24)
+#constants for calcs, first in SI units
+gn = co.physical_constants['neutron gyromag. ratio'][0] #default is s^-1 T^-1; CGS is s^-1 Gauss^-1
+mub = co.physical_constants['Bohr magneton'][0] #default is J T^-1
+hbar = co.physical_constants['reduced Planck constant'][0] #default in J s
+
+#convert to CGS
+#see https://en.wikipedia.org/wiki/Centimetre%E2%80%93gram%E2%80%93second_system_of_units
+m_n_CGS = co.physical_constants['neutron mass'][0]*1e3 #convert to grams
+gn_CGS = gn/1e4
+mub_CGS = mub*1e3
+hbar_CGS = hbar*1e7
+
 
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
@@ -27,6 +39,18 @@ def integrate_df(df):
 def fast_extrapolation_line(E,fitted_line):
     # return height of fitted loglog line, if energy is larger than thermal threshold
     return np.exp(fitted_line.intercept + fitted_line.slope*np.log(E))*(E > E_therm)
+
+def Emax(En): #En in keV; returns maximum recoil energy for neutron energy
+    return (4*ms.m_e*ms.m_n*En)/(ms.m_e+ms.m_n)**2
+
+def Enmin(Er): #recoil energy in keV; returns minimum neutron energy to give that recoil energy
+    return (Er*(ms.m_e+ms.m_n)**2)/(4*ms.m_e*ms.m_n)
+
+def dsigdErNE(En,Er):
+    if(Er<Emax(En)):
+      return 8*np.pi*m_n_CGS**2*gn_CGS**2*mub_CGS**2/hbar_CGS**2/Emax(En)
+    else: 
+      return 0
 
 def SNOLAB_flux(Enmin=1e-3):
 
@@ -196,4 +220,65 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
 
   integral*=(1/s2day) 
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
+  return integral,dsig
+
+def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons eta is the electrons/atom
+
+  #vectorize Er
+  if isinstance(Er, float):
+        Er=[Er]
+  Er = np.asarray(Er)
+  #print(Er)
+
+  #get min neutron energy
+  mass = ms.getMass(Z,A)
+  Enmin = Er/(4*mass*ms.m_n/(mass+ms.m_n)**2)
+  #print(Enmin)
+
+  #cut down the density of points
+  idx=np.arange(0,len(En),1)
+  cidx=idx%N==0
+  En=En[cidx]
+  F=F[cidx]
+
+  if(np.shape(En)[0]<2):
+    return 0.0
+
+  #make big ole matrix
+  dsig=np.zeros((np.shape(En)[0],np.shape(Er)[0]))
+  for i,E in enumerate(En):
+    E*=1e6
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    dsig[i,:] = dsder(Er)
+    #print(dsig[i,:])
+
+
+  #remove negatives 
+  dsig[dsig<0]=0
+
+
+  #integrate
+  integral=np.zeros(np.shape(Er))
+  for i,E in enumerate(Er): 
+
+    #trim the flux energies for ones that can actually contribute
+    enidx=np.arange(0,len(En),1)
+    cEn=En>=Enmin[i]
+    Entemp=En[cEn]
+    Ftemp=F[cEn]
+    enidx=enidx[cEn]
+    xn=dsig[enidx,i]
+    xn*=(endfel.barns2cm2*endfel.keV2MeV)
+    if(np.shape(enidx)[0]<2):
+      integral[i]=-999999999
+    else:
+      #print(np.shape(enidx))
+      d = {'E':Entemp,'spec':Ftemp*xn}
+      df = pd.DataFrame(data=d)
+      #data=pd.DataFrame(np.array([En, F*dsig]), columns=['E', 'spec'])
+      integral[i] = integrate_df(df)
+
+
+  integral*=(1/s2day) 
+  integral*=(eta/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
