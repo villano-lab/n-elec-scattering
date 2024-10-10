@@ -247,9 +247,10 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
   #make big ole matrix
   dsig=np.zeros((np.shape(En)[0],np.shape(Er)[0]))
   for i,E in enumerate(En):
-    E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
-    dsig[i,:] = dsder(Er)
+    E*=1e3 #E in keV
+    dsder = lambda x: dsigdErNE(E,x)
+    dsderv = np.vectorize(dsder)
+    dsig[i,:] = dsderv(Er)
     #print(dsig[i,:])
 
 
@@ -268,7 +269,8 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
     Ftemp=F[cEn]
     enidx=enidx[cEn]
     xn=dsig[enidx,i]
-    xn*=(endfel.barns2cm2*endfel.keV2MeV)
+    #xn*=(endfel.barns2cm2*endfel.keV2MeV)
+    xn*=(endfel.barns2cm2)
     if(np.shape(enidx)[0]<2):
       integral[i]=-999999999
     else:
