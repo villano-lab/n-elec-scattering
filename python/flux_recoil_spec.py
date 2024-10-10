@@ -231,9 +231,8 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
   #print(Er)
 
   #get min neutron energy
-  mass = ms.getMass(Z,A)
-  Enmin = Er/(4*mass*ms.m_n/(mass+ms.m_n)**2)
-  #print(Enmin)
+  Enmin = Er/(4*ms.m_e*ms.m_n/(ms.m_e+ms.m_n)**2)
+  print(Enmin)
 
   #cut down the density of points
   idx=np.arange(0,len(En),1)
@@ -250,8 +249,8 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
     E*=1e3 #E in keV
     dsder = lambda x: dsigdErNE(E,x)
     dsderv = np.vectorize(dsder)
-    dsig[i,:] = dsderv(Er)
-    #print(dsig[i,:])
+    dsig[i,:] = dsderv(Er*1e3)
+    #print(E,dsig[i,:])
 
 
   #remove negatives 
@@ -270,7 +269,7 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
     enidx=enidx[cEn]
     xn=dsig[enidx,i]
     #xn*=(endfel.barns2cm2*endfel.keV2MeV)
-    xn*=(endfel.barns2cm2)
+    #xn*=(endfel.barns2cm2)
     if(np.shape(enidx)[0]<2):
       integral[i]=-999999999
     else:
