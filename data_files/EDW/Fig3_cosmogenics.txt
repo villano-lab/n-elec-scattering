@@ -1,0 +1,5 @@
+#DataThief D:\Users\kcm\Downloads\Fig3.png Thursday 10-Oct-2024 12:42:06 PM
+0.1607, 0.0642
+1.3058, 0.4262
+9.0144, 0.4317
+10.3009, 3.4104
