@@ -1,5 +1,5 @@
-#DataThief D:\Users\kcm\Downloads\Fig3.png Thursday 10-Oct-2024 12:42:06 PM
-0.1607, 0.0642
-1.3058, 0.4262
-9.0144, 0.4317
-10.3009, 3.4104
+#DataThief D:\Users\kcm\Documents\GitHub\n-elec-scattering\data_files\EDW\Fig3.png Thursday 17-Oct-2024 10:13:47 AM
+0.1612, 0.0189
+1.3069, 0.1941
+8.9649, 0.1901
+10.3637, 1.9031
