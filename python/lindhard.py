@@ -1,11 +1,12 @@
-#this file gives some functions for computation of Lindhard function
+#this file gives some functions for computation of Lindhard function 
 import numpy as np
+
 
 #get the equivalent charge energy for a recoil of energy E with parameters in the structure par
 #def getLindhard(E,par=None):
 def getLindhard(par=None,calck=False):
     #units of E should be eV
-
+ 
     #if E==None:
     #  raise ArgumentTypeError('getLindhard: you need an E variable')
 
@@ -40,12 +41,54 @@ def getLindhard(par=None,calck=False):
     #g = a*eps**b + c*eps**d + eps
     g = lambda x: a*eps(x)**b + c*eps(x)**d + eps(x)
 
-    #return k*g/(1+k*g)
-    return lambda x: k*g(x)/(1+k*g(x))
+    #return k*g/(1+k*g) 
+    return lambda x: k*g(x)/(1+k*g(x)) 
+
+def getYPrimeLindhard(par=None,calck=False):
+    #units of E should be eV
+ 
+    #if E==None:
+    #  raise ArgumentTypeError('getLindhard: you need an E variable')
+
+    #check that par is right
+    if not calck:
+      if not set({'Z', 'k', 'a', 'b', 'c', 'd'}).issubset(par):
+        raise ArgumentTypeError('getLindhard: one or more parameters (Z,k,a,b,c,d) missing')
+    else:
+      if not set({'Z', 'A', 'a', 'b', 'c', 'd'}).issubset(par):
+        raise ArgumentTypeError('getLindhard: one or more parameters (Z,A,a,b,c,d) missing, set to calculate k by pure Lindhard')
+
+
+    #par is a dictionary with Z, A, k, a, b, c, d defined as doubles
+    #see pg. 89 of Scott Fallows' thesis
+    #eps = 11.5 ER[keV] Z**(-(7/3))
+    #g(eps) = a(eps)**b + c(eps)**d + (eps)
+    Z = par['Z']
+    k = 0.0
+    A = 0.0
+    if calck:
+      A = par['A']
+      k = 0.133*Z**(2.0/3.0)*A**(-(1.0/2.0))
+    else:
+      k = par['k']
+    a = par['a']
+    b = par['b']
+    c = par['c']
+    d = par['d']
+    #Ekev = E/1000.0
+    #eps = 11.5*Ekev*Z**(-(7.0/3.0))
+    eps = lambda x: 11.5*(x/1000.0)*Z**(-(7.0/3.0))
+    #g = a*eps**b + c*eps**d + eps
+    g = lambda x: a*eps(x)**b + c*eps(x)**d + eps(x)
+    dgdeps = lambda x: (a*b)*eps(x)**(b-1) + (c*d)*eps(x)**(d-1) + 1 if x>0.0 else np.inf
+
+    #return k*g/(1+k*g) 
+    return lambda x: (k/((1+k*g(x))**2))*dgdeps(x)*(11.5*Z**(-(7.0/3.0))) 
+
 #function to get par lists for various materials
 def getLindhardPars(mat='Ge',calck = False):
 
-    #check that the material is supported
+    #check that the material is supported 
     if  mat not in set({'Ge', 'Si'}):
       raise ArgumentTypeError('getLindhardPars: do not have requested material use (Ge,Si)')
 
@@ -62,8 +105,8 @@ def getLindhardPars(mat='Ge',calck = False):
       par['c'] = 0.7
       par['d'] = 0.6
     elif mat=='Si':
-      par['Z'] = 14
-      par['A'] = 28
+      par['Z'] = 14 
+      par['A'] = 28 
       if not calck:
         par['k'] = 0.146 #not sure of this variable, essentially same as calc value
       else:
