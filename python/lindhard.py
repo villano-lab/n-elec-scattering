@@ -83,7 +83,7 @@ def getYPrimeLindhard(par=None,calck=False):
     dgdeps = lambda x: (a*b)*eps(x)**(b-1) + (c*d)*eps(x)**(d-1) + 1 if x>0.0 else np.inf
 
     #return k*g/(1+k*g) 
-    return lambda x: (k/((1+k*g(x))**2))*dgdeps(x)*(11.5*Z**(-(7.0/3.0))) 
+    return lambda x: (k/((1+k*g(x))**2))*dgdeps(x)*(11.5*(1/1000)*Z**(-(7.0/3.0))) 
 
 #function to get par lists for various materials
 def getLindhardPars(mat='Ge',calck = False):
