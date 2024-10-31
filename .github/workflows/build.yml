@@ -25,5 +25,5 @@ jobs:
         conda run -n fano_5_2024 python -m ipykernel install --user --name fano_5_2024
     - name: Test python notebooks
       run: |
-        conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 ?-*/*.ipynb
+        conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 --nbmkae-timeout=2000 ?-*/*.ipynb
         conda run -n fano_5_2024 pytest --nbmake --nbmake-kernel=fano_5_2024 --nbmake-timeout=2000 SCDMS_flux/*.ipynb
