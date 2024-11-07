@@ -128,6 +128,8 @@ def getLindhardGe_k(k):
       pars = getLindhardPars('Ge',False)
       pars['k'] = k
       return getLindhard(pars) #default of calck is false
+
+
 #shortened function for Si Lindhard
 def getLindhardSi(calck=False):
 
