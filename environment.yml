@@ -215,6 +215,7 @@ dependencies:
       - nbconvert==6.5.0
       - numpy==1.23.1
       - papermill==2.3.4
+      - periodictable==2.0.1
       - pyteomics==4.7.5
       - scipy==1.8.1
       - tabulate==0.8.10
