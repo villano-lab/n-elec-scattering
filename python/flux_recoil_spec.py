@@ -140,11 +140,17 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   if(np.shape(En)[0]<2):
     return 0.0
 
+
+  #get the filenames
+  sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
+  endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  print(sigtotfile,endffile)
+
   #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
     E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5,sigtotfile=sigtotfile,endffile=endffile)
     val = dsder(Er)
     if val>0:
       dsig[i] = val 
@@ -183,11 +189,16 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   if(np.shape(En)[0]<2):
     return 0.0
 
+  #get the filenames
+  sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
+  endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  print(sigtotfile,endffile)
+
   #make big ole matrix
   dsig=np.zeros((np.shape(En)[0],np.shape(Er)[0]))
   for i,E in enumerate(En):
     E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5,sigtotfile=sigtotfile,endffile=endffile)
     dsig[i,:] = dsder(Er)
     #print(dsig[i,:])
 
