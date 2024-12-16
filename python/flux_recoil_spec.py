@@ -8,6 +8,7 @@ from scipy import signal
 import ENDF6el as endfel
 import masses as ms
 import scipy.constants as co
+import periodictable as pt
 
 #constants
 NA = co.physical_constants['Avogadro constant'][0]
@@ -142,9 +143,12 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
 
 
   #get the filenames
-  sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
-  endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  symbol=pt.elements[Z].symbol
+  symbol_lower=symbol.lower()
+  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
   print(sigtotfile,endffile)
+
 
   #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
@@ -190,8 +194,15 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
     return 0.0
 
   #get the filenames
-  sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
-  endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  #sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
+  #endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  #print(sigtotfile,endffile)
+
+  #get the filenames
+  symbol=pt.elements[Z].symbol
+  symbol_lower=symbol.lower()
+  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
   print(sigtotfile,endffile)
 
   #make big ole matrix
