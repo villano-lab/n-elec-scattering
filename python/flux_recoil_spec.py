@@ -254,7 +254,7 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
 
   #get min neutron energy
   Enmin = Er/(4*ms.m_e*ms.m_n/(ms.m_e+ms.m_n)**2)
-  print(Enmin)
+  #print(Enmin)
 
   #cut down the density of points
   idx=np.arange(0,len(En),1)
