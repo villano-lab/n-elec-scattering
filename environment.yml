@@ -207,8 +207,9 @@ dependencies:
   - zipp=3.17.0=pyhd8ed1ab_0
   - zstandard=0.22.0
   - zstd=1.5.5
+  - sympy
+  - ansiwrap==0.8.4
   - pip:
-      - ansiwrap==0.8.4
       - awkward==1.8.0
       - bootstrapped==0.0.2
       - h5py==3.7.0

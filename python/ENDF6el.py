@@ -1,6 +1,6 @@
 import ENDF6
 import pandas as pds
-import scipy
+import scipy, scipy.interpolate
 import numpy as np
 import masses as ms
 
