@@ -10,9 +10,13 @@ import masses as ms
 import scipy.constants as co
 import periodictable as pt
 
+#############
+# Constants #
+#############
+
 #constants
 NA = co.physical_constants['Avogadro constant'][0]
-s2day = 1/(60*60*24)
+s2day = 1/(60*60*24) #seconds to days
 #constants for calcs, first in SI units
 gn = co.physical_constants['neutron gyromag. ratio'][0] #default is s^-1 T^-1; CGS is s^-1 Gauss^-1
 mub = co.physical_constants['Bohr magneton'][0] #default is J T^-1
@@ -25,10 +29,13 @@ gn_CGS = gn/1e4
 mub_CGS = mub*1e3
 hbar_CGS = hbar*1e7
 
-
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
 E_therm = 0.15e-6 # near boundary of where thermal distribution has peak
+
+#############
+# Functions #
+#############
 
 def integrate_df(df):
     # (left-sided rectangular integral)
