@@ -54,7 +54,7 @@ dependencies:
   - fortranformat=2.0.0=pyhd8ed1ab_0
   - freetype=2.12.1
   - future=1.0.0
-  - gammapy=0.20.1
+  - gammapy=0.20
   - h5netcdf=1.3.0=pyhd8ed1ab_0
   - hdf5=1.14.3
   - idna=3.6=pyhd8ed1ab_0
@@ -120,7 +120,7 @@ dependencies:
   - munkres=1.1.4=pyh9f0ad1d_0
   - nb_conda_kernels=2.3.1
   - nbclassic=0.5.6=pyhb4ecaf3_1
-  - nbclient=0.10.0=pyhd8ed1ab_0
+  - nbclient=0.10
   - nbconvert-core=7.16.3=pyhd8ed1ab_1
   - nbconvert-pandoc=7.16.3=hd8ed1ab_1
   - nbformat=5.10.4=pyhd8ed1ab_0
@@ -150,8 +150,8 @@ dependencies:
   - pure_eval=0.2.2=pyhd8ed1ab_0
   - py=1.11.0=pyh6c4a22f_0
   - pycparser=2.22=pyhd8ed1ab_0
-  - pydantic=2.0.3=pyhd8ed1ab_1
-  - pydantic-core=2.3.0
+  - pydantic=2.0
+  - pydantic-core=2.3
   - pyerfa=2.0.1.2
   - pygments=2.17.2=pyhd8ed1ab_0
 #  - pyobjc-core #not found just removing don't think they're explicitly referenced
@@ -159,7 +159,7 @@ dependencies:
   - pyparsing=3.1.2=pyhd8ed1ab_0
   - pysocks=1.7.1=pyha2e5f31_6
   - pytest=7.1.2
-  - python=3.9.19
+  - python>=3.9.19
   - python-dateutil=2.9.0=pyhd8ed1ab_0
   - python-fastjsonschema=2.19.1=pyhd8ed1ab_0
   - python-tzdata=2024.1=pyhd8ed1ab_0
@@ -187,7 +187,7 @@ dependencies:
   - tqdm=4.66.2=pyhd8ed1ab_0
   - traitlets=5.14.2=pyhd8ed1ab_0
   - typing-extensions=4.11.0=hd8ed1ab_0
-  - typing_extensions=4.11.0=pyha770c72_0
+  - typing_extensions=4.11
   - tzdata=2024a=h0c530f3_0
   - uncertainties=3.1.7=pyhd8ed1ab_0
   - unicodedata2=15.1.0
