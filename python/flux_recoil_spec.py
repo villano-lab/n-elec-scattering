@@ -9,6 +9,7 @@ import ENDF6el as endfel
 import masses as ms
 import scipy.constants as co
 import periodictable as pt
+from pyteomics import mass as pyteo_mass
 
 #############
 # Constants #
@@ -251,7 +252,29 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
 
-def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons eta is the electrons/atom
+#def dRdErfast(Er,En,F,N=100,Z=14,A=28):
+def dRdErCompound(Er,En,F,N=100,Comp='Si'):
+
+  #first we want to get the stats for the compound and find each needed isotope
+  num=0
+  isotope_struct={}
+  isotope_abund={}
+  for m in pyteo_mass.isotopologues(Comp):
+    #print(mass.isotopic_composition_abundance(m))
+    #print(m)
+    isotope_struct[num]=m
+    isotope_abund[num]=pyteo_mass.isotopic_composition_abundance(m)
+    num=num+1
+
+  sorted_isotopes = sorted(isotope_abund.items(),key=lambda x:x[1],reverse=True)
+
+  print(sorted_isotopes)
+  for i in sorted_isotopes:
+      print(isotope_struct[i[0]])
+
+  return 
+
+def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=None): #for neutron scattering off electrons eta is the electrons/atom
 
   #vectorize Er
   if isinstance(Er, float):
@@ -262,6 +285,12 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
   #get min neutron energy
   Enmin = Er/(4*ms.m_e*ms.m_n/(ms.m_e+ms.m_n)**2)
   #print(Enmin)
+
+  #get the number of electrons eta=Z if eta is None...
+  if (eta==None):
+    eta=Z
+
+  print(eta)
 
   #cut down the density of points
   idx=np.arange(0,len(En),1)
