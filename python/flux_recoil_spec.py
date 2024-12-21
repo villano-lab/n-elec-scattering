@@ -10,6 +10,7 @@ import masses as ms
 import scipy.constants as co
 import periodictable as pt
 from pyteomics import mass as pyteo_mass
+import re
 
 #############
 # Constants #
@@ -271,6 +272,10 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si'):
   print(sorted_isotopes)
   for i in sorted_isotopes:
       print(isotope_struct[i[0]])
+      for j in isotope_struct[i[0]]:
+        print(j)
+        m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
+        print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
 
   return 
 
