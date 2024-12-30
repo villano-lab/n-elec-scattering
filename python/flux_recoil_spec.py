@@ -287,7 +287,20 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si'):
           ab=(isotope_abundance*atom_abundance)
         isotopes_used[j]={'a':ab,'b':[]}
 
-  print(isotopes_used)
+
+  #normalization check.
+  s=0.0
+  for i in isotopes_used:
+    s+=isotopes_used[i]['a']
+
+  print('Compound Isotope Breakdown Sum (should be 1.0):{}'.format(s))
+ 
+  #for i in isotopes_used.items():
+  #  print(i[1])
+ 
+  sorted_isotopes_used = dict(sorted(isotopes_used.items(),key=lambda x:x[1]['a'],reverse=True))
+  print(sorted_isotopes_used)
+
   return 
 
 def compPerc(comp,element='Ge[70]'):
