@@ -256,6 +256,13 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
 #def dRdErfast(Er,En,F,N=100,Z=14,A=28):
 def dRdErCompound(Er,En,F,N=100,Comp='Si'):
 
+  iso=organizeCompound(Comp)
+  print(iso) 
+
+  return 
+
+def organizeCompound(Comp='Si'):
+
   #first we want to get the stats for the compound and find each needed isotope
   num=0
   isotope_struct={}
@@ -285,7 +292,7 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si'):
           ab=isotopes_used[j]['a']+(isotope_abundance*atom_abundance)
         else:
           ab=(isotope_abundance*atom_abundance)
-        isotopes_used[j]={'a':ab,'b':[]}
+        isotopes_used[j]={'a':ab}
 
 
   #normalization check.
@@ -299,9 +306,8 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si'):
   #  print(i[1])
  
   sorted_isotopes_used = dict(sorted(isotopes_used.items(),key=lambda x:x[1]['a'],reverse=True))
-  print(sorted_isotopes_used)
 
-  return 
+  return sorted_isotopes_used
 
 def compPerc(comp,element='Ge[70]'):
   s=0
