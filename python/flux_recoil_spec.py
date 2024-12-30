@@ -269,15 +269,40 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si'):
 
   sorted_isotopes = sorted(isotope_abund.items(),key=lambda x:x[1],reverse=True)
 
-  print(sorted_isotopes)
+  #print(sorted_isotopes)
+  isotopes_used={}
   for i in sorted_isotopes:
-      print(isotope_struct[i[0]])
+      #print(isotope_struct[i[0]])
+      #print(i[1])
+      isotope_abundance=i[1]
       for j in isotope_struct[i[0]]:
-        print(j)
+        #print(j)
+        #print(compPerc(isotope_struct[i[0]],j))
+        atom_abundance=compPerc(isotope_struct[i[0]],j)
         m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
-        print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
+        #print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
+        if(j in isotopes_used):
+          ab=isotopes_used[j]['a']+(isotope_abundance*atom_abundance)
+        else:
+          ab=(isotope_abundance*atom_abundance)
+        isotopes_used[j]={'a':ab,'b':[]}
 
+  print(isotopes_used)
   return 
+
+def compPerc(comp,element='Ge[70]'):
+  s=0
+  for i in comp:
+    s+=comp[i]
+
+  if(s==0):
+    return 0;
+
+  for i in comp:
+    if(i==element):
+      return comp[i]/s
+  
+  return 0.0
 
 def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=None): #for neutron scattering off electrons eta is the electrons/atom
 
