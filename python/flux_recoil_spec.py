@@ -254,12 +254,57 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   return integral,dsig
 
 #def dRdErfast(Er,En,F,N=100,Z=14,A=28):
-def dRdErCompound(Er,En,F,N=100,Comp='Si'):
+def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=1.0):
 
   iso=organizeCompound(Comp)
   print(iso) 
 
-  return 
+  #get the proper normalization divisor
+  newiso={}
+  norm=0
+  count=0
+  for itope in iso:
+    eta=iso[itope]['a'] 
+    A=int(iso[itope]['A']) 
+    Z=int(iso[itope]['Z']) 
+    norm+=eta*(ms.getAMU(Z,A)*ms.amu2g*1e-3) #correct normalization for hetero mixture of isotopes 
+    newiso[itope]=eta
+    count+=1
+
+  print(norm)
+
+  #fetch all the drde's and renormalize them
+  for itope in iso:
+    A=int(iso[itope]['A']) 
+    Z=int(iso[itope]['Z']) 
+    Sy=iso[itope]['Symbol'] 
+    print(A,Z,Sy)
+    unnorm=(ms.getAMU(Z,A)*ms.amu2g*1e-3) #undo the standard normalization for one isotope  
+    drde,dsig=dRdErfast(Er,En,F,N=N,Z=Z,A=A)
+    iso[itope]['Er']=Er
+    iso[itope]['dRdEr']=drde*unnorm/norm
+    #m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
+    #print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
+
+  #print(iso)
+
+  #make a data structure for the output
+  isout=np.zeros((np.shape(Er)[0],count+1))
+  count1=0
+  for itope in iso:
+    isout[:,count1+1] = iso[itope]['dRdEr']
+    count1+=1
+
+  #sum up the full drde
+  #isout[:,0]=np.sum(isout,1)
+  count2=0
+  for itope in iso:
+    eta=newiso[itope]
+    if(count2<count): 
+      isout[:,0] += eta*isout[:,count2+1] 
+    count2+=1
+
+  return isout, newiso
 
 def organizeCompound(Comp='Si'):
 
@@ -292,7 +337,7 @@ def organizeCompound(Comp='Si'):
           ab=isotopes_used[j]['a']+(isotope_abundance*atom_abundance)
         else:
           ab=(isotope_abundance*atom_abundance)
-        isotopes_used[j]={'a':ab}
+        isotopes_used[j]={'a':ab,'Z':pt.elements.symbol(m.group(1)).number,'A':m.group(2),'Symbol':m.group(1)}
 
 
   #normalization check.
