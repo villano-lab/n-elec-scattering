@@ -281,6 +281,7 @@ def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=1.0):
     print(A,Z,Sy)
     unnorm=(ms.getAMU(Z,A)*ms.amu2g*1e-3) #undo the standard normalization for one isotope  
     drde,dsig=dRdErfast(Er,En,F,N=N,Z=Z,A=A)
+    drde[drde<0]=0 #trim the negatives.
     iso[itope]['Er']=Er
     iso[itope]['dRdEr']=drde*unnorm/norm
     #m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
