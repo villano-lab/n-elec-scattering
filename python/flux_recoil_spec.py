@@ -11,6 +11,9 @@ import scipy.constants as co
 import periodictable as pt
 from pyteomics import mass as pyteo_mass
 import re
+import h5py
+import os 
+from pathlib import Path
 
 #############
 # Constants #
@@ -253,8 +256,41 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
 
-#def dRdErfast(Er,En,F,N=100,Z=14,A=28):
-def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=1.0):
+def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",force=False):
+
+ #find my location and top location
+ dir_path = os.path.dirname(os.path.realpath(__file__))
+ wd=os.getcwd()
+ path=os.path.normpath(dir_path+'/../'+path)
+
+ #make the data path if doesn't exist
+ Path(path).mkdir(parents=False, exist_ok=True)
+
+ #get string name for file
+ filename='dRdEr-{}.h5'.format(name)
+ filename=path+'/'+filename
+ print(filename)
+
+
+ #read the file if it exists
+ haveFile=False
+ if(~force):
+   if(os.path.isfile(filename)):  
+     f = h5py.File(filename,'r')
+     path='{}/{}/'.format(Comp,perc_cut)
+     Er_read = np.asarray(f[path+'Er'])
+     En_read = np.asarray(f[path+'En'])
+     F_read = np.asarray(f[path+'F'])
+     boolEr=(Er==Er_read).all()
+     boolEn=(En==En_read).all()
+     boolF=(F==F_read).all()
+     if(boolEr&boolEn&boolF):
+       haveFile=True
+   
+
+ return 
+
+def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=0.0):
 
   iso=organizeCompound(Comp)
   print(iso) 
