@@ -14,6 +14,7 @@ import re
 import h5py
 import os 
 from pathlib import Path
+import json
 
 #############
 # Constants #
@@ -273,7 +274,6 @@ def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path=
 
 
  #read the file if it exists
- haveFile=False
  if(~force):
    if(os.path.isfile(filename)):  
      f = h5py.File(filename,'r')
@@ -284,9 +284,18 @@ def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path=
      boolEr=(Er==Er_read).all()
      boolEn=(En==En_read).all()
      boolF=(F==F_read).all()
-     if(boolEr&boolEn&boolF):
-       haveFile=True
-   
+     Exiso = path+'iso' in f
+     Exisodict = path+'isodict' in f
+     if(boolEr&boolEn&boolF&Exiso&Exisodict):
+       iso = np.asarray(f[path+'iso'])
+       isodict_str=f[path+'isodict'].asstr()[0]
+       #have to replace ' with " for real JSON
+       p = re.compile('(?<!\\\\)\'')
+       isodict_str = p.sub('\"', isodict_str)
+       isodict = json.loads(isodict_str)
+       return iso,isodict
+ 
+ #otherwise, compute it and save it  
 
  return 
 
