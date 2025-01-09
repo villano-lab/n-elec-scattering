@@ -465,12 +465,10 @@ def AL_pair_counts(Ers, pe_file = 'pe', pe_dir = pair_dir):
 
     return pairs
 
-
-
-
-
-
-
-
-
-
+flux_scales = {
+    'SNOLABSi': 5.2789118728349384e-06,
+    'SNOLABGe': 5.102096706341595e-06,
+    'DAMIC': 0.004716102802350275,
+    'EDW': 0.00017807813639789135,
+    'CRESST': 0.0013464792222913468
+}
