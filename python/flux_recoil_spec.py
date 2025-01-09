@@ -15,6 +15,7 @@ import h5py
 import os 
 from pathlib import Path
 import json
+import time
 
 #############
 # Constants #
@@ -257,7 +258,7 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
 
-def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",force=False):
+def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",save=True,force=False):
 
  #find my location and top location
  dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -272,20 +273,35 @@ def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path=
  filename=path+'/'+filename
  print(filename)
 
+ boolGotFile=os.path.isfile(filename)
 
+ fileresF=0
+ fileresEr=0
  #read the file if it exists
  if(~force):
-   if(os.path.isfile(filename)):  
+   if(boolGotFile):  
      f = h5py.File(filename,'r')
      path='{}/{}/'.format(Comp,perc_cut)
      Er_read = np.asarray(f[path+'Er'])
      En_read = np.asarray(f[path+'En'])
      F_read = np.asarray(f[path+'F'])
-     boolEr=(Er==Er_read).all()
-     boolEn=(En==En_read).all()
-     boolF=(F==F_read).all()
+     fileresF=np.shape(F_read)[0]
+     fileresEr=np.shape(Er_read)[0]
+
+     boolEr=False
+     boolEn=False
+     boolF=False
+     if(np.shape(Er_read)==np.shape(Er)):
+       boolEr=(Er==Er_read).all()
+     if(np.shape(En_read)==np.shape(En)):
+       boolEn=(En==En_read).all()
+     if(np.shape(F_read)==np.shape(F)):
+       boolF=(F==F_read).all()
+
      Exiso = path+'iso' in f
      Exisodict = path+'isodict' in f
+
+     #if the file has it at exactly the resolution requested, then return it
      if(boolEr&boolEn&boolF&Exiso&Exisodict):
        iso = np.asarray(f[path+'iso'])
        isodict_str=f[path+'isodict'].asstr()[0]
@@ -293,11 +309,68 @@ def dRdErCompoundSave(Er,En,F,*,N=100,Comp='Si',perc_cut=0.0,name='SNOLAB',path=
        p = re.compile('(?<!\\\\)\'')
        isodict_str = p.sub('\"', isodict_str)
        isodict = json.loads(isodict_str)
+       f.close()
        return iso,isodict
- 
- #otherwise, compute it and save it  
 
- return 
+     print('closing file')
+     f.close() 
+
+ #otherwise, compute it and save it 
+ start = time.time()
+ iso,isodict=dRdErCompound(Er,En,F,N=N,Comp=Comp,perc_cut=perc_cut)
+ end = time.time()
+ print('Evaluation Time: {:1.5f} sec.'.format(end-start))
+
+
+ #do this if save is requested, and if it is equal or better resolution, or if force is set
+
+ betterRes=False
+ print(fileresF,fileresEr)
+ print(np.shape(F)[0],np.shape(Er)[0])
+ if(fileresF<=np.shape(F)[0])&(fileresEr<=np.shape(Er)[0]):
+   betterRes=True
+
+ if(save&(betterRes|force)): 
+   f = h5py.File(filename,'a')
+   path='{}/{}/'.format(Comp,perc_cut)
+   
+   #remove vars
+   exEr = path+'Er' in f
+   exEn = path+'En' in f
+   exF = path+'F' in f
+   exiso = path+'iso' in f
+   exisodict = path+'isodict' in f
+   
+   
+   if exEr:
+     del f[path+'Er']
+   if exEn:
+     del f[path+'En']
+   if exF:
+     del f[path+'F']
+   if exiso:
+     del f[path+'iso']
+   if exisodict:
+     del f[path+'isodict']
+       
+   dset = f.create_dataset(path+'Er',np.shape(Er),dtype=np.dtype('float64').type)
+   dset[...] = Er
+   dset = f.create_dataset(path+'En',np.shape(En),dtype=np.dtype('float64').type)
+   dset[...] = En
+   dset = f.create_dataset(path+'F',np.shape(F),dtype=np.dtype('float64').type)
+   dset[...] = F
+   dset = f.create_dataset(path+'iso',np.shape(iso),dtype=np.dtype('float64').type)
+   dset[...] = iso
+   ds = f.create_dataset(path+'isodict', shape=4, dtype=h5py.string_dtype())
+   ds[:] = str(isodict)
+       
+       
+   f.close()
+ 
+ if(save&(~betterRes)&(~force)):
+   print('use force=True to save a spectrum with worse resolution than previous') 
+
+ return iso,isodict
 
 def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=0.0):
 
