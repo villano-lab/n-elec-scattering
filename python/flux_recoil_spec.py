@@ -258,7 +258,7 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
 
-def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",save=True,force=False):
+def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",save=True,force=False,debug=False):
 
  #find my location and top location
  dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -271,7 +271,7 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
  #get string name for file
  filename='dRdEr-{}.h5'.format(name)
  filename=path+'/'+filename
- print(filename)
+ if debug: print(filename)
 
  boolGotFile=os.path.isfile(filename)
 
@@ -294,9 +294,12 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
      if(np.shape(Er_read)==np.shape(Er)):
        boolEr=(Er==Er_read).all()
      if(np.shape(En_read)==np.shape(En)):
-       boolEn=(En==En_read).all()
+       boolEn=(np.isclose(En,En_read,atol=1e-18)).all()
+       if debug and not boolEn:
+           print(En[En!=En_read],En_read[En!=En_read])
+           print(En[En!=En_read]-En_read[En!=En_read])
      if(np.shape(F_read)==np.shape(F)):
-       boolF=(F==F_read).all()
+       boolF=np.isclose(F,F_read,atol=1e-18).all()
 
      Exiso = path+'iso' in f
      Exisodict = path+'isodict' in f
@@ -314,6 +317,8 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
 
      print('closing file')
      f.close() 
+
+     if(debug): print("Calculating. Er succeeded?",boolEr,"En succeeded?",boolEn,"F succeeded?",boolF)
 
  #otherwise, compute it and save it 
  start = time.time()
