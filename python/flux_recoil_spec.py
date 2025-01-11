@@ -279,13 +279,14 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
    path='{}/{}/'.format(Comp,perc_cut)
    Exvars = (path+'Er' in f)&(path+'En' in f)&(path+'F' in f)
    f.close()
-   if(~Exvars):
+   if(not Exvars):
+     print('you dont have variables')
      boolGotFile=False 
 
  fileresF=0
  fileresEr=0
  #read the file if it exists
- if(~force):
+ if(not force):
    if(boolGotFile):  
      f = h5py.File(filename,'r')
      path='{}/{}/'.format(Comp,perc_cut)
@@ -301,12 +302,12 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
      if(np.shape(Er_read)==np.shape(Er)):
        boolEr=(Er==Er_read).all()
      if(np.shape(En_read)==np.shape(En)):
-       boolEn=(np.isclose(En,En_read,atol=1e-18)).all()
+       boolEn=(np.isclose(En,En_read,atol=1e-15)).all()
        if debug and not boolEn:
            print(En[En!=En_read],En_read[En!=En_read])
            print(En[En!=En_read]-En_read[En!=En_read])
      if(np.shape(F_read)==np.shape(F)):
-       boolF=np.isclose(F,F_read,atol=1e-18).all()
+       boolF=np.isclose(F,F_read,atol=1e-15).all()
 
      Exiso = path+'iso' in f
      Exisodict = path+'isodict' in f
@@ -379,7 +380,7 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
        
    f.close()
  
- if(save&(~betterRes)&(~force)):
+ if(save&(not betterRes)&(not force)):
    print('use force=True to save a spectrum with worse resolution than previous') 
 
  return iso,isodict
