@@ -274,6 +274,13 @@ def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="s
  if debug: print(filename)
 
  boolGotFile=os.path.isfile(filename)
+ if(boolGotFile):  
+   f = h5py.File(filename,'r')
+   path='{}/{}/'.format(Comp,perc_cut)
+   Exvars = (path+'Er' in f)&(path+'En' in f)&(path+'F' in f)
+   f.close()
+   if(~Exvars):
+     boolGotFile=False 
 
  fileresF=0
  fileresEr=0
