@@ -8,10 +8,22 @@ from scipy import signal
 import ENDF6el as endfel
 import masses as ms
 import scipy.constants as co
+import periodictable as pt
+from pyteomics import mass as pyteo_mass
+import re
+import h5py
+import os 
+from pathlib import Path
+import json
+import time
+
+#############
+# Constants #
+#############
 
 #constants
 NA = co.physical_constants['Avogadro constant'][0]
-s2day = 1/(60*60*24)
+s2day = 1/(60*60*24) #seconds to days
 #constants for calcs, first in SI units
 gn = co.physical_constants['neutron gyromag. ratio'][0] #default is s^-1 T^-1; CGS is s^-1 Gauss^-1
 mub = co.physical_constants['Bohr magneton'][0] #default is J T^-1
@@ -24,10 +36,13 @@ gn_CGS = gn/1e4
 mub_CGS = mub*1e3
 hbar_CGS = hbar*1e7
 
-
 # extrapolate line from lower-energy fast neutrons
 E_thresh = 2e-2 # upper bound of linear region
 E_therm = 0.15e-6 # near boundary of where thermal distribution has peak
+
+#############
+# Functions #
+#############
 
 def integrate_df(df):
     # (left-sided rectangular integral)
@@ -140,11 +155,20 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   if(np.shape(En)[0]<2):
     return 0.0
 
+
+  #get the filenames
+  symbol=pt.elements[Z].symbol
+  symbol_lower=symbol.lower()
+  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
+  print(sigtotfile,endffile)
+
+
   #print(np.shape(En))
   dsig=np.zeros(np.shape(En))
   for i,E in enumerate(En):
     E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5,sigtotfile=sigtotfile,endffile=endffile)
     val = dsder(Er)
     if val>0:
       dsig[i] = val 
@@ -183,11 +207,23 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   if(np.shape(En)[0]<2):
     return 0.0
 
+  #get the filenames
+  #sigtotfile='../data_files/xn_data/si{}_el.txt'.format(A)
+  #endffile='../data_files/xn_data/n-{0:03d}_Si_{1:03d}.endf'.format(Z,A)
+  #print(sigtotfile,endffile)
+
+  #get the filenames
+  symbol=pt.elements[Z].symbol
+  symbol_lower=symbol.lower()
+  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
+  print(sigtotfile,endffile)
+
   #make big ole matrix
   dsig=np.zeros((np.shape(En)[0],np.shape(Er)[0]))
   for i,E in enumerate(En):
     E*=1e6
-    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5)
+    dsder = endfel.fetch_der_xn(En=E,M=mass,pts=1000,eps=1e-5,sigtotfile=sigtotfile,endffile=endffile)
     dsig[i,:] = dsder(Er)
     #print(dsig[i,:])
 
@@ -222,7 +258,249 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   integral*=(1/(ms.getAMU(Z,A)*ms.amu2g*1e-3))  
   return integral,dsig
 
-def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons eta is the electrons/atom
+def dRdErCompoundSave(Er,En,F,*,N=1,Comp='Si',perc_cut=0.0,name='SNOLAB',path="saved_data/",save=True,force=False,debug=False):
+
+ #find my location and top location
+ dir_path = os.path.dirname(os.path.realpath(__file__))
+ wd=os.getcwd()
+ path=os.path.normpath(dir_path+'/../'+path)
+
+ #make the data path if doesn't exist
+ Path(path).mkdir(parents=False, exist_ok=True)
+
+ #get string name for file
+ filename='dRdEr-{}.h5'.format(name)
+ filename=path+'/'+filename
+ if debug: print(filename)
+
+ boolGotFile=os.path.isfile(filename)
+ if(boolGotFile):  
+   f = h5py.File(filename,'r')
+   path='{}/{}/'.format(Comp,perc_cut)
+   Exvars = (path+'Er' in f)&(path+'En' in f)&(path+'F' in f)
+   f.close()
+   if(not Exvars):
+     print('you dont have variables')
+     boolGotFile=False 
+
+ fileresF=0
+ fileresEr=0
+ #read the file if it exists
+ if(not force):
+   if(boolGotFile):  
+     f = h5py.File(filename,'r')
+     path='{}/{}/'.format(Comp,perc_cut)
+     Er_read = np.asarray(f[path+'Er'])
+     En_read = np.asarray(f[path+'En'])
+     F_read = np.asarray(f[path+'F'])
+     fileresF=np.shape(F_read)[0]
+     fileresEr=np.shape(Er_read)[0]
+
+     boolEr=False
+     boolEn=False
+     boolF=False
+     if(np.shape(Er_read)==np.shape(Er)):
+       boolEr=(Er==Er_read).all()
+     if(np.shape(En_read)==np.shape(En)):
+       boolEn=(np.isclose(En,En_read,atol=1e-15)).all()
+       if debug and not boolEn:
+           print(En[En!=En_read],En_read[En!=En_read])
+           print(En[En!=En_read]-En_read[En!=En_read])
+     if(np.shape(F_read)==np.shape(F)):
+       boolF=np.isclose(F,F_read,atol=1e-15).all()
+
+     Exiso = path+'iso' in f
+     Exisodict = path+'isodict' in f
+
+     #if the file has it at exactly the resolution requested, then return it
+     if(boolEr&boolEn&boolF&Exiso&Exisodict):
+       iso = np.asarray(f[path+'iso'])
+       isodict_str=f[path+'isodict'].asstr()[0]
+       #have to replace ' with " for real JSON
+       p = re.compile('(?<!\\\\)\'')
+       isodict_str = p.sub('\"', isodict_str)
+       isodict = json.loads(isodict_str)
+       f.close()
+       return iso,isodict
+
+     print('closing file')
+     f.close() 
+
+     if(debug): print("Calculating. Er succeeded?",boolEr,"En succeeded?",boolEn,"F succeeded?",boolF)
+
+ #otherwise, compute it and save it 
+ start = time.time()
+ iso,isodict=dRdErCompound(Er,En,F,N=N,Comp=Comp,perc_cut=perc_cut)
+ end = time.time()
+ print('Evaluation Time: {:1.5f} sec.'.format(end-start))
+
+
+ #do this if save is requested, and if it is equal or better resolution, or if force is set
+
+ betterRes=False
+ print(fileresF,fileresEr)
+ print(np.shape(F)[0],np.shape(Er)[0])
+ if(fileresF<=np.shape(F)[0])&(fileresEr<=np.shape(Er)[0]):
+   betterRes=True
+
+ if(save&(betterRes|force)): 
+   f = h5py.File(filename,'a')
+   path='{}/{}/'.format(Comp,perc_cut)
+   
+   #remove vars
+   exEr = path+'Er' in f
+   exEn = path+'En' in f
+   exF = path+'F' in f
+   exiso = path+'iso' in f
+   exisodict = path+'isodict' in f
+   
+   
+   if exEr:
+     del f[path+'Er']
+   if exEn:
+     del f[path+'En']
+   if exF:
+     del f[path+'F']
+   if exiso:
+     del f[path+'iso']
+   if exisodict:
+     del f[path+'isodict']
+       
+   dset = f.create_dataset(path+'Er',np.shape(Er),dtype=np.dtype('float64').type)
+   dset[...] = Er
+   dset = f.create_dataset(path+'En',np.shape(En),dtype=np.dtype('float64').type)
+   dset[...] = En
+   dset = f.create_dataset(path+'F',np.shape(F),dtype=np.dtype('float64').type)
+   dset[...] = F
+   dset = f.create_dataset(path+'iso',np.shape(iso),dtype=np.dtype('float64').type)
+   dset[...] = iso
+   ds = f.create_dataset(path+'isodict', shape=4, dtype=h5py.string_dtype())
+   ds[:] = str(isodict)
+       
+       
+   f.close()
+ 
+ if(save&(not betterRes)&(not force)):
+   print('use force=True to save a spectrum with worse resolution than previous') 
+
+ return iso,isodict
+
+def dRdErCompound(Er,En,F,N=100,Comp='Si',perc_cut=0.0):
+
+  iso=organizeCompound(Comp)
+  print(iso) 
+
+  #get the proper normalization divisor
+  newiso={}
+  norm=0
+  count=0
+  for itope in iso:
+    eta=iso[itope]['a'] 
+    A=int(iso[itope]['A']) 
+    Z=int(iso[itope]['Z']) 
+    norm+=eta*(ms.getAMU(Z,A)*ms.amu2g*1e-3) #correct normalization for hetero mixture of isotopes 
+    newiso[itope]=eta
+    count+=1
+
+  print(norm)
+
+  #fetch all the drde's and renormalize them
+  for itope in iso:
+    A=int(iso[itope]['A']) 
+    Z=int(iso[itope]['Z']) 
+    Sy=iso[itope]['Symbol'] 
+    print(A,Z,Sy)
+    unnorm=(ms.getAMU(Z,A)*ms.amu2g*1e-3) #undo the standard normalization for one isotope  
+    drde,dsig=dRdErfast(Er,En,F,N=N,Z=Z,A=A)
+    drde[drde<0]=0 #trim the negatives.
+    iso[itope]['Er']=Er
+    iso[itope]['dRdEr']=drde*unnorm/norm
+    #m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
+    #print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
+
+  #print(iso)
+
+  #make a data structure for the output
+  isout=np.zeros((np.shape(Er)[0],count+1))
+  count1=0
+  for itope in iso:
+    isout[:,count1+1] = iso[itope]['dRdEr']
+    count1+=1
+
+  #sum up the full drde
+  #isout[:,0]=np.sum(isout,1)
+  count2=0
+  for itope in iso:
+    eta=newiso[itope]
+    if(count2<count): 
+      isout[:,0] += eta*isout[:,count2+1] 
+    count2+=1
+
+  return isout, newiso
+
+def organizeCompound(Comp='Si'):
+
+  #first we want to get the stats for the compound and find each needed isotope
+  num=0
+  isotope_struct={}
+  isotope_abund={}
+  for m in pyteo_mass.isotopologues(Comp):
+    #print(mass.isotopic_composition_abundance(m))
+    #print(m)
+    isotope_struct[num]=m
+    isotope_abund[num]=pyteo_mass.isotopic_composition_abundance(m)
+    num=num+1
+
+  sorted_isotopes = sorted(isotope_abund.items(),key=lambda x:x[1],reverse=True)
+
+  #print(sorted_isotopes)
+  isotopes_used={}
+  for i in sorted_isotopes:
+      #print(isotope_struct[i[0]])
+      #print(i[1])
+      isotope_abundance=i[1]
+      for j in isotope_struct[i[0]]:
+        #print(j)
+        #print(compPerc(isotope_struct[i[0]],j))
+        atom_abundance=compPerc(isotope_struct[i[0]],j)
+        m = re.search(r'(^[A-Z][a-z]?)\[([1-9][0-9]?[0-9]?)\]', j)
+        #print(m.group(1),m.group(2),pt.elements.symbol(m.group(1)).number)
+        if(j in isotopes_used):
+          ab=isotopes_used[j]['a']+(isotope_abundance*atom_abundance)
+        else:
+          ab=(isotope_abundance*atom_abundance)
+        isotopes_used[j]={'a':ab,'Z':pt.elements.symbol(m.group(1)).number,'A':m.group(2),'Symbol':m.group(1)}
+
+
+  #normalization check.
+  s=0.0
+  for i in isotopes_used:
+    s+=isotopes_used[i]['a']
+
+  print('Compound Isotope Breakdown Sum (should be 1.0):{}'.format(s))
+ 
+  #for i in isotopes_used.items():
+  #  print(i[1])
+ 
+  sorted_isotopes_used = dict(sorted(isotopes_used.items(),key=lambda x:x[1]['a'],reverse=True))
+
+  return sorted_isotopes_used
+
+def compPerc(comp,element='Ge[70]'):
+  s=0
+  for i in comp:
+    s+=comp[i]
+
+  if(s==0):
+    return 0;
+
+  for i in comp:
+    if(i==element):
+      return comp[i]/s
+  
+  return 0.0
+
+def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=None): #for neutron scattering off electrons eta is the electrons/atom
 
   #vectorize Er
   if isinstance(Er, float):
@@ -232,7 +510,13 @@ def dRdErNE(Er,En,F,N=1,Z=14,A=28,eta=1): #for neutron scattering off electrons 
 
   #get min neutron energy
   Enmin = Er/(4*ms.m_e*ms.m_n/(ms.m_e+ms.m_n)**2)
-  print(Enmin)
+  #print(Enmin)
+
+  #get the number of electrons eta=Z if eta is None...
+  if (eta==None):
+    eta=Z
+
+  print(eta)
 
   #cut down the density of points
   idx=np.arange(0,len(En),1)
