@@ -1,0 +1,360 @@
+SOURCES 4A Calculation
+<<<<<<<<<<<>>>>>>>>>>>
+
+
+
+                      Summary of Input
+                      ================
+ 
+Title: Bulk Shotcrete problem: N. Abgrall et al., Nucl. Instr. and Meth. A 828 (2016
+Homogeneous problem input (idd= 1)
+Magnitudes and spectra computed.
+Number of elemental constituents: 11
+Solid stopping cross-sections used (isg= 0)
+ 
+Elemental Constituents:
+ 
+  Z-value  Atom Fraction
+  -------  -------------
+      1     0.0083693834
+      6     0.0007022730
+      8     0.6326645017
+     11     0.0206382535
+     12     0.0102379126
+     13     0.0472057909
+     14     0.2094821781
+     19     0.0094924830
+     20     0.0501957983
+     25     0.0014202130
+     26     0.0095912339
+ 
+Number of neutron spectrum energy groups: 100
+Maximum neutron energy is  1.000E+01 MeV.
+Minimum neutron energy is  0.000E+00 MeV.
+ 
+Energy Group Structure:
+ 
+  Group  Upper-Bound  Lower-Bound
+  -----  -----------  -----------
+     1     1.000E+01    9.900E+00
+     2     9.900E+00    9.800E+00
+     3     9.800E+00    9.700E+00
+     4     9.700E+00    9.600E+00
+     5     9.600E+00    9.500E+00
+     6     9.500E+00    9.400E+00
+     7     9.400E+00    9.300E+00
+     8     9.300E+00    9.200E+00
+     9     9.200E+00    9.100E+00
+    10     9.100E+00    9.000E+00
+    11     9.000E+00    8.900E+00
+    12     8.900E+00    8.800E+00
+    13     8.800E+00    8.700E+00
+    14     8.700E+00    8.600E+00
+    15     8.600E+00    8.500E+00
+    16     8.500E+00    8.400E+00
+    17     8.400E+00    8.300E+00
+    18     8.300E+00    8.200E+00
+    19     8.200E+00    8.100E+00
+    20     8.100E+00    8.000E+00
+    21     8.000E+00    7.900E+00
+    22     7.900E+00    7.800E+00
+    23     7.800E+00    7.700E+00
+    24     7.700E+00    7.600E+00
+    25     7.600E+00    7.500E+00
+    26     7.500E+00    7.400E+00
+    27     7.400E+00    7.300E+00
+    28     7.300E+00    7.200E+00
+    29     7.200E+00    7.100E+00
+    30     7.100E+00    7.000E+00
+    31     7.000E+00    6.900E+00
+    32     6.900E+00    6.800E+00
+    33     6.800E+00    6.700E+00
+    34     6.700E+00    6.600E+00
+    35     6.600E+00    6.500E+00
+    36     6.500E+00    6.400E+00
+    37     6.400E+00    6.300E+00
+    38     6.300E+00    6.200E+00
+    39     6.200E+00    6.100E+00
+    40     6.100E+00    6.000E+00
+    41     6.000E+00    5.900E+00
+    42     5.900E+00    5.800E+00
+    43     5.800E+00    5.700E+00
+    44     5.700E+00    5.600E+00
+    45     5.600E+00    5.500E+00
+    46     5.500E+00    5.400E+00
+    47     5.400E+00    5.300E+00
+    48     5.300E+00    5.200E+00
+    49     5.200E+00    5.100E+00
+    50     5.100E+00    5.000E+00
+    51     5.000E+00    4.900E+00
+    52     4.900E+00    4.800E+00
+    53     4.800E+00    4.700E+00
+    54     4.700E+00    4.600E+00
+    55     4.600E+00    4.500E+00
+    56     4.500E+00    4.400E+00
+    57     4.400E+00    4.300E+00
+    58     4.300E+00    4.200E+00
+    59     4.200E+00    4.100E+00
+    60     4.100E+00    4.000E+00
+    61     4.000E+00    3.900E+00
+    62     3.900E+00    3.800E+00
+    63     3.800E+00    3.700E+00
+    64     3.700E+00    3.600E+00
+    65     3.600E+00    3.500E+00
+    66     3.500E+00    3.400E+00
+    67     3.400E+00    3.300E+00
+    68     3.300E+00    3.200E+00
+    69     3.200E+00    3.100E+00
+    70     3.100E+00    3.000E+00
+    71     3.000E+00    2.900E+00
+    72     2.900E+00    2.800E+00
+    73     2.800E+00    2.700E+00
+    74     2.700E+00    2.600E+00
+    75     2.600E+00    2.500E+00
+    76     2.500E+00    2.400E+00
+    77     2.400E+00    2.300E+00
+    78     2.300E+00    2.200E+00
+    79     2.200E+00    2.100E+00
+    80     2.100E+00    2.000E+00
+    81     2.000E+00    1.900E+00
+    82     1.900E+00    1.800E+00
+    83     1.800E+00    1.700E+00
+    84     1.700E+00    1.600E+00
+    85     1.600E+00    1.500E+00
+    86     1.500E+00    1.400E+00
+    87     1.400E+00    1.300E+00
+    88     1.300E+00    1.200E+00
+    89     1.200E+00    1.100E+00
+    90     1.100E+00    1.000E+00
+    91     1.000E+00    9.000E-01
+    92     9.000E-01    8.000E-01
+    93     8.000E-01    7.000E-01
+    94     7.000E-01    6.000E-01
+    95     6.000E-01    5.000E-01
+    96     5.000E-01    4.000E-01
+    97     4.000E-01    3.000E-01
+    98     3.000E-01    2.000E-01
+    99     2.000E-01    1.000E-01
+    99     1.000E-01    0.000E+00
+ 
+Number of source nuclides to be evaluated:  7
+ 
+Source Nuclides:
+ 
+    ZAID     Atom Density (g/cc)
+    ----     -------------------
+   832120     1.561E-04
+   842120     8.185E-15
+   842160     6.222E-09
+   862200     2.383E-06
+   882240     1.341E-02
+   902280     2.583E+00
+   902320     1.904E+10
+ 
+Number of target nuclides to be used: 23
+ 4000 Alpha energy groups used.
+ 
+Target Nuclides:
+ 
+    ZAID     Atom Fraction
+    ----     -------------
+    80170     1.070E-05
+ (a,n) cross-sections used: 00080170 768   8 O17 Kunz up to 1 MeV + Bair + JENDL-2021 after 5.3 MeV MP
+ Branching data used: 00080170 14 94        O17    TALYS 1.96 MP
+    80180     5.470E-05
+ (a,n) cross-sections used: 00080180 328 JENDL-2021 MP
+ Branching data used: 00080180 47 93               O18         TALYS 1.96 - MP
+   110230     9.780E-04
+ (a,n) cross-sections used: 00110230  57 na23 Norman (1982) up to 6.2 MeV + JENDL 2021
+ Branching data used: 00110230 54 66  23Na  TALYS 1.96 - MP
+   120240     3.880E-04
+ (a,n) cross-sections used: 00120240 99   24 Mg   99 points  EMPIRE 2.19 calculations
+ Branching data used: 00120240  3 18  24Mg TALYS 1.96 - MP
+   120250     4.720E-05
+ (a,n) cross-sections used: 00120250 120  25Mg 120 points  EMPIRE 2.19 calcs
+ Branching data used: 00120250 58 88  25Mg TALYS 1.96 - MP
+   120260     5.000E-05
+ (a,n) cross-sections used: 00120260 144  26Mg 144 points  EMPIRE 2.19  calcs
+ Branching data used: 00120260 65 89  26Mg  TALYS 1.96 - MP
+   130270     2.240E-03
+ (a,n) cross-sections used: 00130270 363 Al27 Flynn + Howard up to 9.2 MeV + Emp 3.2.3 above 9.2 MeV MP
+ Branching data used: 00130270 47 71 Al27    TALYS 1.96 - MP
+   140280     9.190E-03
+ (a,n) cross-sections used: 00140280  30 Si28    TALYS 1.9
+ Branching data used: 00140280  8 14 Si28    TALYS 1.9
+   140290     4.510E-04
+ (a,n) cross-sections used: 00140290 756 Si29    Flynn 1978 + TALYS1.96 MP
+ Branching data used: 00140290 20167 Si29    TALYS 1.96 - MP
+   140300     2.880E-04
+ (a,n) cross-sections used: 00140300 334 Si30    Flynn 1978 + TALYS1.96 - MP
+ Branching data used: 00140300 31 62 Si30    TALYS 1.96 - MP
+   190390     4.210E-04
+ (a,n) cross-sections used: 00190390  44  39K  44 points EMPIRE 2.19 calcs
+ Branching data used: 00190390 4 6     k39 empire calculation
+   190400     5.150E-08
+ (a,n) cross-sections used: 00190400 162  40K 162 points  EMPIRE 2.19 calcs
+ Branching data used: 00190400 40 60  40K EMPIRE 2.19 calcs  * con lev *
+   190410     2.890E-05
+ (a,n) cross-sections used: 00190410 149  41K  162 points   EMPIRE 2.19  calcs
+ Branching data used: 00190410 36 57  41K EMPIRE 2.19 calcs  * con lev *
+   200420     1.470E-05
+ (a,n) cross-sections used: 00200420 117  42Ca 117 points   EMPIRE 2.19  calcs
+ Branching data used: 00200420 36434  42Ca TALYS 1.96 - MP
+   200430     3.000E-06
+ (a,n) cross-sections used: 00200430 183  43Ca points  EMPIRE 2.19  calcs
+ Branching data used: 00200430184 78          TALYS 1.96 - MP
+   200440     4.520E-05
+ (a,n) cross-sections used: 00200440 163 44Ca 163 points   EMPIRE 2.19  calcs
+ Branching data used: 00200440185152 44Ca TALYS 1.96 - MP
+   200460     8.300E-08
+ (a,n) cross-sections used: 00200460 182 46Ca 182 points  EMPIRE 2.19 calcs
+ Branching data used: 00200460111 77  46Ca  TALYS 1.96 - MP
+   200480     3.720E-06
+ (a,n) cross-sections used: 00200480 167  48Ca  167 points    EMPIRE 2.19  calcs
+ Branching data used: 00200480 33 93  48Ca EMPIRE 2.19 calcs  * con lev *
+   250550     6.730E-05
+ (a,n) cross-sections used: 00250550 206 Mn55    Tims (1992) + TALYS 1.96 - MP
+ Branching data used: 00250550201 64 Mn55    TALYS 1.96 - MP
+   260540     2.750E-05
+ (a,n) cross-sections used: 00260540  39 Fe54    Talys 1.96 - alphaomp 6 - MP
+ Branching data used: 00260540 10 39 Fe54    TALYS 1.96 - MP
+   260560     4.160E-04
+ (a,n) cross-sections used: 00260560  47 Fe56    TALYS 1.96 alphaomp 6 - MP
+ Branching data used: 00260560 84 47 Fe56    TALYS 1.96 - MP
+   260570     9.440E-06
+ (a,n) cross-sections used: 00260570 133 Fe57    TALYS 1.96 - alphaomp 6 - MP
+ Branching data used: 00260570155 67 Fe57    TALYS 1.96 - MP
+   260580     1.230E-06
+ (a,n) cross-sections used: 00260580  58 Fe58    TALYS 19.6- alphaomp 6 - MP
+ Branching data used: 00260580177 63 Fe58    TALYS 1.96 - MP
+ 
+ 
+
+
+                      Summary of Output
+                      =================
+ 
+Total (alpha,n) neutron source from all sources and targets:  4.779E-15 n/sec-cm^3.
+
+Total spontaneous fission neutron source from all sources and targets:  8.981E-19 n/sec-cm^3.
+
+Total delayed neutron source from all sources and targets:  0.000E+00 n/sec-cm^3.
+
+Total neutron source from all sources and targets:  4.780E-15 n/sec-cm^3.
+
+Average (alpha,n) neutron energy:  1.784E+00 MeV.
+
+Average spontaneous fission neutron energy:  0.00000E+00 MeV.
+
+Average delayed neutron energy:  0.000E+00 MeV.
+
+Average neutron energy from all sources:  1.784E+00 MeV.
+
+Normalized Neutron Energy Spectrum by Energy Group for All Sources:
+
+          Group     Contribution
+          -----     ------------
+             1        4.002E-06
+             2        4.414E-06
+             3        4.847E-06
+             4        5.294E-06
+             5        5.756E-06
+             6        6.237E-06
+             7        6.965E-06
+             8        8.802E-06
+             9        1.139E-05
+            10        1.412E-05
+            11        1.697E-05
+            12        2.002E-05
+            13        2.352E-05
+            14        2.761E-05
+            15        3.167E-05
+            16        3.656E-05
+            17        4.194E-05
+            18        4.733E-05
+            19        5.326E-05
+            20        5.967E-05
+            21        6.624E-05
+            22        7.344E-05
+            23        8.091E-05
+            24        8.844E-05
+            25        9.740E-05
+            26        1.076E-04
+            27        1.205E-04
+            28        1.347E-04
+            29        1.519E-04
+            30        1.709E-04
+            31        1.899E-04
+            32        2.174E-04
+            33        2.484E-04
+            34        2.812E-04
+            35        3.155E-04
+            36        3.529E-04
+            37        3.937E-04
+            38        4.396E-04
+            39        4.861E-04
+            40        5.373E-04
+            41        5.936E-04
+            42        6.528E-04
+            43        7.158E-04
+            44        8.101E-04
+            45        9.164E-04
+            46        1.023E-03
+            47        1.135E-03
+            48        1.297E-03
+            49        1.499E-03
+            50        1.697E-03
+            51        1.921E-03
+            52        2.186E-03
+            53        2.505E-03
+            54        2.860E-03
+            55        3.241E-03
+            56        3.663E-03
+            57        4.152E-03
+            58        4.679E-03
+            59        5.283E-03
+            60        5.940E-03
+            61        6.528E-03
+            62        7.219E-03
+            63        7.917E-03
+            64        8.702E-03
+            65        9.550E-03
+            66        1.039E-02
+            67        1.121E-02
+            68        1.216E-02
+            69        1.305E-02
+            70        1.387E-02
+            71        1.485E-02
+            72        1.606E-02
+            73        1.732E-02
+            74        1.861E-02
+            75        2.003E-02
+            76        2.142E-02
+            77        2.295E-02
+            78        2.449E-02
+            79        2.613E-02
+            80        2.772E-02
+            81        2.938E-02
+            82        3.074E-02
+            83        3.199E-02
+            84        3.324E-02
+            85        3.427E-02
+            86        3.523E-02
+            87        3.596E-02
+            88        3.643E-02
+            89        3.651E-02
+            90        3.655E-02
+            91        3.676E-02
+            92        3.691E-02
+            93        3.672E-02
+            94        3.621E-02
+            95        3.534E-02
+            96        3.333E-02
+            97        3.005E-02
+            98        2.495E-02
+            99        1.833E-02
+           100        8.576E-03
+
+Portion of Total Neutron Source Rate Accounted for in the Total Energy Spectrum:  99.9%.
+
+Portion of Spontaneous Fission Neutron Source Rate Accounted For in the Spontaneous Fission Energy Spectrum: 100.0%.
