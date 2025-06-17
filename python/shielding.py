@@ -52,5 +52,5 @@ def slabFluxIV(a,l1,l2,l3,mus=1.0):
 
   return thetint 
 
-def slabFlux(Sv,a,l1,l2,l3,mus=1.0):
-  return (Sv/(4*np.pi*mus))*(slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
+def slabFlux(a,l1,l2,l3,mus=1.0):
+  return (1/(4*np.pi*mus))*(slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
