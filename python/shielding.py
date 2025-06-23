@@ -20,7 +20,7 @@ def slabFluxI(a,l1,l2,l3,mus=1.0):
   phiint = lambda phi: integrate.quad(integrand,0,np.math.atan(l2/((a+l3)*sec(phi))),args=(phi,))[0]
   thetint = integrate.quad(phiint,0,np.math.atan(l1/(a+l3)))[0]
 
-  return thetint 
+  return (1/(4*np.pi*mus))*thetint 
 
 def slabFluxII(a,l1,l2,l3,mus=1.0):
   if(mus<=0): return 0
@@ -30,7 +30,7 @@ def slabFluxII(a,l1,l2,l3,mus=1.0):
   phiint = lambda phi: integrate.quad(integrand,0,np.math.atan(l2/((a+l3)*sec(phi))),args=(phi,))[0]
   thetint = integrate.quad(phiint,np.math.atan(l1/(a+l3)),np.math.atan(l1/a))[0]
 
-  return thetint 
+  return (1/(4*np.pi*mus))*thetint 
 
 def slabFluxIII(a,l1,l2,l3,mus=1.0):
   if(mus<=0): return 0
@@ -40,7 +40,7 @@ def slabFluxIII(a,l1,l2,l3,mus=1.0):
   phiint = lambda phi: integrate.quad(integrand,np.math.atan(l2/((a+l3)*sec(phi))),np.math.atan(l2/(a*sec(phi))),args=(phi,))[0]
   thetint = integrate.quad(phiint,0,np.math.atan(l1/(a+l3)))[0]
 
-  return thetint 
+  return (1/(4*np.pi*mus))*thetint 
 
 def slabFluxIV(a,l1,l2,l3,mus=1.0):
   if(mus<=0): return 0
@@ -50,7 +50,7 @@ def slabFluxIV(a,l1,l2,l3,mus=1.0):
   phiint = lambda phi: integrate.quad(integrand,np.math.atan(l2/((a+l3)*sec(phi))),np.math.atan(l2/(l1*csc(phi))),args=(phi,))[0]
   thetint = integrate.quad(phiint,np.math.atan(l1/(a+l3)),np.math.atan(l1/a))[0]
 
-  return thetint 
+  return (1/(4*np.pi*mus))*thetint 
 
 def slabFlux(a,l1,l2,l3,mus=1.0):
-  return (1/(4*np.pi*mus))*(slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
+  return (slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
