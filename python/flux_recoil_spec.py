@@ -133,6 +133,42 @@ def SNOLAB_flux(Enmin=1e-3):
 
   return E,F,ff,ffspec
 
+def SNOLAB_shotcrete_source():
+
+  #read the appropriate files
+  th232_chain = pd.read_csv("data/Th232_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+                         sep='\s+')
+  print (th232_chain.head(10))
+  u238_chain = pd.read_csv("data/U238_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+                         sep='\s+')
+  print (u238_chain.head(10))
+
+  u235_chain = pd.read_csv("data/U235_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+                         sep='\s+')
+  print (u235_chain.head(10))
+
+  #get numpy vectors for Th232
+  th232chainEn = np.asarray(th232_chain['Energy'],dtype=float)
+  th232chainRn = np.asarray(th232_chain['Total'],dtype=float)
+  th232chainANRn = np.asarray(th232_chain['a,n'],dtype=float)
+  th232chainSFRn = np.asarray(th232_chain['S.F.'],dtype=float)
+
+  #get numpy fectors for U
+  u238_frac=0.9927
+  u235_frac=0.0072
+
+  u238chainEn = np.asarray(u238_chain['Energy'],dtype=float)
+  u238chainRn = np.asarray(u238_frac*u238_chain['Total'],dtype=float)
+  u238chainANRn = np.asarray(u238_frac*u238_chain['a,n'],dtype=float)
+  u238chainSFRn = np.asarray(u238_frac*u238_chain['S.F.'],dtype=float)
+  
+  u235chainEn = np.asarray(u235_chain['Energy'],dtype=float)
+  u235chainRn = np.asarray(u235_frac*u235_chain['Total'],dtype=float)
+  u235chainANRn = np.asarray(u235_frac*u235_chain['a,n'],dtype=float)
+  u235chainSFRn = np.asarray(u235_frac*u235_chain['S.F.'],dtype=float)
+
+  return  
+
 def dRdEr(Er,En,F,N=100,Z=14,A=28):
 
 
