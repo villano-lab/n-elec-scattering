@@ -3,6 +3,9 @@ import pandas as pd
 import math
 import random
 
+HL_Th= 1.41e10 * 365 * 24 * 3600
+HL_U= 7.04e8*365*24*3600
+
 # Define Isotope class
 class Isotope:
     def __init__(self, name, half_life, decay_modes, count=0, is_stable=False):
@@ -170,6 +173,27 @@ for name, data in U_decay_data.items():
 
 # List of Isotope instances
 u_chain_isotope_list = [U_235] + list(u_chain_isotopes.values()) + [Pb_207]
+
+
+# System of Diff EQs
+def returns_dNndt(t, N, isotopes):
+    dNndt = [0.0] * len(isotopes)
+    branching_ratios=[]
+    for i, isotope in enumerate(isotopes):
+        lambda_i = math.log(2) / isotope.half_life
+        dNndt[i] -= lambda_i * N[i] 
+        for j, parent in enumerate(isotopes):
+            for mode, daughter_name, br in parent.decay_modes:
+                if daughter_name == isotope.name:
+                    lambda_j = math.log(2) / parent.half_life
+                    branching_ratios.append(br)
+                    dNndt[i]+=br*(math.log(2)/parent.half_life)*N[j]
+                else:
+                    branching_ratios.append(0)
+                    dNndt[i]+=0
+    
+
+    return dNndt
     
 
     
