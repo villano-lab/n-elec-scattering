@@ -138,14 +138,14 @@ def SNOLAB_shotcrete_source():
   #read the appropriate files
   th232_chain = pd.read_csv("data/Th232_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep='\s+')
-  print (th232_chain.head(10))
+  #print (th232_chain.head(10))
   u238_chain = pd.read_csv("data/U238_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep='\s+')
-  print (u238_chain.head(10))
+  #print (u238_chain.head(10))
 
   u235_chain = pd.read_csv("data/U235_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep='\s+')
-  print (u235_chain.head(10))
+  #print (u235_chain.head(10))
 
   #get numpy vectors for Th232
   th232chainEn = np.asarray(th232_chain['Energy'],dtype=float)
@@ -167,7 +167,53 @@ def SNOLAB_shotcrete_source():
   u235chainANRn = np.asarray(u235_frac*u235_chain['a,n'],dtype=float)
   u235chainSFRn = np.asarray(u235_frac*u235_chain['S.F.'],dtype=float)
 
-  return  
+  #get the bin width
+  width=np.abs(np.diff(u238chainEn)[0])
+
+  #get the total U chain
+  uchainEn = u238chainEn
+  uchainRn = u238chainRn+u235chainRn
+  uchainANRn = u238chainANRn+u235chainANRn
+  uchainSFRn = u238chainSFRn+u235chainSFRn
+
+  #get the log-log scale factor
+  #moving to log-log scale will require a transformation on the values to account for the change in size of energy bins
+  #we call this factor "jac" after Jacobian
+  jac = 1/(th232chainEn*np.log(10))
+
+  #get variables describing the contamination results
+  u_mid = 2.46e3 #in ppb
+  u_sig = 0.09e3
+  u_range = (u_mid+u_sig,u_mid-u_sig)
+  th_mid = 15.24e3
+  th_sig = 0.14e3
+  th_range = (th_mid+th_sig,th_mid-th_sig)
+  
+  
+  #we can use these pieces to define the upper and lower intervals for the sum
+  #we add the uncertainties for the two in quadrature
+  sumEn = uchainEn
+  sumRn = th_mid*(th232chainRn) + u_mid*(uchainRn)
+  sumsig = np.sqrt(u_sig**2*(uchainRn)**2 + th_sig**2*(th232chainRn)**2)
+  
+  #multiply ultimate uncertainties times 10 so visible
+  sumUp = sumRn+sumsig*10
+  sumDn = sumRn-sumsig*10
+
+
+  #get all fluxesa
+  sumRn = jac*sumRn/width
+  sumRnUp = jac*sumUp/width
+  sumRnDn = jac*sumDn/width
+  thRn = th_mid*jac*th232chainRn/width
+  thRnUp =  th_range[0]*jac*th232chainRn/width
+  thRnDn = th_range[1]*jac*th232chainRn/width
+  uRn = u_mid*jac*uchainRn/width
+  uRnUp = u_range[0]*jac*uchainRn/width
+  uRnDn = u_range[1]*jac*uchainRn/width
+
+
+  return {'E':sumEn,'tot':sumRn, 'totUp':sumRnUp, 'totDn':sumRnDn, 'thtot':thRn, 'thtotUp':thRnUp, 'thtotDn':thRnDn, 'utot':uRn, 'utotUp':uRnUp, 'utotDn':uRnDn}  
 
 def dRdEr(Er,En,F,N=100,Z=14,A=28):
 
