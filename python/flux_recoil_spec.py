@@ -137,14 +137,14 @@ def SNOLAB_shotcrete_source():
 
   #read the appropriate files
   th232_chain = pd.read_csv("data/Th232_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
-                         sep='\s+')
+                         sep=r'\s+')
   #print (th232_chain.head(10))
   u238_chain = pd.read_csv("data/U238_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
-                         sep='\s+')
+                         sep=r'\s+')
   #print (u238_chain.head(10))
 
   u235_chain = pd.read_csv("data/U235_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
-                         sep='\s+')
+                         sep=r'\s+')
   #print (u235_chain.head(10))
 
   #get numpy vectors for Th232
