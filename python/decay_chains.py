@@ -175,6 +175,84 @@ for name, data in U_decay_data.items():
 u_chain_isotope_list = [U_235] + list(u_chain_isotopes.values()) + [Pb_207]
 
 
+U238_decay_data = {
+    "Th_234": {
+        "half_life": 24*24*3600,
+        "decay_modes": [("beta", "Pa_234", 1.0)]
+    },
+    "Pa_234": {
+        "half_life": 1.17*60,
+        "decay_modes": [("beta", "U_234", 1.0)]
+    },
+    "U_234": {
+        "half_life": 245000*365*24*3600,
+        "decay_modes": [("alpha", "Th_230", 1.0)]
+    },
+    "Th_230": {
+        "half_life": 75380*365*24*3600,
+        "decay_modes": [("alpha", "Ra_226", 1.0)]
+    },
+    "Ra_226": {
+        "half_life": 1.602*365*24*3600,
+        "decay_modes": [("alpha", "Rn_222", 1.0)]
+    },
+    "Rn_222": {
+        "half_life": 3.8*24*3600,
+        "decay_modes": [("alpha", "Po_218", 1.0)]
+    },
+    "Po_218": {
+        "half_life": 3.1*60,
+        "decay_modes": [("alpha", "Pb_214", 0.99978),
+                       ("beta", "At_218", 0.00022)]
+    },
+    "Pb_214": {
+        "half_life": 26.8*60,
+        "decay_modes": [("alpha", "Bi_214", 1.0)]
+    },
+    "At_218": {
+        "half_life": 1.5,
+        "decay_modes": [("alpha", "Bi_214", 1.0)]
+    },
+    "Bi_214": {
+        "half_life": 20*60,
+        "decay_modes": [("alpha", "Tl_210", 0.00021),
+                       ("beta", "Po_214", 0.99979)]
+    },
+    "Tl_210": {
+        "half_life": 1.3*60,
+        "decay_modes": [("beta", "Pb_210", 1.0)]
+    },
+    "Po_214": {
+        "half_life": 164.3e-6,
+        "decay_modes": [("alpha", "Pb_210", 1.0)]
+    },
+    "Pb_210": {
+        "half_life": 22.3*365*24*3600,
+        "decay_modes": [("alpha", "Hg_206", 0.000000019),
+                       ("beta", "Bi_210", 1-0.000000019)]
+    },
+    "Hg_206": {
+        "half_life": 8.1*60,
+        "decay_modes": [("beta", "Tl_206", 1.0)]
+    },
+    "Bi_210": {
+        "half_life": 5*24*3600,
+        "decay_modes": [("beta", "Po_210", 0.99999868),
+                       ("alpha","Tl_206",0.00000132)]
+    },
+    "Tl_206": {
+        "half_life": 4.2*60,
+        "decay_modes": [("beta", "Pb_206", 1.0)]
+    },
+    "Po_210": {
+        "half_life": 138*24*3600,
+        "decay_modes": [("alpha", "Pb_206", 1.0)]
+    }
+}
+
+U_238 = Isotope("U_238", 4.5e9*365*24*3600, [("alpha", "Th_234", 1.0)], 6e23)
+Pb_206 = Isotope("Pb_206", float('inf'), [], is_stable=True)
+
 # System of Diff EQs
 def returns_dNndt(t, N, isotopes):
     dNndt = [0.0] * len(isotopes)
