@@ -253,6 +253,14 @@ U238_decay_data = {
 U_238 = Isotope("U_238", 4.5e9*365*24*3600, [("alpha", "Th_234", 1.0)], 6e23)
 Pb_206 = Isotope("Pb_206", float('inf'), [], is_stable=True)
 
+# Build Isotope objects for uranium decay chain
+u238_chain_isotopes = {}
+for name, data in U238_decay_data.items():
+    u238_chain_isotopes[name] = Isotope(name, data["half_life"], data["decay_modes"])
+
+# List of Isotope instances
+u238_chain_isotope_list = [U_238] + list(u238_chain_isotopes.values()) + [Pb_206]
+
 # System of Diff EQs
 def returns_dNndt(t, N, isotopes):
     dNndt = [0.0] * len(isotopes)
