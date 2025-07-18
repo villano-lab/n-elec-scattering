@@ -61,7 +61,7 @@ def Emax(En): #En in keV; returns maximum recoil energy for neutron energy
 def Enmin(Er): #recoil energy in keV; returns minimum neutron energy to give that recoil energy
     return (Er*(ms.m_e+ms.m_n)**2)/(4*ms.m_e*ms.m_n)
 
-def dsigdErNE(En,Er):
+def dsigdErNE(En,Er, M=None):
     if(Er<Emax(En)):
       return 8*np.pi*m_n_CGS**2*gn_CGS**2*mub_CGS**2/hbar_CGS**2/Emax(En)
     else: 
