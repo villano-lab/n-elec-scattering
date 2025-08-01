@@ -5,11 +5,11 @@ This GitHub repository supports the paper "Neutron magnetic scattering backgroun
 
 
 ## Numbered Directories
-**0. Preliminaries**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon
-**1. Neutron-Electron Energy Spectrum**:
-**2. Comparisons**:
-**3. Paper Figures**:
-**4. SNOLAB Flux**:
+**0. Preliminaries**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon but the inclusion of these calculations provides a strong baseline for comparison with neutron-electron scattering.
+<br />**1. Neutron-Electron Energy Spectrum**:
+<br />**2. Comparisons**:
+<br />**3. Paper Figures**:
+<br />**4. SNOLAB Flux**:
 
 ## Important Files
 
