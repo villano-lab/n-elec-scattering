@@ -48,5 +48,7 @@ The `python` directory contains some sets of useful functions, many of which are
 # Contributors
 
 Kitty C. Mickelson
+Jacob A. Tarnoff
+Anthony N. Villano
 
 *Last updated 4 September 2024, v?*
