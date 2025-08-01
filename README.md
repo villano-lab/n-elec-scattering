@@ -7,9 +7,9 @@ This GitHub repository supports the paper "Neutron magnetic scattering backgroun
 ## Numbered Directories
 **0-Preliminaries**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon but the inclusion of these calculations provides a strong baseline for comparison with neutron-electron scattering.
 <br /><br />**1-Neutron-Electron Energy Spectrum**: This directory contains the full computational workflow for calculating recoil energy spectra from neutron–electron magnetic scattering. It builds off the foundational nuclear interaction modeling from `0 - Preliminaries` and pivots to focus exclusively on electron recoils, which are the central background of concern for low-threshold detectors.
-<br /><br />**2-Comparisons**:
+<br /><br />**2-Comparisons**: This directory is dedicated to putting neutron–electron magnetic scattering in context by comparing it to other backgrounds and experimental results. It marks the transition from the raw calculations derived in `1-Neutron-Electron Energy Spectrum` to scientific interpretation and data comparison. This allows us to determine the extent to which neutron–electron scattering plays a relevant role compared to known backgrounds such as neutron-nucleus scattering and internal beta decay.
 <br /><br />**3-Paper Figures**:
-<br /><br />**4-SNOLAB Flux**:
+<br /><br />**4- SNOLAB Flux**:
 
 ## Important Files
 
