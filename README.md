@@ -7,9 +7,14 @@ Neutron-electron scattering as a low-energy DM background
 
 The `python` directory contains some sets of useful functions, many of which are self-explanatory.
 
-* `neut-e-calc.nb` checks the cross-sectiion calculations with a different method.
+* `neut-e-calc.nb` checks the cross-section calculations with a different method.
 
 ### Numbered Directories
+0. Preliminaries
+1. Neutron-Electron Energy Spectrum
+2. Comparisons
+3. Paper Figures
+4. SNOLAB Flux
 
 ### Organization to do
 * Rename notebooks so that there is a clear order
