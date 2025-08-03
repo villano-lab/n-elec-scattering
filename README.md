@@ -5,12 +5,28 @@ This GitHub repository supports the paper "Neutron magnetic scattering backgroun
 
 
 ## Numbered Directories
-**0-Simulation-Inputs**: 
+**0-Simulation-Inputs**: This directory contains all source term and geometry modeling inputs used to simulate neutron production and propagation through shielding materials, particularly relevant to underground labs such as SNOLAB. It includes two major subdirectories:
+
+- SNOLAB Flux: Notebooks and data for modeling decay chains, shielding configurations, and source terms using tools such as `SOURCES-4A`. These simulations serve as the foundation for realistic neutron flux inputs, including outputs from decay chains and transport geometries.
+- SOURCES: Contains source code, inputs, and output files for running the `SOURCES-4A` simulation package. It also includes configuration tapes and documentation for generating neutron spectra from radioactive decay of uranium and thorium chains within various materials.
+
+These tools and data together form the foundation for flux modeling and serve as input for both neutron-nucleus and neutron-electron recoil calculations downstream.
+
 <br /><br />**1-Neutron-Nucleus-Scattering**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon but the inclusion of these calculations provides a strong baseline for comparison with neutron-electron scattering.
-<br /><br />**2-Neutron-Electron Scattering**: his directory contains the full computational workflow for calculating recoil energy spectra from neutron–electron magnetic scattering. It builds off the foundational nuclear interaction modeling from `0 - Preliminaries` and pivots to focus exclusively on electron recoils, which are the central background of concern for low-threshold detectors.
-<br /><br />**3-Flux Modeling**: 
-<br /><br />**4-Comparisons**: This directory is dedicated to putting neutron–electron magnetic scattering in context by comparing it to other backgrounds and experimental results. It marks the transition from the raw calculations derived in `1-Neutron-Electron Energy Spectrum` to scientific interpretation and data comparison. This allows us to determine the extent to which neutron–electron scattering plays a relevant role compared to known backgrounds such as neutron-nucleus scattering and internal beta decay.
-<br /><br />**5-Final Figures**: This directory contains finalized plots and figures to be used in the published paper and depict neutron flux characterization and event rate predictions and comparisons.
+
+<br /><br />**2-Neutron-Electron Scattering**: This directory contains the full computational workflow for calculating recoil energy spectra from neutron–electron magnetic scattering, including differential cross-section evaluation, symbolic and numerical modeling, and energy scale comparisons. It builds upon foundational tools from `1-Neutron-Nucleus-Scattering` and includes exploratory notebooks that support validation and robustness checks of the electron recoil predictions, which are central to rare-event backgrounds in low-threshold detectors.
+
+<br /><br />**3-Flux Modeling**: This directory focuses on modeling the energy distribution and transformation of neutron fluxes. It bridges raw source term outputs from `0-Simulation-Inputs` with physical predictions of how these neutrons interact and produce detectable signals:
+
+- SCDMS_flux: Contains Jupyter notebooks and reference data used to construct, transform, and validate neutron flux models. This includes lab-to-center-of-mass transformations, energy spectrum visualization, symbolic calculations, and mass reference tables.
+
+- saved_data: Stores precomputed neutron recoil spectra (`dRdEr`) in HDF5 format, which can be used for fast downstream analysis without re-running computationally expensive flux convolution calculations.
+
+These flux modeling tools are central to predicting and comparing event rates from different neutron sources in various experimental environments.
+
+<br /><br />**4-Comparisons**: This directory provides comparative analyses between neutron–electron magnetic scattering and other known backgrounds, such as neutron–nucleus scattering and beta decays. It contains overlay plots, rate comparisons, and trace analysis to contextualize the relative importance of each background in experimental settings. This marks the transition from theoretical modeling to data-driven interpretation.
+
+<br /><br />**5-Final-Figures**: This directory contains finalized plots and figures to be used in the published paper and depict neutron flux characterization and event rate predictions and comparisons.
 
 
 ## Important Files
