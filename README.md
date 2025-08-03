@@ -37,8 +37,11 @@ If you're using the notebooks interactively, these modules are typically importe
 
 
 ## References
-1. SuperCDMS Collaboration, October 4, 2016. Projected Sensitivity of the SuperCDMS SNOLAB experiment. [arXiv:1610.00006](https://arxiv.org/abs/1610.00006), [DOI:10.1103/PhysRevD.95.082002](https://doi.org/10.1103/PhysRevD.95.082002).
-2. A.J. Biffl and A.N. Villano, July 11, 2024. Analytical computation of neutron recoil spectra for rare-event backgrounds.
+
+1. SuperCDMS Collaboration, October 4, 2016. *Projected Sensitivity of the SuperCDMS SNOLAB experiment*. [arXiv:1610.00006](https://arxiv.org/abs/1610.00006), [DOI:10.1103/PhysRevD.95.082002](https://doi.org/10.1103/PhysRevD.95.082002).
+2. A.J. Biffl and A.N. Villano, July 11, 2024. *Analytical computation of neutron recoil spectra for rare-event backgrounds*.
+
+*This repository supports the forthcoming publication: "Neutron Magnetic Scattering Backgrounds for Low-Threshold Rare-Event Searches", 2025.*
 
 ## Contributors
 
@@ -47,4 +50,4 @@ Kitty C. Mickelson <br />
 Jacob A. Tarnoff <br />
 Anthony N. Villano
 
-*Last updated 4 September 2024, v?*
+*For questions or issues, please open a GitHub issue or contact the authors.*
