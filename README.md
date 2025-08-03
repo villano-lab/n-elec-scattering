@@ -36,11 +36,11 @@ The `python/` directory contains reusable Python modules used across multiple no
 If you're using the notebooks interactively, these modules are typically imported at the top of each notebook. Each module is documented inline, and a list of their functions and purposes can be found in the [`python/README.md`](python/README.md) (to be created or expanded).
 
 
-# References
+## References
 1. SuperCDMS Collaboration, October 4, 2016. Projected Sensitivity of the SuperCDMS SNOLAB experiment. [arXiv:1610.00006](https://arxiv.org/abs/1610.00006), [DOI:10.1103/PhysRevD.95.082002](https://doi.org/10.1103/PhysRevD.95.082002).
 2. A.J. Biffl and A.N. Villano, July 11, 2024. Analytical computation of neutron recoil spectra for rare-event backgrounds.
 
-# Contributors
+## Contributors
 
 Layne N. Hellman <br />
 Kitty C. Mickelson <br />
