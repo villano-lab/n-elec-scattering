@@ -7,8 +7,8 @@ This GitHub repository supports the paper "Neutron magnetic scattering backgroun
 ## Numbered Directories
 **0-Simulation-Inputs**: This directory contains all source term and geometry modeling inputs used to simulate neutron production and propagation through shielding materials, particularly relevant to underground labs such as SNOLAB. It includes two major subdirectories:
 
-- SNOLAB Flux: Notebooks and data for modeling decay chains, shielding configurations, and source terms using tools such as `SOURCES-4A`. These simulations serve as the foundation for realistic neutron flux inputs, including outputs from decay chains and transport geometries.
-- SOURCES: Contains source code, inputs, and output files for running the `SOURCES-4A` simulation package. It also includes configuration tapes and documentation for generating neutron spectra from radioactive decay of uranium and thorium chains within various materials.
+- **SNOLAB Flux**: Notebooks and data for modeling decay chains, shielding configurations, and source terms using tools such as `SOURCES-4A`. These simulations serve as the foundation for realistic neutron flux inputs, including outputs from decay chains and transport geometries.
+- **SOURCES**: Contains source code, inputs, and output files for running the `SOURCES-4A` simulation package. It also includes configuration tapes and documentation for generating neutron spectra from radioactive decay of uranium and thorium chains within various materials.
 
 These tools and data together form the foundation for flux modeling and serve as input for both neutron-nucleus and neutron-electron recoil calculations downstream.
 
@@ -18,9 +18,9 @@ These tools and data together form the foundation for flux modeling and serve as
 
 **3-Flux Modeling**: This directory focuses on modeling the energy distribution and transformation of neutron fluxes. It bridges raw source term outputs from `0-Simulation-Inputs` with physical predictions of how these neutrons interact and produce detectable signals:
 
-- SCDMS_flux: Contains Jupyter notebooks and reference data used to construct, transform, and validate neutron flux models. This includes lab-to-center-of-mass transformations, energy spectrum visualization, symbolic calculations, and mass reference tables.
+- **SCDMS_flux**: Contains Jupyter notebooks and reference data used to construct, transform, and validate neutron flux models. This includes lab-to-center-of-mass transformations, energy spectrum visualization, symbolic calculations, and mass reference tables.
 
-- saved_data: Stores precomputed neutron recoil spectra (`dRdEr`) in HDF5 format, which can be used for fast downstream analysis without re-running computationally expensive flux convolution calculations.
+- **saved_data**: Stores precomputed neutron recoil spectra (`dRdEr`) in HDF5 format, which can be used for fast downstream analysis without re-running computationally expensive flux convolution calculations.
 
 These flux modeling tools are central to predicting and comparing event rates from different neutron sources in various experimental environments.
 
@@ -33,7 +33,17 @@ These flux modeling tools are central to predicting and comparing event rates fr
 
 The `python/` directory contains reusable Python modules used across multiple notebooks. These include utilities for computing differential cross sections, handling recoil energy spectra, managing isotope data, and plotting.
 
+The `data_files/` directory contains supplemental input data used across modules and notebooks, such as atomic form factors, isotope mass tables, and preprocessed constants or spectra. These files are considered reusable reference data—not simulation outputs.
+
+The `mplstyles/` directory contains custom Matplotlib style sheets to ensure consistent aesthetics for figures produced across the project. These are automatically loaded by plotting modules or notebooks and help standardize the appearance of publication-quality figures.
+
 If you're using the notebooks interactively, these modules are typically imported at the top of each notebook. Each module is documented inline, and a list of their functions and purposes can be found in the [`python/README.md`](python/README.md) (to be created or expanded).
+
+## Root Files
+
+- `.gitignore`: Specifies patterns for files and folders that should be excluded from version control (e.g., temporary outputs, local cache files).
+- `LICENSE`: The license under which this repository is released. (Default is MIT unless stated otherwise.)
+- `environment.yml`: A Conda environment specification file listing all dependencies needed to run the notebooks. You can recreate the environment using:
 
 
 ## References
