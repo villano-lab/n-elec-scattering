@@ -12,11 +12,11 @@ This GitHub repository supports the paper "Neutron magnetic scattering backgroun
 
 These tools and data together form the foundation for flux modeling and serve as input for both neutron-nucleus and neutron-electron recoil calculations downstream.
 
-<br /><br />**1-Neutron-Nucleus-Scattering**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon but the inclusion of these calculations provides a strong baseline for comparison with neutron-electron scattering.
+**1-Neutron-Nucleus-Scattering**: This directory computes neutron-nucleus recoil energy spectra. This is a relatively well-understood and documented phenomenon but the inclusion of these calculations provides a strong baseline for comparison with neutron-electron scattering.
 
-<br /><br />**2-Neutron-Electron Scattering**: This directory contains the full computational workflow for calculating recoil energy spectra from neutron–electron magnetic scattering, including differential cross-section evaluation, symbolic and numerical modeling, and energy scale comparisons. It builds upon foundational tools from `1-Neutron-Nucleus-Scattering` and includes exploratory notebooks that support validation and robustness checks of the electron recoil predictions, which are central to rare-event backgrounds in low-threshold detectors.
+**2-Neutron-Electron Scattering**: This directory contains the full computational workflow for calculating recoil energy spectra from neutron–electron magnetic scattering, including differential cross-section evaluation, symbolic and numerical modeling, and energy scale comparisons. It builds upon foundational tools from `1-Neutron-Nucleus-Scattering` and includes exploratory notebooks that support validation and robustness checks of the electron recoil predictions, which are central to rare-event backgrounds in low-threshold detectors.
 
-<br /><br />**3-Flux Modeling**: This directory focuses on modeling the energy distribution and transformation of neutron fluxes. It bridges raw source term outputs from `0-Simulation-Inputs` with physical predictions of how these neutrons interact and produce detectable signals:
+**3-Flux Modeling**: This directory focuses on modeling the energy distribution and transformation of neutron fluxes. It bridges raw source term outputs from `0-Simulation-Inputs` with physical predictions of how these neutrons interact and produce detectable signals:
 
 - SCDMS_flux: Contains Jupyter notebooks and reference data used to construct, transform, and validate neutron flux models. This includes lab-to-center-of-mass transformations, energy spectrum visualization, symbolic calculations, and mass reference tables.
 
@@ -24,9 +24,9 @@ These tools and data together form the foundation for flux modeling and serve as
 
 These flux modeling tools are central to predicting and comparing event rates from different neutron sources in various experimental environments.
 
-<br /><br />**4-Comparisons**: This directory provides comparative analyses between neutron–electron magnetic scattering and other known backgrounds, such as neutron–nucleus scattering and beta decays. It contains overlay plots, rate comparisons, and trace analysis to contextualize the relative importance of each background in experimental settings. This marks the transition from theoretical modeling to data-driven interpretation.
+**4-Comparisons**: This directory provides comparative analyses between neutron–electron magnetic scattering and other known backgrounds, such as neutron–nucleus scattering and beta decays. It contains overlay plots, rate comparisons, and trace analysis to contextualize the relative importance of each background in experimental settings. This marks the transition from theoretical modeling to data-driven interpretation.
 
-<br /><br />**5-Final-Figures**: This directory contains finalized plots and figures to be used in the published paper and depict neutron flux characterization and event rate predictions and comparisons.
+**5-Final-Figures**: This directory contains finalized plots and figures to be used in the published paper and depict neutron flux characterization and event rate predictions and comparisons.
 
 
 ## Important Files
