@@ -85,13 +85,13 @@ def SNOLAB_flux(Enmin=1e-3):
 
   cutoff=0.3
 
-  ffhe = ff[ff>cutoff]
+  ffhe = ff[ff>cutoff] #high energy >0.3MeV
   ffhespec = ffspec[ff>cutoff]
   
   #smooth the data
   ffhespec_smooth = signal.savgol_filter(ffhespec, 2001, 3) # window size 1001, polynomial order 3
   
-  ffle = ff[ff<=cutoff]
+  ffle = ff[ff<=cutoff] #low energy
   fflespec = ffspec[ff<=cutoff]
   print(np.size(ffle))
   
