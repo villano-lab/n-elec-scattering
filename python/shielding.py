@@ -56,11 +56,37 @@ def slabFluxIV(a,l1,l2,l3,mus=1.0):
 def slabFlux(a,l1,l2,l3,mus=1.0):
   return (slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
 
-def getEs(): 
+En = np.geomspace(1e-11, 100, 1000) 
+# get energies log scale
+'''# Load total elastic cross sections for all 3 Silicon isotopes
+f_28 = endfel.fetch_elastic(filename='../data_files/xn_data/si28_el.txt')
+f_29 = endfel.fetch_elastic(filename='../data_files/xn_data/si29_el.txt')
+f_30 = endfel.fetch_elastic(filename='../data_files/xn_data/si30_el.txt')
 
+# Load total elastic cross sections for all 5 Germanium isotopes
+f_70 = endfel.fetch_elastic(filename='../data_files/xn_data/ge70_el.txt')
+f_72 = endfel.fetch_elastic(filename='../data_files/xn_data/ge72_el.txt')
+f_73 = endfel.fetch_elastic(filename='../data_files/xn_data/ge73_el.txt')
+f_74 = endfel.fetch_elastic(filename='../data_files/xn_data/ge74_el.txt')
+f_76 = endfel.fetch_elastic(filename='../data_files/xn_data/ge76_el.txt')
+
+ax1.plot(En, f_28(En), label="28-Si")
+ax1.plot(En, f_29(En), label="29-Si", linestyle="--")
+ax1.plot(En, f_30(En), label="30-Si", linestyle=":")
+'''
     
-def Edep(a, l1, l2, l3, energies)
-    #for each energy
+def Edep28(a, l1, l2, l3, energies):
+    f28=endfel.fetch_elastic(filename='../data_files/xn_data/si28_el.txt') #Load cross section from ENDF file for Si28 
+    N=4.01501E23 # number density of oxygen
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f28(E) #total elastic cross section
+        big_sig=N*sig #macroscopic cross section
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux
+        
+        
+        
     #get total xn
     #run previous function (slab flux)
     #populate flux vector
