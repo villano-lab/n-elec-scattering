@@ -56,7 +56,6 @@ def slabFluxIV(a,l1,l2,l3,mus=1.0):
 def slabFlux(a,l1,l2,l3,mus=1.0):
   return (slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
 
-En = np.geomspace(1e-11, 100, 1000) 
 # get energies log scale
 '''# Load total elastic cross sections for all 3 Silicon isotopes
 f_28 = endfel.fetch_elastic(filename='../data_files/xn_data/si28_el.txt')
@@ -130,12 +129,22 @@ def Edep73(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux  
 
-def Edep73(a, l1, l2, l3, energies):
+def Edep74(a, l1, l2, l3, energies):
     f74 = endfel.fetch_elastic(filename='../data_files/xn_data/ge74_el.txt')
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
         sig=f74(E)
+        big_sig=N*sig 
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux  
+
+def Edep76(a, l1, l2, l3, energies):
+    f76 = endfel.fetch_elastic(filename='../data_files/xn_data/ge76_el.txt')
+    N=4.01501E23 
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f76(E)
         big_sig=N*sig 
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux  
