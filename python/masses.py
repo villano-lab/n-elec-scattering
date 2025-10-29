@@ -12,7 +12,7 @@ notebook_dir = Path(os.getcwd())
 file_path = notebook_dir / '../data/myfile.csv'
 '''
 import pathlib
-from pathlib import path
+from pathlib import Path
 import os
 
 module_dir = Path(os.getcwd())
