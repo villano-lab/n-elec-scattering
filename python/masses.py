@@ -1,6 +1,21 @@
 import scipy.constants as co
 import fortranformat as ff
 import numpy as np
+'''
+from pathlib import Path
+import os
+
+# Get the current notebook’s directory
+notebook_dir = Path(os.getcwd())
+
+# Build your path relative to this
+file_path = notebook_dir / '../data/myfile.csv'
+'''
+import pathlib
+from pathlib import path
+import os
+
+module_dir = Path(os.getcwd())
 
 
 amu2g = 1.66054e-24
@@ -9,7 +24,7 @@ m_n = co.physical_constants['neutron mass energy equivalent in MeV'][0]
 m_e = co.physical_constants['electron mass energy equivalent in MeV'][0]
 
 #see: https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt
-def readFile(filename='../data_files/isotope_data/mass_1.mas20.txt'):
+def readFile(filename=module_dir/'../data_files/isotope_data/mass_1.mas20.txt'):
 
   format = ff.FortranRecordReader('(a1,i3,i5,i5,i5,1x,a3,a4,1x,f14.6,f12.6,f13.5,1x,f10.5,1x,a2,f13.5,f11.5,1x,i3,1x,f13.6,f12.6)')
   f = open(filename, 'r')
