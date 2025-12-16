@@ -177,7 +177,7 @@ def fetch_diff_xn(En=1e6,*,f=None,a=None,sigtotfile=str(DATA_DIR/'xn_data'/'si28
   fout = np.polynomial.legendre.Legendre(c)
   return fout
 
-def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile='../data_files/xn_data/si28_el.txt',endffile='../data_files/xn_data/n-014_Si_028.endf'):
+def fetch_der_xn(En=1e6,*,M=ms.getMass(14,28),pts=100,eps=1e-5,f=None,a=None,sigtotfile=str(DATA_DIR/'xn_data'/'si28_el.txt'),endffile=str(DATA_DIR/'xn_data'/'n-014_Si_028.endf')):
 
   global directory
 
