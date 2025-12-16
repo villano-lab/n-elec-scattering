@@ -7,9 +7,13 @@ import masses as ms
 barns2cm2 = 1e-24
 keV2MeV = 1e-3
 
-directory='../data_files/xn_data/'
+import pathlib
+from pathlib import Path
 
-def set_dir(d='../data_files/xn_data/'):
+MODULE_DIR = Path(__file__).resolve().parent
+DATA_DIR = MODULE_DIR.parent / "data_files" 
+
+def set_dir(d=str(DATA_DIR/'xn_data/')):
   global directory
   directory=d
   return
@@ -19,7 +23,7 @@ def print_dir():
   print(directory)
   return
 
-def fetch_elastic(filename='../data_files/xn_data/si28_el.txt'):
+def fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt')):
   el = pds.read_csv(filename, skiprows=11,skipfooter=2, \
           names=['neutE', 'xn'],sep='\s+',engine='python')
 
@@ -42,7 +46,7 @@ def fetch_elastic(filename='../data_files/xn_data/si28_el.txt'):
 
   return f
 
-def fetch_elastic_angular(filename='../data_files/xn_data/n-014_Si_028.endf'):
+def fetch_elastic_angular(filename=str(DATA_DIR/'xn_data'/'n-014_Si_028.endf')):
 
   #check if it's an ENDF file somehow?
 

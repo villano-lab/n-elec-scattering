@@ -1,5 +1,11 @@
 #library to compute shielding functions by J.O. Wallace (1976) 
 #see N-MISC-25-001
+import pathlib
+from pathlib import Path
+
+MODULE_DIR = Path(__file__).resolve().parent
+DATA_DIR = MODULE_DIR.parent / "data_files" 
+
 import numpy as np
 import ENDF6el as endfel
 import scipy.integrate as integrate
