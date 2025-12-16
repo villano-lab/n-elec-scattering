@@ -81,7 +81,7 @@ ax1.plot(En, f_30(En), label="30-Si", linestyle=":")
 '''
     
 def Edep28(a, l1, l2, l3, energies):
-    f28=endfel.fetch_elastic(filename='../data_files/xn_data/si28_el.txt') #Load cross section from ENDF file for Si28 
+    f28=endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt')) #Load cross section from ENDF file for Si28 
     N=4.01501E23 # number density of oxygen
     flux=[]
     for i,E in enumerate(energies):
@@ -91,7 +91,7 @@ def Edep28(a, l1, l2, l3, energies):
     return flux
         
 def Edep29(a, l1, l2, l3, energies):
-    f29 = endfel.fetch_elastic(filename='../data_files/xn_data/si29_el.txt') #Load cross section from ENDF file for Si29
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt')) #Load cross section from ENDF file for Si29
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
@@ -105,7 +105,7 @@ def Edep29(a, l1, l2, l3, energies):
 #Energy dependent flux functions for all five Germanium isotopes
 
 def Edep70(a, l1, l2, l3, energies):
-    f70 = endfel.fetch_elastic(filename='../data_files/xn_data/ge70_el.txt') #load cross section for Ge70
+    f70 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge70_el.txt')) #load cross section for Ge70
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
@@ -116,7 +116,7 @@ def Edep70(a, l1, l2, l3, energies):
 
 
 def Edep72(a, l1, l2, l3, energies):
-    f72 = endfel.fetch_elastic(filename='../data_files/xn_data/ge72_el.txt') #Load cross section for Ge72
+    f72 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge72_el.txt')) #Load cross section for Ge72
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
@@ -126,7 +126,7 @@ def Edep72(a, l1, l2, l3, energies):
     return flux  
 
 def Edep73(a, l1, l2, l3, energies):
-    f73 = endfel.fetch_elastic(filename='../data_files/xn_data/ge73_el.txt') #Load cross section for Ge73
+    f73 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge73_el.txt')) #Load cross section for Ge73
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
@@ -136,7 +136,7 @@ def Edep73(a, l1, l2, l3, energies):
     return flux  
 
 def Edep74(a, l1, l2, l3, energies):
-    f74 = endfel.fetch_elastic(filename='../data_files/xn_data/ge74_el.txt')
+    f74 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge74_el.txt'))
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
@@ -146,7 +146,7 @@ def Edep74(a, l1, l2, l3, energies):
     return flux  
 
 def Edep76(a, l1, l2, l3, energies):
-    f76 = endfel.fetch_elastic(filename='../data_files/xn_data/ge76_el.txt')
+    f76 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge76_el.txt'))
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
