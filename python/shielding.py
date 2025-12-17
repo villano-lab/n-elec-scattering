@@ -82,7 +82,7 @@ ax1.plot(En, f_30(En), label="30-Si", linestyle=":")
     
 def Edep28(a, l1, l2, l3, energies):
     f28=endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt')) #Load cross section from ENDF file for Si28 
-    N=4.01501E23 # number density of oxygen
+    N=1.32941E23 # number density of oxygen
     flux=[]
     for i,E in enumerate(energies):
         sig=f28(E) #total elastic cross section
@@ -92,6 +92,36 @@ def Edep28(a, l1, l2, l3, energies):
         
 def Edep29(a, l1, l2, l3, energies):
     f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt')) #Load cross section from ENDF file for Si29
+    N=1.32941E23 
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f29(E) 
+        big_sig=N*sig 
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux
+
+def Edep16(a, l1, l2, l3, energies):
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt')) #Load cross section from ENDF file for O16
+    N=4.01501E23 
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f29(E) 
+        big_sig=N*sig 
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux
+
+def Edep17(a, l1, l2, l3, energies):
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt')) #Load cross section from ENDF file for O17
+    N=4.01501E23 
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f29(E) 
+        big_sig=N*sig 
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux
+
+def Edep18(a, l1, l2, l3, energies):
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt')) #Load cross section from ENDF file for O18
     N=4.01501E23 
     flux=[]
     for i,E in enumerate(energies):
