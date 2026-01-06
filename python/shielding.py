@@ -62,131 +62,71 @@ def slabFluxIV(a,l1,l2,l3,mus=1.0):
 def slabFlux(a,l1,l2,l3,mus=1.0):
   return (slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
 
-# get energies log scale
-'''# Load total elastic cross sections for all 3 Silicon isotopes
-f_28 = endfel.fetch_elastic(filename='../data_files/xn_data/si28_el.txt')
-f_29 = endfel.fetch_elastic(filename='../data_files/xn_data/si29_el.txt')
-f_30 = endfel.fetch_elastic(filename='../data_files/xn_data/si30_el.txt')
 
-# Load total elastic cross sections for all 5 Germanium isotopes
-f_70 = endfel.fetch_elastic(filename='../data_files/xn_data/ge70_el.txt')
-f_72 = endfel.fetch_elastic(filename='../data_files/xn_data/ge72_el.txt')
-f_73 = endfel.fetch_elastic(filename='../data_files/xn_data/ge73_el.txt')
-f_74 = endfel.fetch_elastic(filename='../data_files/xn_data/ge74_el.txt')
-f_76 = endfel.fetch_elastic(filename='../data_files/xn_data/ge76_el.txt')
-
-ax1.plot(En, f_28(En), label="28-Si")
-ax1.plot(En, f_29(En), label="29-Si", linestyle="--")
-ax1.plot(En, f_30(En), label="30-Si", linestyle=":")
-'''
     
 def Edep28(a, l1, l2, l3, energies):
     f28=endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt')) #Load cross section from ENDF file for Si28 
-    N=1.32941E23 # number density of oxygen
+    N=1.32941e23*0.922 # number density of Si in shotcrete * relative abundance of 28Si
     flux=[]
     for i,E in enumerate(energies):
         sig=f28(E) #total elastic cross section
-        big_sig=N*sig #macroscopic cross section
+        big_sig=N*sig*1e-24 #macroscopic cross section
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
         
 def Edep29(a, l1, l2, l3, energies):
     f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt')) #Load cross section from ENDF file for Si29
-    N=1.32941E23 
+    N=1.32941e23*0.0466
     flux=[]
     for i,E in enumerate(energies):
         sig=f29(E) 
-        big_sig=N*sig 
+        big_sig=N*sig*1e-24 #number density * microscopic xn * barns to cm^2 conversion
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-def Edep16(a, l1, l2, l3, energies):
-    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt')) #Load cross section from ENDF file for O16
-    N=4.01501E23 
+def Edep30(a, l1, l2, l3, energies):
+    f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt')) #Load cross section from ENDF file for Si29
+    N=1.32941e23*0.0307 
     flux=[]
     for i,E in enumerate(energies):
-        sig=f29(E) 
-        big_sig=N*sig 
+        sig=f30(E) 
+        big_sig=N*sig*1e-24 #number density * microscopic xn * barns to cm^2 conversion
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+    return flux
+
+    
+
+def Edep16(a, l1, l2, l3, energies):
+    f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt')) #Load cross section from ENDF file for O16
+    N=4.01501E23 * 0.9975 #number density of O in shotcrete * relative abundance of 16O
+    flux=[]
+    for i,E in enumerate(energies):
+        sig=f16(E) 
+        big_sig=N*sig*1e-24  #number density of 16O * microscopic xn * barns to cm^2 conversion
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
 def Edep17(a, l1, l2, l3, energies):
-    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt')) #Load cross section from ENDF file for O17
-    N=4.01501E23 
+    f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt')) #Load cross section from ENDF file for O17
+    N=4.01501E23 *0.00038
     flux=[]
     for i,E in enumerate(energies):
-        sig=f29(E) 
-        big_sig=N*sig 
+        sig=f17(E) 
+        big_sig=N*sig*1e-24
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
 def Edep18(a, l1, l2, l3, energies):
-    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt')) #Load cross section from ENDF file for O18
-    N=4.01501E23 
+    f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt')) #Load cross section from ENDF file for O18
+    N=4.01501E23 * 0.002
     flux=[]
     for i,E in enumerate(energies):
-        sig=f29(E) 
-        big_sig=N*sig 
+        sig=f18(E) 
+        big_sig=N*sig*1e-24
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
 
 
-#Energy dependent flux functions for all five Germanium isotopes
 
-def Edep70(a, l1, l2, l3, energies):
-    f70 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge70_el.txt')) #load cross section for Ge70
-    N=4.01501E23 
-    flux=[]
-    for i,E in enumerate(energies):
-        sig=f70(E) 
-        big_sig=N*sig
-        flux.append(slabFlux(a, l1, l2, l3, big_sig))
-    return flux    
-
-
-def Edep72(a, l1, l2, l3, energies):
-    f72 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge72_el.txt')) #Load cross section for Ge72
-    N=4.01501E23 
-    flux=[]
-    for i,E in enumerate(energies):
-        sig=f72(E)
-        big_sig=N*sig 
-        flux.append(slabFlux(a, l1, l2, l3, big_sig))
-    return flux  
-
-def Edep73(a, l1, l2, l3, energies):
-    f73 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge73_el.txt')) #Load cross section for Ge73
-    N=4.01501E23 
-    flux=[]
-    for i,E in enumerate(energies):
-        sig=f73(E)
-        big_sig=N*sig 
-        flux.append(slabFlux(a, l1, l2, l3, big_sig))
-    return flux  
-
-def Edep74(a, l1, l2, l3, energies):
-    f74 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge74_el.txt'))
-    N=4.01501E23 
-    flux=[]
-    for i,E in enumerate(energies):
-        sig=f74(E)
-        big_sig=N*sig 
-        flux.append(slabFlux(a, l1, l2, l3, big_sig))
-    return flux  
-
-def Edep76(a, l1, l2, l3, energies):
-    f76 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'ge76_el.txt'))
-    N=4.01501E23 
-    flux=[]
-    for i,E in enumerate(energies):
-        sig=f76(E)
-        big_sig=N*sig 
-        flux.append(slabFlux(a, l1, l2, l3, big_sig))
-    return flux  
-
-    
-    #get total xn
-    #run previous function (slab flux)
-    #populate flux vector
     #return fluxvector
