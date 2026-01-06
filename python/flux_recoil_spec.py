@@ -18,7 +18,8 @@ import json
 import time
 
 MODULE_DIR = Path(__file__).resolve().parent
-print(MODULE_DIR)
+TOP_DIR= MODULE_DIR.parent
+
 
 #############
 # Constants #
@@ -140,14 +141,14 @@ def SNOLAB_flux(Enmin=1e-3):
 def SNOLAB_shotcrete_source():
 
   #read the appropriate files
-  th232_chain = pd.read_csv("data/Th232_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+  th232_chain = pd.read_csv(TOP_DIR/"2-Flux/SNOLAB_Flux/data/Th232_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep=r'\s+')
   #print (th232_chain.head(10))
-  u238_chain = pd.read_csv("data/U238_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+  u238_chain = pd.read_csv(TOP_DIR/"2-Flux/SNOLAB_Flux/data/U238_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep=r'\s+')
   #print (u238_chain.head(10))
 
-  u235_chain = pd.read_csv("data/U235_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
+  u235_chain = pd.read_csv(TOP_DIR/"2-Flux/SNOLAB_Flux/data/U235_summary_1ppb_250609.txt", skiprows=1, engine='python', names=['Energy','a,n','S.F.','Total'], \
                          sep=r'\s+')
   #print (u235_chain.head(10))
 
