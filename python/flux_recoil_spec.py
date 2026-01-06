@@ -17,6 +17,9 @@ from pathlib import Path
 import json
 import time
 
+MODULE_DIR = Path(__file__).resolve().parent
+print(MODULE_DIR)
+
 #############
 # Constants #
 #############
@@ -132,6 +135,7 @@ def SNOLAB_flux(Enmin=1e-3):
   print(np.max(EE),np.min(etot))
 
   return E,F,ff,ffspec
+
 
 def SNOLAB_shotcrete_source():
 
