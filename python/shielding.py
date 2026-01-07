@@ -125,6 +125,15 @@ def Edep18(a, l1, l2, l3, energies):
         big_sig=N*sig*1e-24
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
+    
+def EdepTot(a, l1, l2, l3, energies):
+    f28 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt'))
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt'))
+    f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt'))
+    f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt'))
+    f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt'))
+    f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt'))
+    
 
 
 
