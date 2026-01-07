@@ -74,7 +74,7 @@ def dsigdErNE(En,Er, M=None):
 def SNOLAB_flux(Enmin=1e-3):
 
   # read in fast neutron flux spectrum (from reading_n_spectra.ipynb)
-  fast_flux_df = pd.read_pickle('../data_files/FDF.txt') # 'E' in MeV, 'spec' in neutrons cm^-2 sec^-1 MeV^-1
+  fast_flux_df = pd.read_pickle(TOP_DIR/'data_files/FDF.txt') # 'E' in MeV, 'spec' in neutrons cm^-2 sec^-1 MeV^-1
 
   #use numpy arrays
   ff = np.asarray(fast_flux_df['E']);
@@ -246,8 +246,8 @@ def dRdEr(Er,En,F,N=100,Z=14,A=28):
   #get the filenames
   symbol=pt.elements[Z].symbol
   symbol_lower=symbol.lower()
-  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
-  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
+  sigtotfile=TOP_DIR/'data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile=TOP_DIR/'data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
   print(sigtotfile,endffile)
 
 
@@ -302,8 +302,8 @@ def dRdErfast(Er,En,F,N=100,Z=14,A=28):
   #get the filenames
   symbol=pt.elements[Z].symbol
   symbol_lower=symbol.lower()
-  sigtotfile='../data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
-  endffile='../data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
+  sigtotfile=TOP_DIR/'data_files/xn_data/{0:}{1:}_el.txt'.format(symbol_lower,A)
+  endffile=TOP_DIR/'data_files/xn_data/n-{0:03d}_{1:}_{2:03d}.endf'.format(Z,symbol,A)
   print(sigtotfile,endffile)
 
   #make big ole matrix
