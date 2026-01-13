@@ -2,7 +2,14 @@
 
 import numpy as np
 import pandas as pd
-f3_cosmo = pd.read_csv('EDW/Fig3_cosmogenics.txt',comment="#",header=None)
+
+import pathlib
+from pathlib import Path
+
+MODULE_DIR = Path(__file__).resolve().parent
+DATA_DIR = MODULE_DIR.parent
+
+f3_cosmo = pd.read_csv(str(DATA_DIR/'EDW/Fig3_cosmogenics.txt'),comment="#",header=None)
 
 #analytical forms of EDW III
 def tritium(E):
