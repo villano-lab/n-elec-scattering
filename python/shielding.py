@@ -94,8 +94,34 @@ def Edep30(a, l1, l2, l3, energies, number_density=1.32941e23):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-    
+#total
+def EdepSi(a, l1, l2, l3, energies, number_density=1.32941e23):
+    # Load cross section functions
+    f28 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt'))
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt'))
+    f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt'))
 
+    f_28 = 0.922
+    f_29 = 0.0466
+    f_30 = 0.0307
+
+    flux = []
+
+    for E in energies:
+        # microscopic cross sections (barns)
+        sig28 = f28(E)
+        sig29 = f29(E)
+        sig30 = f30(E)
+
+        # weighted total microscopic cross section
+        sig_total = f_28*sig28 + f_29*sig29 + f_30*sig30
+
+        # macroscopic cross section (cm^-1)
+        big_sig = number_density * sig_total * 1e-24
+
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+
+    return flux
 def Edep16(a, l1, l2, l3, energies, number_density=4.01501E23):
     f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt')) #Load cross section from ENDF file for O16
     N=number_density * 0.9975 #number density of O in shotcrete * relative abundance of 16O
