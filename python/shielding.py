@@ -63,10 +63,10 @@ def slabFlux(a,l1,l2,l3,mus=1.0):
   return (slabFluxI(a,l1,l2,l3,mus=mus)+slabFluxII(a,l1,l2,l3,mus=mus)+slabFluxIII(a,l1,l2,l3,mus=mus)+slabFluxIV(a,l1,l2,l3,mus=mus))
 
 
-    
-def Edep28(a, l1, l2, l3, energies):
+
+def Edep28(a, l1, l2, l3, energies, number_density=1.32941e23):
     f28=endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt')) #Load cross section from ENDF file for Si28 
-    N=1.32941e23*0.922 # number density of Si in shotcrete * relative abundance of 28Si
+    N=number_density*0.922 # number density of Si (default is for shotcrete) * relative abundance of 28Si
     flux=[]
     for i,E in enumerate(energies):
         sig=f28(E) #total elastic cross section
@@ -74,9 +74,9 @@ def Edep28(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
         
-def Edep29(a, l1, l2, l3, energies):
+def Edep29(a, l1, l2, l3, energies, number_density=1.32941e23):
     f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt')) #Load cross section from ENDF file for Si29
-    N=1.32941e23*0.0466
+    N=number_density*0.0466
     flux=[]
     for i,E in enumerate(energies):
         sig=f29(E) 
@@ -84,9 +84,9 @@ def Edep29(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-def Edep30(a, l1, l2, l3, energies):
+def Edep30(a, l1, l2, l3, energies, number_density=1.32941e23):
     f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt')) #Load cross section from ENDF file for Si29
-    N=1.32941e23*0.0307 
+    N=number_density*0.0307 
     flux=[]
     for i,E in enumerate(energies):
         sig=f30(E) 
@@ -94,11 +94,67 @@ def Edep30(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-    
+#total
+def EdepSiTot(a, l1, l2, l3, energies, number_density=1.32941e23):
+    # Load cross section functions
+    f28 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt'))
+    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt'))
+    f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt'))
 
-def Edep16(a, l1, l2, l3, energies):
+    f_28 = 0.922
+    f_29 = 0.0466
+    f_30 = 0.0307
+
+    flux = []
+
+    for E in energies:
+        # microscopic cross sections (barns)
+        sig28 = f28(E)
+        sig29 = f29(E)
+        sig30 = f30(E)
+
+        # weighted total microscopic cross section
+        sig_total = f_28*sig28 + f_29*sig29 + f_30*sig30
+
+        # macroscopic cross section (cm^-1)
+        big_sig = number_density * sig_total * 1e-24
+
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+
+    return flux
+
+def EdepOTot(a, l1, l2, l3, energies, number_density=4.01501E23):
+    # Load cross section functions
+    f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt'))
+    f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt'))
+    f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt'))
+
+    f_16 =  0.9975 
+    f_17 = 0.00038
+    f_18 = 0.002
+
+    flux = []
+
+    for E in energies:
+        # microscopic cross sections (barns)
+        sig16 = f16(E)
+        sig17 = f17(E)
+        sig18 = f18(E)
+
+        # weighted total microscopic cross section
+        sig_total = f_16*sig16 + f_17*sig17 + f_18*sig18
+
+        # macroscopic cross section (cm^-1)
+        big_sig = number_density * sig_total * 1e-24
+
+        flux.append(slabFlux(a, l1, l2, l3, big_sig))
+
+    return flux
+
+
+def Edep16(a, l1, l2, l3, energies, number_density=4.01501E23):
     f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt')) #Load cross section from ENDF file for O16
-    N=4.01501E23 * 0.9975 #number density of O in shotcrete * relative abundance of 16O
+    N=number_density * 0.9975 #number density of O in shotcrete * relative abundance of 16O
     flux=[]
     for i,E in enumerate(energies):
         sig=f16(E) 
@@ -106,19 +162,19 @@ def Edep16(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-def Edep17(a, l1, l2, l3, energies):
+def Edep17(a, l1, l2, l3, energies, number_density = 4.01501E23):
     f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt')) #Load cross section from ENDF file for O17
-    N=4.01501E23 *0.00038
-    flux=[]
+    N = number_density *0.00038
+    flux = []
     for i,E in enumerate(energies):
         sig=f17(E) 
         big_sig=N*sig*1e-24
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
 
-def Edep18(a, l1, l2, l3, energies):
+def Edep18(a, l1, l2, l3, energies, number_density = 4.01501E23):
     f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt')) #Load cross section from ENDF file for O18
-    N=4.01501E23 * 0.002
+    N=number_density * 0.002
     flux=[]
     for i,E in enumerate(energies):
         sig=f18(E) 
@@ -126,16 +182,14 @@ def Edep18(a, l1, l2, l3, energies):
         flux.append(slabFlux(a, l1, l2, l3, big_sig))
     return flux
     
-def EdepTot(a, l1, l2, l3, energies):
-    f28 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt'))
-    f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt'))
-    f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt'))
-    f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt'))
-    f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt'))
-    f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt'))
-    
-
-
+#def EdepTot(a, l1, l2, l3, energies):
+ #   f28 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si28_el.txt'))
+  #  f29 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si29_el.txt'))
+   # f30 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'si30_el.txt'))
+    #f16 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o16_el.txt'))
+    #f17 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o17_el.txt'))
+    #f18 = endfel.fetch_elastic(filename=str(DATA_DIR/'xn_data'/'o18_el.txt'))
 
 
     #return fluxvector
+
