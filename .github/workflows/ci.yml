@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, "release/**", "hotfix/**"]
+  pull_request:
+    branches: [develop, master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -el {0}
+
+jobs:
+  fast:
+    name: Environment, imports, fast notebooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          activate-environment: nescatt_2025
+          environment-file: environment.yml
+          auto-activate-base: false
+      - name: Install test tools
+        run: pip install nbmake pytest
+      - name: Import python/ modules
+        run: python ci/smoke_imports.py
+      - name: Run fast notebooks
+        run: |
+          python -m ipykernel install --user --name nescatt_2025
+          pytest --nbmake --nbmake-kernel=nescatt_2025 --nbmake-timeout=600 --durations=0 \
+            $(grep -v '^#' ci/fast-notebooks.txt | grep -v '^$')
