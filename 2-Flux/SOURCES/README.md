@@ -2,8 +2,10 @@
 
 [SOURCES 4A](https://www.osti.gov/biblio/15215) computes the neutron production rates and spectra from (α,n)
 reactions and spontaneous fission for a given concentration of U or Th chain contamination in a material. We use it
-to turn the radioactivity of SNOLAB's shotcrete and norite into neutron source terms for the flux calculations in
-`2-Flux/`.
+to turn the radioactivity of SNOLAB's shotcrete into neutron source terms for the flux calculations in `2-Flux/`, and
+the same chains in the Cu, HDPE and Pb shielding materials. The norite rock has its own inputs and results in
+[`norite/`](norite/README.md); `C-Slab-Source-and-Shielding` still applies the shotcrete source spectrum with norite's
+composition for the attenuation.
 
 ## What is in this repository
 
@@ -48,7 +50,7 @@ for carbon-13 and above 6.5 MeV, so note any difference when comparing with our 
 
 ## Running a problem
 
-Build the Fortran source with `gfortran -O0 -std=legacy -fallow-argument-mismatch`. **Do not optimize**: at `-O2` the code gives wrong results on problems with many target nuclides (on the shotcrete problem the summed neutron rate is wrong by a factor of about 5e8), while simple problems still look fine. Check a new build by rerunning one of the inputs here and comparing `_tape7` with the saved result in `sources_running/data/raw_sources_IO/` (the `-250609` files are the June 2025 results). SOURCES reads
+Build the Fortran source with `gfortran -O0 -std=legacy -fallow-argument-mismatch`. **Do not optimize**: at `-O2` the code gives wrong results on problems with many target nuclides (on the shotcrete problem the summed neutron rate is wrong by a factor of about 5e8), while simple problems still look fine. Check a new build by rerunning one of the inputs here and comparing `_tape7` with the saved result in `sources_running/data/raw_sources_IO/` (the `-250609` files are the June 2025 results). Also raise `maxELevPts` from 200 to 500 in the source (`sed 's/maxELevPts = 200/maxELevPts = 500/'`): `tape4` holds branching tables of up to 434 points, which overflow the stock 200-element array (details in [`norite/README.md`](norite/README.md)). SOURCES reads
 `tape2` to `tape5` and its inputs from the current directory. List the inputs in a file named `filelist` (first line
 the number of files, then one name per line, no spaces), then run the executable. Each input `tape1-X` produces
 `tape1-X_outp` (a summary of what was used), `_tape6`, `_tape7` (neutron spectra), `_tape8` and `_tape9`.
