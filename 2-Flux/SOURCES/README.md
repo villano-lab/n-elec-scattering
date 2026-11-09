@@ -2,8 +2,9 @@
 
 [SOURCES 4A](https://www.osti.gov/biblio/15215) computes the neutron production rates and spectra from (α,n)
 reactions and spontaneous fission for a given concentration of U or Th chain contamination in a material. We use it
-to turn the radioactivity of SNOLAB's shotcrete and norite into neutron source terms for the flux calculations in
-`2-Flux/`.
+to turn the radioactivity of SNOLAB's shotcrete into neutron source terms for the flux calculations in `2-Flux/`, and
+the same chains in the Cu, HDPE and Pb shielding materials. The norite rock is not run through SOURCES: the notebooks
+apply the shotcrete source spectrum with norite's composition for the attenuation (`C-Slab-Source-and-Shielding`).
 
 ## What is in this repository
 
