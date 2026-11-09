@@ -1,10 +1,13 @@
 """Import every module in python/ so a broken environment or syntax error fails fast."""
 import importlib
+import os
 import pathlib
 import sys
 
 root = pathlib.Path(__file__).resolve().parent.parent / "python"
 sys.path.insert(0, str(root))
+# Some modules read ../data_files at import time, as they do when run from a notebook folder.
+os.chdir(root.parent / "1-Physical-Processes")
 
 failed = []
 for path in sorted(root.glob("*.py")):
