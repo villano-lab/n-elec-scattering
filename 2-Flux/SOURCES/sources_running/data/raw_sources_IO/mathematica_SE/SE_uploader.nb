@@ -1,0 +1,47 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      1140,         39]
+NotebookOptionsPosition[       793,         25]
+NotebookOutlinePosition[      1190,         41]
+CellTagsIndexPosition[      1147,         38]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Import", "[", "\"\<http://goo.gl/rQtfHZ\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.894232128705063*^9, 3.894232128708561*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"f4e0a9c4-4149-45ea-be3b-11f58b4369f1"]
+},
+WindowSize->{808, 791},
+WindowMargins->{{20, Automatic}, {Automatic, 44}},
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (November 18, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"30fba2c7-f34b-40f6-9e39-62bc4ec67e87"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 231, 3, 30, "Input",ExpressionUUID->"f4e0a9c4-4149-45ea-be3b-11f58b4369f1"]
+}
+]
+*)
+
