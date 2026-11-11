@@ -11,10 +11,12 @@ composition for the attenuation.
 
 | Path | Contents |
 |---|---|
-| `SNOLAB_inputs/` | SOURCES input files (`tape1-*`) for the shotcrete problems |
-| `sources_running/` | Notebooks that read and plot SOURCES results, and the raw outputs they read (`data/raw_sources_IO/`) |
-| `tape1-Th-C`, `tape1-U-C`, `filelist` | Small example inputs and outputs |
-| `../SNOLAB_Flux/SOURCES_inputs/`, `../SNOLAB_Flux/SOURCES_outputs/` | Inputs for 1 ppb of each chain in shotcrete, Cu, HDPE and Pb, and the `tape7` neutron spectra for shotcrete, Cu and HDPE |
+| `inputs/` | SOURCES input files (`tape1-*`) for 1 ppb of each chain: `shotcrete/`, `cu/`, `hdpe/`, `pb/`, `hang/`, `pube/`, plus small `examples/`. `archive/` folders hold older versions |
+| `results/` | Saved SOURCES outputs (`_tape7` spectra and `*_summary_*.txt`) per material: `shotcrete/`, `cu/`, `hdpe/`, `hang/`, `pube/`, `supersim/`. Dated and `_old` copies are in `archive/` |
+| `analysis/` | `decay_chains_data.xlsx` ([explained](analysis/decay_chains_data_README.md)), `shielding.xlsx`, `mathematica_SE/` and the `stanzas2columns*.sh` helpers |
+| `notebooks/` | Notebooks that read and plot SOURCES results (`nOutput-SOURCES4A-Sheffield*.ipynb`, `nShielding.ipynb`) |
+| `docs/` | SOURCES 4A and 4C manuals, `SOURCES-inputs.pdf`/`.pptx`, `shotcrete_comp.png` |
+| `norite/` | Inputs, results and script for the norite rock (self-contained, see its README) |
 
 Everything needed to reproduce the figures from the saved outputs is here. Notebook `../B-SOURCES4A-Running.ipynb`
 explains the inputs and reads the saved results; it does not need SOURCES installed.
@@ -50,7 +52,7 @@ for carbon-13 and above 6.5 MeV, so note any difference when comparing with our 
 
 ## Running a problem
 
-Build the Fortran source with `gfortran -O0 -std=legacy -fallow-argument-mismatch`. **Do not optimize**: at `-O2` the code gives wrong results on problems with many target nuclides (on the shotcrete problem the summed neutron rate is wrong by a factor of about 5e8), while simple problems still look fine. Check a new build by rerunning one of the inputs here and comparing `_tape7` with the saved result in `sources_running/data/raw_sources_IO/` (the `-250609` files are the June 2025 results). Also raise `maxELevPts` from 200 to 500 in the source (`sed 's/maxELevPts = 200/maxELevPts = 500/'`): `tape4` holds branching tables of up to 434 points, which overflow the stock 200-element array (details in [`norite/README.md`](norite/README.md)). SOURCES reads
+Build the Fortran source with `gfortran -O0 -std=legacy -fallow-argument-mismatch`. **Do not optimize**: at `-O2` the code gives wrong results on problems with many target nuclides (on the shotcrete problem the summed neutron rate is wrong by a factor of about 5e8), while simple problems still look fine. Check a new build by rerunning one of the inputs here and comparing `_tape7` with the saved result in `results/shotcrete/` (the `-250609` files, in `results/shotcrete/archive/` and as `*_summary_1ppb_250609.txt`, are the June 2025 results). Also raise `maxELevPts` from 200 to 500 in the source (`sed 's/maxELevPts = 200/maxELevPts = 500/'`): `tape4` holds branching tables of up to 434 points, which overflow the stock 200-element array (details in [`norite/README.md`](norite/README.md)). SOURCES reads
 `tape2` to `tape5` and its inputs from the current directory. List the inputs in a file named `filelist` (first line
 the number of files, then one name per line, no spaces), then run the executable. Each input `tape1-X` produces
 `tape1-X_outp` (a summary of what was used), `_tape6`, `_tape7` (neutron spectra), `_tape8` and `_tape9`.
@@ -69,3 +71,26 @@ If you use results from SOURCES with these libraries, cite:
 - V. A. Kudryavtsev, P. Krawczun and R. Bocheva, AIP Conf. Proc. **2908**, 100003 (2023), arXiv:2211.02080
 - V. A. Kudryavtsev, P. Zakhary and B. Easeman, Nucl. Instrum. Meth. A **972**, 164095 (2020), arXiv:2005.02499
 - W. B. Wilson et al., the SOURCES 4A manual (Los Alamos), linked above
+
+
+## Where did files move? (reorganisation of 2026-11-11)
+
+The git tag `pre-reorg` marks the layout before the move; `git log --follow <file>` follows a file across it.
+
+| Old location (under `2-Flux/`) | New location (under `2-Flux/SOURCES/`) |
+|---|---|
+| `SOURCES/SNOLAB_inputs/*`, `SNOLAB_Flux/SOURCES_inputs/tape1-*-SNOLAB-1ppb` | `inputs/shotcrete/` |
+| `SOURCES/sources_running/data/raw_sources_IO/tape1-*-SNOLAB-1ppb` (older versions, different content) | `inputs/shotcrete/archive/` |
+| `SNOLAB_Flux/SOURCES_inputs/tape1-*-SNOLAB-{Cu,HDPE,Pb}-1ppb` | `inputs/{cu,hdpe,pb}/` |
+| `SOURCES/tape1-Th-C*`, `SOURCES/tape1-U-C*`, `SOURCES/filelist` | `inputs/examples/` |
+| `SOURCES/.../raw_sources_IO/tape1-Th232-Hang-1ppb`, `tape1-PuBe` | `inputs/hang/`, `inputs/pube/` |
+| `SNOLAB_Flux/SOURCES_outputs/*_tape7`, `SOURCES/.../raw_sources_IO/*_summary_1ppb*.txt` | `results/shotcrete/`, `results/cu/`, `results/hdpe/` |
+| `SNOLAB_Flux/data/*_summary_1ppb_*.txt` | `results/shotcrete/` (`_250609`), `results/cu/` (`_260130`), `results/hdpe/` (`_260115`); `_260116` in `results/cu/archive/` |
+| `.../raw_sources_IO/-250609_tape7`, `SOURCES/.../data/tape1-Th232-SNOLAB_tape7` | `results/shotcrete/archive/` |
+| `.../raw_sources_IO/Hang_*`, `*Hang*`, `PuBe*`, `SuperSim_*` | `results/hang/`, `results/pube/`, `results/supersim/` (`_old` in `archive/`) |
+| `.../raw_sources_IO/decay_chains_data.xlsx`, `shielding.xlsx`, `mathematica_SE/`, `stanzas2columns*.sh`, `test.txt` | `analysis/` |
+| `SOURCES/sources_running/*.ipynb` | `notebooks/` |
+| `SNOLAB_Flux/SOURCES_manuals/`, `SNOLAB_Flux/SOURCES_images/`, `SOURCES/SOURCES-inputs.*` | `docs/` |
+
+Nine files that were byte-identical to another copy were deleted (3 `_tape7`, 3 `summary_1ppb_250609`, 3
+`stanzas2columns*.sh`); the kept copy is the one in the table above.

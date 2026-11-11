@@ -163,3 +163,6 @@ cython_debug/
 
 # SOURCES 4A code and libraries are not redistributed here; see 2-Flux/SOURCES/README.md
 2-Flux/SOURCES/code/
+
+# Office lock files
+~$*

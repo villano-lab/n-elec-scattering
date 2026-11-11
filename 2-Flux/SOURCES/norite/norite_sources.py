@@ -23,7 +23,7 @@ from pathlib import Path
 
 NA = 6.02214076e23
 RHO_NORITE = 3.0  # g/cm3, 50:50 mix of orthopyroxene (3.3) and plagioclase (2.7)
-SHOTCRETE_INPUTS = Path(__file__).resolve().parents[2] / "SNOLAB_Flux" / "SOURCES_inputs"
+SHOTCRETE_INPUTS = Path(__file__).resolve().parents[1] / "inputs" / "shotcrete"
 
 # oxide: (wt%, molar mass g/mol, O atoms per formula unit, metal atoms per formula unit, element)
 ORTHOPYROXENE = {
