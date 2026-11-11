@@ -2,7 +2,7 @@
 
 This workbook holds the inputs that turn "so many ng/g of U or Th in a material" into "so many atoms/cm^3 of each
 daughter isotope", and the target-material fractions needed to turn those into (alpha,n) neutron source terms for the
-SOURCES-4 inputs. It lives in `2-Flux/SOURCES/sources_running/data/raw_sources_IO/`; the Mathematica notebooks that
+SOURCES-4 inputs. It lives in `2-Flux/SOURCES/analysis/`; the Mathematica notebooks that
 produced the original equilibrium ratios are in `mathematica_SE/` (see its [README](mathematica_SE/README.md)).
 
 Last audited 2026-11-10/11 against ENSDF (IAEA Live Chart API, NuDat 3) and CIAAW isotopic abundances; see
