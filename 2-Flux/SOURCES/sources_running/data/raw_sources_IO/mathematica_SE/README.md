@@ -33,6 +33,8 @@ Other: decay constants are hard-coded and rounded to about three significant fig
 
 ## Caveats
 
-- The notebooks were **not** re-evaluated (no Mathematica was available). Saved outputs, equations and plots in the corrected notebooks come from the old inputs and are stale; each corrected notebook starts with a note saying so. The internal cache section of these files was removed so that Mathematica rebuilds it when the notebook is opened.
-- Checked instead by an independent calculation: with the corrected inputs the U-235 chain agrees with column C of `SE (1ppb)` (ratios computed from the decay tabs) to within 0.5 %.
+- The corrected U-235 notebooks were re-evaluated in Mathematica (commit `e5ae84a`). `U235_SE_ODE.nb` gives a final output (Out[68]) that agrees with column C of `SE (1ppb)` (ratios computed from the decay tabs) to within 0.55 % (Pa-231 +0.54 %, all other rows within 0.35 %); checked 2026-11-11. The remaining differences come from the rounded, hard-coded decay constants.
+- `U235_SE_ODE_short.nb`: its NDSolve result `sol` was not produced, so the final cells stay symbolic and give no numbers. `U235_SE_ExpMat.nb`: the final output is symbolic, in a different time unit, and was not compared with column C. `U235_SE.nb` and `U235_test.nb` were also re-saved in `e5ae84a` and were not checked.
+- `U238_SE_ODE.nb` was corrected (At-218) but not re-run; its saved outputs still come from the old input.
+- The internal cache section was removed from the edited notebooks so that Mathematica rebuilds it when they are opened.
 - Columns E-J of the SE tabs use column C. Column D keeps the original (uncorrected) notebook values for comparison.

@@ -25,9 +25,7 @@ back (alpha 0.936 to Bi-215, beta 0.064 to Rn-219); Po-215 beta branch 2.3e-4 \
 -> 2.3e-6; decay constants of the two Po-215 daughters (n12/n13: Pb-211 and \
 At-215) and of the two Bi-211 daughters (n15/n16: Tl-207 and Po-211) were \
 assigned to the wrong nodes and are swapped, so At-215 is now n13 and Po-211 \
-is n16. b11b 0.1 -> 1. (Output cells of this notebook were not changed.) The \
-saved outputs, equations and plots below were produced with the OLD inputs \
-and are stale until the notebook is re-evaluated. The original, uncorrected \
+is n16. b11b 0.1 -> 1. The notebook was re-evaluated in Mathematica with the corrected inputs; its final output is symbolic, in a different time unit, and was not compared with column C. The original, uncorrected \
 notebook is in villano-lab/L3He_paper2023, neutron-bknd-spectra/decay_chains/.\
 \>", "Text",ExpressionUUID->"d1a20382-71a2-45cf-9cde-666261b8f2e1"],
 
@@ -1279,39 +1277,3 @@ StyleDefinitions->"Default.nb",
 ExpressionUUID->"233d3e79-8ffb-42a5-bafd-00e3e2aca6f6"
 ]
 (* End of Notebook Content *)
-
-(* Internal cache information *)
-(*CellTagsOutline
-CellTagsIndex->{}
-*)
-(*CellTagsIndex
-CellTagsIndex->{}
-*)
-(*NotebookFileOutline
-Notebook[{
-Cell[558, 20, 861, 11, 196, "Text",ExpressionUUID->"d1a20382-71a2-45cf-9cde-666261b8f2e1"],
-Cell[1422, 33, 2358, 72, 556, "Input",ExpressionUUID->"ca94ff08-6a0f-4351-ba43-28fbf4af5117"],
-Cell[3783, 107, 5494, 121, 409, "Input",ExpressionUUID->"bca5585d-8280-4737-9fca-92f7cc81ac07"],
-Cell[CellGroupData[{
-Cell[9302, 232, 709, 12, 52, "Input",ExpressionUUID->"1ec459e7-eb98-48be-8e54-9c42933773c8"],
-Cell[10014, 246, 4800, 101, 413, "Output",ExpressionUUID->"a12ba76a-d653-4be7-be7a-ea969b277255"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[14851, 352, 418, 8, 30, "Input",ExpressionUUID->"0bf72137-1bc7-4c1e-a88b-a45a0db1cec9"],
-Cell[15272, 362, 377, 7, 34, "Output",ExpressionUUID->"15bb484b-ed7f-4953-b41f-061cdc575493"]
-}, Open  ]],
-Cell[15664, 372, 372, 10, 52, "Input",ExpressionUUID->"f5a19443-4802-4ee4-b170-0879bd08fc1d"],
-Cell[CellGroupData[{
-Cell[16061, 386, 256, 4, 30, "Input",ExpressionUUID->"3d90c041-ff09-4111-9b07-e0a5123b9941"],
-Cell[16320, 392, 461, 11, 28, "Message",ExpressionUUID->"0d1e5ec1-7684-4545-a0b5-ba4d10042009"],
-Cell[16784, 405, 462, 11, 28, "Message",ExpressionUUID->"1945b068-9446-41b6-9ef5-dc4a890125c2"],
-Cell[17249, 418, 464, 11, 28, "Message",ExpressionUUID->"ef098f44-4bbb-4a1c-9cfa-7933627ddbbb"],
-Cell[17716, 431, 533, 11, 28, "Message",ExpressionUUID->"2c20da00-a4b5-4c1c-b497-26c0b512d20e"],
-Cell[18252, 444, 37415, 827, 7962, "Output",ExpressionUUID->"fd9ed373-5115-41f6-8976-b7c1a9dba42e"]
-}, Open  ]]
-}
-]
-*)
-
-(* End of internal cache information *)
-
