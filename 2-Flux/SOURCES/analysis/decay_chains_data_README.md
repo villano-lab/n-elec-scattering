@@ -14,7 +14,7 @@ Last audited 2026-11-10/11 against ENSDF (IAEA Live Chart API, NuDat 3) and CIAA
 Th232 / U235 / U238 tabs   half-lives, branching ratios (ENSDF)
           |
           v
-SE (1ppb)  /  Cu SE (1ppb) column C   N_i / N_seed at secular equilibrium (live formula)
+SE (1ppb) column C   N_i / N_seed at secular equilibrium (live formula)
           |  x  seed contamination (ppb)   <- Density tab gives rho, atom density
           v
 atoms/cm^3 of every chain member in the material (columns E-G per-atom ppb, H-J ng/g ppb)
@@ -35,11 +35,11 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
 | 7 | `Shotcrete Target Fractions` | For each element, the (a,n) target isotopes with CIAAW abundance bounds and the middle value (fraction of atoms). |
 | 8 | `HDPE Density` | C2H4 composition from the formula, 961 kg/m^3, number densities. |
 | 9 | `HDPE Target Fractions` | Same as tab 7 for HDPE: C-13 (0.96-1.16 %) is the only (a,n) target; H has none. |
-| 10 | `Cu SE (1ppb)` | Same layout as tab 4, using the `Cu Density` tab. |
-| 11 | `Cu Density` | Cu, Z = 29, 8.96 g/cm^3, 8.49e22 atoms/cm^3. |
-| 12 | `Cu Target Fractions` | Cu-63 (69.15 %) and Cu-65 (30.85 %), bounds +/-15 % (a choice, not a measurement). |
-| 13 | `Pb Density` | Pb, Z = 82, 11.34 g/cm^3, 207.2 g/mol, 3.296e22 atoms/cm^3. |
-| 14 | `Pb Target Fractions` | Pb-204/206/207/208 with bounds (a choice, wider than CIAAW ranges). |
+
+The Cu and Pb tabs (`Cu SE (1ppb)`, `Cu Density`, `Cu Target Fractions`, `Pb Density`, `Pb Target Fractions`) were removed on
+2026-11-16 because they are not needed for the n-electron scattering paper. Nothing else referenced them. The full 14-tab
+workbook is in the history of this repository (`develop` up to `34792c4`) and in `villano-lab/L3He_paper2023`
+(`neutron-bknd-spectra/decay_chains/`, commit `20b4f01`).
 
 ### Decay tabs (1-3)
 
@@ -51,14 +51,14 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
 - Branching table columns are "beta (%)" and "alpha (%)" (in that order). The U238 table has a row for At-218
   (row 29, listed last so no other row moved): 99.95 % alpha to Bi-214 and 0.05 % beta to Rn-218 (ENSDF; the beta
   branch is as large as its own uncertainty). Rn-218 (33.75 ms, 100 % alpha to Po-214) is a side branch of the chain: it
-  has its own row 20 on the U238 tab (decay number "9b") and row 23 on the SE tabs. The SE formulas for Bi-214,
+  has its own row 20 on the U238 tab (decay number "9b") and row 23 on the SE tab. The SE formulas for Bi-214,
   Po-214, Po-210, Bi-210 and Pb-210 use these branches. Effect: Bi-214 -1e-7 relative, Po-214 +2e-11, the rest
   unchanged; Rn-218 is at 2.4e-26 of the seed. The original Mathematica notebooks never had this branch
   (column D of the Rn-218 row is empty); `mathematica_SE/U238_SE_ODE.nb` now has it (edited 2026-11-16, not yet re-run).
 
-### SE tabs (4 and 10)
+### SE tab (4)
 
-Three blocks per tab, one per seed: **Th-232** (header row 1, data rows 2-8), **U-238** (header row 10, data rows
+Three blocks, one per seed: **Th-232** (header row 1, data rows 2-8), **U-238** (header row 10, data rows
 11-22) and **U-235** (header row 25, data rows 26-37). Row labels are `<Z A>-<element>`, e.g. `922350-U`.
 
 | Column | Content |
@@ -96,12 +96,12 @@ fractions are copied by value into the lower table (rows 21+ for shotcrete) that
 The shotcrete composition sums to 99.66 % (the Sika datasheet cited does not give composition or density; the other
 reference is an inaccessible Confluence page, so this tab is an open question).
 
-### Target Fractions tabs (7, 9, 12, 14)
+### Target Fractions tabs (7 and 9)
 
 For each element (Z, fraction of atoms), the isotope (A) that acts as an (a,n) target, its lower and upper
 abundance bounds (%), and `Middle`, `Lower`, `Upper` as fractions of atoms: `Middle = B x (lower+upper)/200`,
-`Lower = B x lower/100`, `Upper = B x upper/100`. Shotcrete bounds follow CIAAW (e.g. C-13 0.96-1.16 %); the Cu
-and Pb bounds are chosen ranges. `Shotcrete Target Fractions` column I (Hang's normalisation) multiplies by the
+`Lower = B x lower/100`, `Upper = B x upper/100`. Shotcrete bounds follow CIAAW (e.g. C-13 0.96-1.16 %).
+`Shotcrete Target Fractions` column I (Hang's normalisation) multiplies by the
 total of the Shotcrete Hang tab (0.0474); that column only makes sense for shotcrete and was removed from the HDPE
 tab.
 
@@ -113,14 +113,13 @@ tab.
 
 ## Status of each tab (audit of commit 65e8d6e, still valid)
 
-OK: Th232, U235, U238, SE (1ppb), Cu SE (1ppb), HDPE Density, HDPE Target Fractions, Cu Density, Cu Target
-Fractions, Pb Density, Pb Target Fractions. Open (works, with a question): Shotcrete Density (source of
+OK: Th232, U235, U238, SE (1ppb), HDPE Density, HDPE Target Fractions. Open (works, with a question): Shotcrete Density (source of
 composition/density), Shotcrete Hang (meaning of 0.0474), Shotcrete Target Fractions (column I). No tab has a
 definite error.
 
 ## Known issues and caveats
 
-- Column D of the SE tabs is the old Mathematica output; its At-219, At-215 and Po-211 rows disagree with column C
+- Column D of the SE tab is the old Mathematica output; its At-219, At-215 and Po-211 rows disagree with column C
   because of input errors in the original notebooks (listed in `mathematica_SE/README.md`). The corrected notebooks
   were re-run in Mathematica; `U235_SE_ODE.nb` now agrees with column C to within 0.55 %. Column D was kept as it is.
 - Downstream SOURCES inputs and results (shotcrete, norite) that used the old U-235-chain values need regenerating
