@@ -3,7 +3,7 @@
 [SOURCES 4A](https://www.osti.gov/biblio/15215) computes the neutron production rates and spectra from (α,n)
 reactions and spontaneous fission for a given concentration of U or Th chain contamination in a material. We use it
 to turn the radioactivity of SNOLAB's shotcrete into neutron source terms for the flux calculations in `2-Flux/`, and
-the same chains in the HDPE shielding material. The norite rock has its own inputs and results in
+The norite rock has its own inputs and results in
 [`norite/`](norite/README.md); `C-Slab-Source-and-Shielding` still applies the shotcrete source spectrum with norite's
 composition for the attenuation.
 
@@ -11,8 +11,8 @@ composition for the attenuation.
 
 | Path | Contents |
 |---|---|
-| `inputs/` | SOURCES input files (`tape1-*`) for 1 ppb of each chain: `shotcrete/`, `hdpe/`, `hang/`, `pube/`, plus small `examples/`. `archive/` folders hold older versions |
-| `results/` | Saved SOURCES outputs (`_tape7` spectra and `*_summary_*.txt`) per material: `shotcrete/`, `hdpe/`, `hang/`, `pube/`, `supersim/`. Dated and `_old` copies are in `archive/` |
+| `inputs/` | SOURCES input files (`tape1-*`) for 1 ppb of each chain: `shotcrete/`, `hang/`, `pube/`, plus small `examples/`. `archive/` folders hold older versions |
+| `results/` | Saved SOURCES outputs (`_tape7` spectra and `*_summary_*.txt`) per material: `shotcrete/`, `hang/`, `pube/`, `supersim/`. Dated and `_old` copies are in `archive/` |
 | `analysis/` | `decay_chains_data.xlsx` ([explained](analysis/decay_chains_data_README.md)), `shielding.xlsx`, `mathematica_SE/` and the `stanzas2columns*.sh` helpers |
 | `notebooks/` | Notebooks that read and plot SOURCES results (`nOutput-SOURCES4A-Sheffield*.ipynb`, `nShielding.ipynb`) |
 | `docs/` | SOURCES 4A and 4C manuals, `SOURCES-inputs.pdf`/`.pptx`, `shotcrete_comp.png` |
@@ -81,11 +81,11 @@ The git tag `pre-reorg` marks the layout before the move; `git log --follow <fil
 |---|---|
 | `SOURCES/SNOLAB_inputs/*`, `SNOLAB_Flux/SOURCES_inputs/tape1-*-SNOLAB-1ppb` | `inputs/shotcrete/` |
 | `SOURCES/sources_running/data/raw_sources_IO/tape1-*-SNOLAB-1ppb` (older versions, different content) | `inputs/shotcrete/archive/` |
-| `SNOLAB_Flux/SOURCES_inputs/tape1-*-SNOLAB-HDPE-1ppb` | `inputs/hdpe/` (the Cu and Pb ones were moved to `inputs/{cu,pb}/` and removed on 2026-11-16, see below) |
+| `SNOLAB_Flux/SOURCES_inputs/tape1-*-SNOLAB-{Cu,HDPE,Pb}-1ppb` | `inputs/{cu,hdpe,pb}/` (removed on 2026-11-16, see below) |
 | `SOURCES/tape1-Th-C*`, `SOURCES/tape1-U-C*`, `SOURCES/filelist` | `inputs/examples/` |
 | `SOURCES/.../raw_sources_IO/tape1-Th232-Hang-1ppb`, `tape1-PuBe` | `inputs/hang/`, `inputs/pube/` |
-| `SNOLAB_Flux/SOURCES_outputs/*_tape7`, `SOURCES/.../raw_sources_IO/*_summary_1ppb*.txt` | `results/shotcrete/`, `results/hdpe/` |
-| `SNOLAB_Flux/data/*_summary_1ppb_*.txt` | `results/shotcrete/` (`_250609`), `results/hdpe/` (`_260115`) |
+| `SNOLAB_Flux/SOURCES_outputs/*_tape7`, `SOURCES/.../raw_sources_IO/*_summary_1ppb*.txt` | `results/shotcrete/`, `results/cu/`, `results/hdpe/` (the last two removed 2026-11-16) |
+| `SNOLAB_Flux/data/*_summary_1ppb_*.txt` | `results/shotcrete/` (`_250609`), `results/cu/` (`_260130`), `results/hdpe/` (`_260115`); `_260116` in `results/cu/archive/` (Cu and HDPE removed 2026-11-16) |
 | `.../raw_sources_IO/-250609_tape7`, `SOURCES/.../data/tape1-Th232-SNOLAB_tape7` | `results/shotcrete/archive/` |
 | `.../raw_sources_IO/Hang_*`, `*Hang*`, `PuBe*`, `SuperSim_*` | `results/hang/`, `results/pube/`, `results/supersim/` (`_old` in `archive/`) |
 | `.../raw_sources_IO/decay_chains_data.xlsx`, `shielding.xlsx`, `mathematica_SE/`, `stanzas2columns*.sh`, `test.txt` | `analysis/` |
@@ -95,4 +95,4 @@ The git tag `pre-reorg` marks the layout before the move; `git log --follow <fil
 Nine files that were byte-identical to another copy were deleted (3 `_tape7`, 3 `summary_1ppb_250609`, 3
 `stanzas2columns*.sh`); the kept copy is the one in the table above.
 
-**Removed 2026-11-16:** the Cu and Pb shielding inputs and the Cu results (`inputs/cu/`, `inputs/pb/`, `results/cu/`, including `results/cu/archive/`) are not needed for the n-electron scattering paper. They are in the git history (`develop` up to `34792c4`; restore with `git checkout 34792c4 -- 2-Flux/SOURCES/inputs/cu` and so on). `2-Flux/Cu.ipynb` reads `SOURCES/results/cu/` and needs them back to run.
+**Removed 2026-11-16:** the Cu, Pb and HDPE shielding material is not needed for the n-electron scattering paper: `inputs/cu/`, `inputs/pb/`, `inputs/hdpe/`, `results/cu/` (with `archive/`), `results/hdpe/`, `2-Flux/Cu.ipynb` and `2-Flux/HDPE.ipynb`, and the Cu, Pb and HDPE tabs of `analysis/decay_chains_data.xlsx`. They are kept, unchanged and at their original paths, in the private repository [`villano-lab/radioactive-contamination`](https://github.com/villano-lab/radioactive-contamination) (with the full 14-tab workbook), and in the git history of this one (`develop` up to `34792c4`).
