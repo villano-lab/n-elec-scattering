@@ -48,8 +48,13 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
 - C = B/ln 2 (mean life), D = 1/C (lambda), E and F are the same scaled to the seed (G2 is the rounded seed lambda).
 - H gives the isotope name. All half-lives were checked against ENSDF (within 0.25 %), and the branching tables
   against ENSDF.
-- Branching table columns are "beta (%)" and "alpha (%)" (in that order). At-218 in the U-238 chain has no row; the
-  SE tabs assume 100 % alpha for it (ENSDF: 99.95 %).
+- Branching table columns are "beta (%)" and "alpha (%)" (in that order). The U238 table has a row for At-218
+  (row 29, listed last so no other row moved): 99.95 % alpha to Bi-214 and 0.05 % beta to Rn-218 (ENSDF; the beta
+  branch is as large as its own uncertainty). Rn-218 (33.75 ms, 100 % alpha to Po-214) is a side branch of the chain: it
+  has its own row 20 on the U238 tab (decay number "9b") and row 23 on the SE tabs. The SE formulas for Bi-214,
+  Po-214, Po-210, Bi-210 and Pb-210 use these branches. Effect: Bi-214 -1e-7 relative, Po-214 +2e-11, the rest
+  unchanged; Rn-218 is at 2.4e-26 of the seed. The original Mathematica notebooks never had this branch
+  (column D of the Rn-218 row is empty); `mathematica_SE/U238_SE_ODE.nb` now has it (edited 2026-11-16, not yet re-run).
 
 ### SE tabs (4 and 10)
 
