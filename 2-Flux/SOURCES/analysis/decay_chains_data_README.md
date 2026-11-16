@@ -31,13 +31,16 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
 | 3 | `U238` | Same for the U-238 chain (Pa-234m isomer included). |
 | 4 | `SE (1ppb)` | Shotcrete (norite) contamination: ratios, masses and atoms/cm^3, three blocks (see below). |
 | 5 | `Shotcrete Density` | Composition (mass %), density 2.2222 g/cm^3, molar masses, number densities, atom fractions. |
-| 6 | `Shotcrete Hang` | Hang's published atom fractions, renormalised, compared with the atom fractions of tab 5 (difference in %). |
-| 7 | `Shotcrete Target Fractions` | For each element, the (a,n) target isotopes with CIAAW abundance bounds and the middle value (fraction of atoms). |
+| 6 | `Shotcrete Target Fractions` | For each element, the (a,n) target isotopes with CIAAW abundance bounds and the middle value (fraction of atoms). |
 
 The Cu, Pb and HDPE tabs (`Cu SE (1ppb)`, `Cu Density`, `Cu Target Fractions`, `Pb Density`, `Pb Target Fractions`, `HDPE Density`,
 `HDPE Target Fractions`) were removed on 2026-11-16 because they are not needed for the n-electron scattering paper. Nothing else
 referenced them. The full 14-tab workbook is in the history of this repository (`develop` up to `34792c4`), in the private repository
 `villano-lab/radioactive-contamination` and in `villano-lab/L3He_paper2023` (`neutron-bknd-spectra/decay_chains/`, commit `20b4f01`).
+
+The `Shotcrete Hang` tab (Hang's published atom fractions, renormalised, compared with the atom fractions of `Shotcrete Density`) was also
+removed on 2026-11-16, together with column I of `Shotcrete Target Fractions`, which multiplied by that tab's total (0.0474, Hang's
+normalisation). Both are in the same three places (the full workbook in the archive repository still has them).
 
 ### Decay tabs (1-3)
 
@@ -94,13 +97,11 @@ fractions are copied by value into the lower table (rows 21+ for shotcrete) that
 The shotcrete composition sums to 99.66 % (the Sika datasheet cited does not give composition or density; the other
 reference is an inaccessible Confluence page, so this tab is an open question).
 
-### Target Fractions tab (7)
+### Target Fractions tab (6)
 
 For each element (Z, fraction of atoms), the isotope (A) that acts as an (a,n) target, its lower and upper
 abundance bounds (%), and `Middle`, `Lower`, `Upper` as fractions of atoms: `Middle = B x (lower+upper)/200`,
 `Lower = B x lower/100`, `Upper = B x upper/100`. Shotcrete bounds follow CIAAW (e.g. C-13 0.96-1.16 %).
-`Shotcrete Target Fractions` column I (Hang's normalisation) multiplies by the
-total of the Shotcrete Hang tab (0.0474); that column only makes sense for shotcrete.
 
 ## Recomputing by hand
 
@@ -111,8 +112,7 @@ total of the Shotcrete Hang tab (0.0474); that column only makes sense for shotc
 ## Status of each tab (audit of commit 65e8d6e, still valid)
 
 OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (source of
-composition/density), Shotcrete Hang (meaning of 0.0474), Shotcrete Target Fractions (column I). No tab has a
-definite error.
+composition/density). Shotcrete Target Fractions is OK. No tab has a definite error.
 
 ## Known issues and caveats
 
