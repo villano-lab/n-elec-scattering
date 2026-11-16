@@ -15,7 +15,7 @@ composition for the attenuation.
 | `results/` | Saved SOURCES outputs (`_tape7` spectra and `*_summary_*.txt`) per material: `shotcrete/`, `hang/`, `pube/`, `supersim/`. Dated and `_old` copies are in `archive/` |
 | `analysis/` | `decay_chains_data.xlsx` ([explained](analysis/decay_chains_data_README.md)), `shielding.xlsx`, `mathematica_SE/` and the `stanzas2columns*.sh` helpers |
 | `notebooks/` | Notebooks that read and plot SOURCES results (`nOutput-SOURCES4A-Sheffield*.ipynb`, `nShielding.ipynb`) |
-| `docs/` | SOURCES 4A and 4C manuals, `SOURCES-inputs.pdf`/`.pptx`, `shotcrete_comp.png` |
+| `docs/` | SOURCES 4A and 4C manuals, `SOURCES-inputs.pdf`/`.pptx`, `shotcrete_comp.png`, and `SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf` (I. T. Lawson, *Analysis of Rock Samples from the New Laboratory*, 2007: source of the shotcrete and norite composition and Th/U ppm) |
 | `norite/` | Inputs, results and script for the norite rock (self-contained, see its README) |
 
 Everything needed to reproduce the figures from the saved outputs is here. Notebook `../B-SOURCES4A-Running.ipynb`
