@@ -53,8 +53,8 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
   branch is as large as its own uncertainty). Rn-218 (33.75 ms, 100 % alpha to Po-214) is a side branch of the chain: it
   has its own row 20 on the U238 tab (decay number "9b") and row 23 on the SE tabs. The SE formulas for Bi-214,
   Po-214, Po-210, Bi-210 and Pb-210 use these branches. Effect: Bi-214 -1e-7 relative, Po-214 +2e-11, the rest
-  unchanged; Rn-218 is at 2.4e-26 of the seed. The Mathematica notebooks never had this branch
-  (column D of the Rn-218 row is empty).
+  unchanged; Rn-218 is at 2.4e-26 of the seed. The original Mathematica notebooks never had this branch
+  (column D of the Rn-218 row is empty); `mathematica_SE/U238_SE_ODE.nb` now has it (edited 2026-11-16, not yet re-run).
 
 ### SE tabs (4 and 10)
 

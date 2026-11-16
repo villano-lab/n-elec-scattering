@@ -29,12 +29,14 @@ The original typed values were reproduced from the original inputs with an indep
 
 `U238_SE_ODE.nb`: the At-218 decay constant `\[Lambda]9` corresponded to a 1.5 s half-life; now `110*^15` (1.28 s, ENSDF and NuDat 3).
 
+`U238_SE_ODE.nb`, 2026-11-16 (edited, not run): the At-218 branch and the Rn-218 side branch were added, as in the workbook (U238 tab rows 20 and 29, SE tabs row 23). The system has 20 nodes: At-218 (n9) decays 99.95 % by alpha to Bi-214 (`b9a = 9995*^-4`) and 0.05 % by beta to the new n20 = Rn-218 (`b9b = 5*^-4`, `\[Lambda]19 = 418*^16`, half-life 33.75 ms), which alpha-decays to Po-214 (n12). `m` takes `\[Lambda]19`, `b9a` and `b9b`; `Eqns20`, `n20[0] == 0`, `n20` in the NDSolve unknowns and the n20/n1 ratio in the plot and the last evaluation were added. The Bi-214 decay constant `\[Lambda]11` went from `118*^12` to `119*^12` (19.9 -> 19.71 min, as on the U238 tab). Checked outside Mathematica: the steady state of the new 20x20 system (read back from the edited cell) agrees with column C of `SE (1ppb)` to 0.2 % for every row (Rn-218 2.39e-26 vs 2.40e-26); the regenerated old 19x19 matrix equals the original cell.
+
 Other: decay constants are hard-coded and rounded to about three significant figures.
 
 ## Caveats
 
 - The corrected U-235 notebooks were re-evaluated in Mathematica (commit `e5ae84a`). `U235_SE_ODE.nb` gives a final output (Out[68]) that agrees with column C of `SE (1ppb)` (ratios computed from the decay tabs) to within 0.55 % (Pa-231 +0.54 %, all other rows within 0.35 %); checked 2026-11-11. The remaining differences come from the rounded, hard-coded decay constants.
 - `U235_SE_ODE_short.nb`: its NDSolve result `sol` was not produced, so the final cells stay symbolic and give no numbers. `U235_SE_ExpMat.nb`: the final output is symbolic, in a different time unit, and was not compared with column C. `U235_SE.nb` and `U235_test.nb` were also re-saved in `e5ae84a` and were not checked.
-- `U238_SE_ODE.nb` was corrected (At-218) but not re-run; its saved outputs still come from the old input.
+- `U238_SE_ODE.nb` was corrected (At-218 half-life; At-218 branch and Rn-218 node added; Bi-214 decay constant) but not re-run; its saved outputs (Out[72] to Out[91], the plot and Out[95]) still come from the old input.
 - The internal cache section was removed from the edited notebooks so that Mathematica rebuilds it when they are opened.
 - Columns E-J of the SE tabs use column C. Column D keeps the original (uncorrected) notebook values for comparison.
