@@ -103,6 +103,15 @@ table gives 0.014 m^3 per 30 kg bag (2143 kg/m^3) and 16.5 ft^3 per 2205 lb (214
 dry mix (no mixing water, no rebound), not a measured density of the cured shotcrete. The 2025 notebook (N-MISC-25-001 pg 26) has the
 same calculation. A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
 
+**Water (added 2026-11-17).** Columns K-N, the input `Q2` (f_w, the water mass fraction of the wet material; 0 gives back columns C-I), `Q3` (wet density
+= E2/(1-f_w), same dry mass per volume) and `C22:C32` (wet atom fractions by Z) give the composition and number densities with retained water: the dry
+composition is scaled by (1-f_w) and water (11.19 % H, 88.81 % O) is added. For example f_w = 5 % gives 2.339 g/cm^3, H 0.60 %, O 50.0 %, and a
+total number density 18 % higher (7.52e22 against 6.35e22 atoms/cm^3), most of it hydrogen. `SE (1ppb)` and `Shotcrete Target Fractions` still use
+the dry columns; link them to the wet ones to run with water. The ng/g results (H-J of the SE tab) do not depend on the matrix number density, so
+they are unchanged for the same dry mass per volume. As shot, dry-mix shotcrete holds 8.6-10.8 % water (*Shotcrete*, Winter 2009, pp. 22-27); bound
+water is about 0.23 g per g of cement (about 3.5-6 % of the dry mix, 0.4-0.6 % H), against H = 0.04 % in Table 3 of the SNOLAB report. A measurement
+on a core (oven-dry at 105 C, ignite at 1000 C) would settle it. The references are also at the bottom of the tab (A34:A36).
+
 ### Target Fractions tab (6)
 
 For each element (Z, fraction of atoms), the isotope (A) that acts as an (a,n) target, its lower and upper
