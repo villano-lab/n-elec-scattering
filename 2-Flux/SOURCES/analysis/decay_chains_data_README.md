@@ -97,9 +97,11 @@ fractions are copied by value into the lower table (rows 21+ for shotcrete) that
 The shotcrete composition (column C) is Table 3, "Shotcrete" column, of SNOLAB-STR-2007-003 (I. T. Lawson, *Analysis of Rock Samples
 from the New Laboratory*, 2007): sample 15, the MS-D3 accelerated shotcrete (Creighton Mix 25017); all 11 elements match. It
 sums to 99.66 %; the remaining 0.34 % is the trace elements (Table 2 of the report gives 3582.7 ppm = 0.36 % for that sample).
-The same report is the source of the shotcrete Th and U (15.24 and 2.46 ppm) used in the paper. The density (2222.22 kg/m^3) is
-**not** in that report or in the Sika datasheet cited in the tab, and its source is still open (candidate: the SNOLAB User's
-Handbook). A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
+The same report is the source of the shotcrete Th and U (15.24 and 2.46 ppm) used in the paper. The density (D2 = 2222.22 kg/m^3) is not in that report or in the SNOLAB User's Handbook; it is 1000 kg / 0.45 m^3 from the
+"Coverage" line of the Sika King MS-D3 datasheet (April 2024, v06.02: "0.45 m^3 per 1000 kg FIBC"). It is approximate: the same
+table gives 0.014 m^3 per 30 kg bag (2143 kg/m^3) and 16.5 ft^3 per 2205 lb (2141 kg/m^3), about 4 % lower, and it is the yield of the
+dry mix (no mixing water, no rebound), not a measured density of the cured shotcrete. The 2025 notebook (N-MISC-25-001 pg 26) has the
+same calculation. A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
 
 ### Target Fractions tab (6)
 
@@ -115,8 +117,8 @@ abundance bounds (%), and `Middle`, `Lower`, `Upper` as fractions of atoms: `Mid
 
 ## Status of each tab (audit of commit 65e8d6e, still valid)
 
-OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (source of
-the density). Shotcrete Target Fractions is OK. No tab has a definite error.
+OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (the density is
+only the datasheet's approximate yield, see above). Shotcrete Target Fractions is OK. No tab has a definite error.
 
 ## Known issues and caveats
 
