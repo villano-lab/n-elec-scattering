@@ -97,9 +97,20 @@ fractions are copied by value into the lower table (rows 21+ for shotcrete) that
 The shotcrete composition (column C) is Table 3, "Shotcrete" column, of SNOLAB-STR-2007-003 (I. T. Lawson, *Analysis of Rock Samples
 from the New Laboratory*, 2007): sample 15, the MS-D3 accelerated shotcrete (Creighton Mix 25017); all 11 elements match. It
 sums to 99.66 %; the remaining 0.34 % is the trace elements (Table 2 of the report gives 3582.7 ppm = 0.36 % for that sample).
-The same report is the source of the shotcrete Th and U (15.24 and 2.46 ppm) used in the paper. The density (2222.22 kg/m^3) is
-**not** in that report or in the Sika datasheet cited in the tab, and its source is still open (candidate: the SNOLAB User's
-Handbook). A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
+The same report is the source of the shotcrete Th and U (15.24 and 2.46 ppm) used in the paper. The density (D2 = 2222.22 kg/m^3) is not in that report or in the SNOLAB User's Handbook; it is 1000 kg / 0.45 m^3 from the
+"Coverage" line of the Sika King MS-D3 datasheet (April 2024, v06.02: "0.45 m^3 per 1000 kg FIBC"). It is approximate: the same
+table gives 0.014 m^3 per 30 kg bag (2143 kg/m^3) and 16.5 ft^3 per 2205 lb (2141 kg/m^3), about 4 % lower, and it is the yield of the
+dry mix (no mixing water, no rebound), not a measured density of the cured shotcrete. The 2025 notebook (N-MISC-25-001 pg 26) has the
+same calculation. A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
+
+**Water (added 2026-11-17).** Columns K-N, the input `Q2` (f_w, the water mass fraction of the wet material; 0 gives back columns C-I), `Q3` (wet density
+= E2/(1-f_w), same dry mass per volume) and `C22:C32` (wet atom fractions by Z) give the composition and number densities with retained water: the dry
+composition is scaled by (1-f_w) and water (11.19 % H, 88.81 % O) is added. For example f_w = 5 % gives 2.339 g/cm^3, H 0.60 %, O 50.0 %, and a
+total number density 18 % higher (7.52e22 against 6.35e22 atoms/cm^3), most of it hydrogen. `SE (1ppb)` and `Shotcrete Target Fractions` still use
+the dry columns; link them to the wet ones to run with water. The ng/g results (H-J of the SE tab) do not depend on the matrix number density, so
+they are unchanged for the same dry mass per volume. As shot, dry-mix shotcrete holds 8.6-10.8 % water (*Shotcrete*, Winter 2009, pp. 22-27); bound
+water is about 0.23 g per g of cement (about 3.5-6 % of the dry mix, 0.4-0.6 % H), against H = 0.04 % in Table 3 of the SNOLAB report. A measurement
+on a core (oven-dry at 105 C, ignite at 1000 C) would settle it. The references are also at the bottom of the tab (A34:A36).
 
 ### Target Fractions tab (6)
 
@@ -115,8 +126,8 @@ abundance bounds (%), and `Middle`, `Lower`, `Upper` as fractions of atoms: `Mid
 
 ## Status of each tab (audit of commit 65e8d6e, still valid)
 
-OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (source of
-the density). Shotcrete Target Fractions is OK. No tab has a definite error.
+OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (the density is
+only the datasheet's approximate yield, see above). Shotcrete Target Fractions is OK. No tab has a definite error.
 
 ## Known issues and caveats
 
