@@ -94,8 +94,12 @@ Rows 40-46 of the sheet hold the notes naming the exact files and repositories u
 Mass fraction (C) and overall density (D, kg/m^3; E in g/cm^3) give the elemental mass density (F = E x C/100),
 the number density (H = F/G x N_A, with N_A = 6.0221408E+23) and the atom fractions (I = H / total). The atom
 fractions are copied by value into the lower table (rows 21+ for shotcrete) that the Target Fractions tab uses.
-The shotcrete composition sums to 99.66 % (the Sika datasheet cited does not give composition or density; the other
-reference is an inaccessible Confluence page, so this tab is an open question).
+The shotcrete composition (column C) is Table 3, "Shotcrete" column, of SNOLAB-STR-2007-003 (I. T. Lawson, *Analysis of Rock Samples
+from the New Laboratory*, 2007): sample 15, the MS-D3 accelerated shotcrete (Creighton Mix 25017); all 11 elements match. It
+sums to 99.66 %; the remaining 0.34 % is the trace elements (Table 2 of the report gives 3582.7 ppm = 0.36 % for that sample).
+The same report is the source of the shotcrete Th and U (15.24 and 2.46 ppm) used in the paper. The density (2222.22 kg/m^3) is
+**not** in that report or in the Sika datasheet cited in the tab, and its source is still open (candidate: the SNOLAB User's
+Handbook). A copy of the report is in `../docs/SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf`.
 
 ### Target Fractions tab (6)
 
@@ -112,7 +116,7 @@ abundance bounds (%), and `Middle`, `Lower`, `Upper` as fractions of atoms: `Mid
 ## Status of each tab (audit of commit 65e8d6e, still valid)
 
 OK: Th232, U235, U238, SE (1ppb). Open (works, with a question): Shotcrete Density (source of
-composition/density). Shotcrete Target Fractions is OK. No tab has a definite error.
+the density). Shotcrete Target Fractions is OK. No tab has a definite error.
 
 ## Known issues and caveats
 
