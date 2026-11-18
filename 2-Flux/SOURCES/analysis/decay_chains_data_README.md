@@ -5,6 +5,8 @@ daughter isotope", and the target-material fractions needed to turn those into (
 SOURCES-4 inputs. It lives in `2-Flux/SOURCES/analysis/`; the Mathematica notebooks that
 produced the original equilibrium ratios are in `mathematica_SE/` (see its [README](mathematica_SE/README.md)).
 
+Everything changed since January 2026, and the literature references for the ppb definition, are in [changelog.md](changelog.md).
+
 Last audited 2026-11-10/11 against ENSDF (IAEA Live Chart API, NuDat 3) and CIAAW isotopic abundances; see
 "Status of each tab" below.
 
