@@ -78,12 +78,24 @@ Three blocks, one per seed: **Th-232** (header row 1, data rows 2-8), **U-238** 
 | L | Q-alpha (MeV). |
 | M | Notes. |
 
-Two definitions of "ppb" exist side by side:
+### ppb and ppm: the literature convention against the per-atom ppb used so far
 
-- **per-atom ppb** (E-G): 1 ppb = 1e-9 atoms of the seed per atom of matrix.
-- **ng/g ppb** (H-J): 1 ppb = 1e-9 g of the seed per g of matrix. Seed atoms/cm^3 = `1e-9 x rho x N_A / A_seed`;
-  for 1 ng/g in shotcrete that is 5.77e12 (Th-232) and 5.62e12 (U-238) atoms/cm^3. The two definitions differ by
-  about 11x for shotcrete (mean matrix mass about 21 g/mol).
+In the literature, and in the SNOLAB report behind Table I of the paper, ppm and ppb of U, Th (and K) in a material are
+**mass fractions**: 1 ppm = 1 ug/g, 1 ppb = 1 ng/g = 1e-9 g/g. (1 ppb U-238 = 12.4 mBq/kg and 1 ppb Th-232 = 4.06 mBq/kg,
+computed here.) Atom (mole) fractions are used for gases and dissolved impurities, for example ppt Kr in Xe, not for U/Th in a
+solid.
+
+The workbook carries both definitions side by side:
+
+- **ng/g ppb** (H-J) is the literature definition: 1 ppb = 1e-9 g of the seed per g of matrix. Seed atoms/cm^3 =
+  `1e-9 x rho x N_A / A_seed`; for 1 ng/g in shotcrete that is 5.77e12 (Th-232) and 5.62e12 (U-238) atoms/cm^3. **Use these
+  columns with a measured ppm x 1000.**
+- **per-atom ppb** (E-G) is *not* the literature ppb: 1 ppb = 1e-9 atoms of the seed per atom of matrix, which puts
+  A_matrix/A_seed too many seed atoms in. For shotcrete (mean matrix atom 21.1 g/mol) 1 per-atom ppb is 6.35e13 atoms/cm^3,
+  11.0 times (Th-232) and 11.3 times (U-238) the ng/g value. E-G are kept only to compare with the earlier results.
+
+Example: 15.24 ppm Th (Table I, shotcrete) is 8.8e16 Th-232 atoms/cm^3 by mass (15240 x J2) but 9.7e17 if read as per atom
+(15240 x G2). With the earlier matrix density (typed 10x too high) the absolute source was about 110x too large.
 
 U-235 is tied to U-238 by the natural abundance 0.007204 (by atoms), in both definitions.
 
@@ -106,9 +118,10 @@ same calculation. A copy of the report is in `../docs/SNOLAB-STR-2007-003-Norite
 **Water (added 2026-11-17).** Columns K-N, the input `Q2` (f_w, the water mass fraction of the wet material; 0 gives back columns C-I), `Q3` (wet density
 = E2/(1-f_w), same dry mass per volume) and `C22:C32` (wet atom fractions by Z) give the composition and number densities with retained water: the dry
 composition is scaled by (1-f_w) and water (11.19 % H, 88.81 % O) is added. For example f_w = 5 % gives 2.339 g/cm^3, H 0.60 %, O 50.0 %, and a
-total number density 18 % higher (7.52e22 against 6.35e22 atoms/cm^3), most of it hydrogen. `SE (1ppb)` and `Shotcrete Target Fractions` still use
-the dry columns; link them to the wet ones to run with water. The ng/g results (H-J of the SE tab) do not depend on the matrix number density, so
-they are unchanged for the same dry mass per volume. As shot, dry-mix shotcrete holds 8.6-10.8 % water (*Shotcrete*, Winter 2009, pp. 22-27); bound
+total number density 18 % higher (7.52e22 against 6.35e22 atoms/cm^3), most of it hydrogen. `SE (1ppb)` (K2, K11 and K26 = `M13`) and `Shotcrete Target
+Fractions` (column B, from `C22:C32`; F-H follow) now use the wet columns, and give the old results exactly at f_w = 0 (checked: every value on
+the Target Fractions tab agrees to 4e-16). The ppm are taken per dry mass: rho in the SE tab stays `E2`, so the ng/g results (H-J) are unchanged by
+water, and only the per-atom ppb (E-G) and the Target Fractions change. As shot, dry-mix shotcrete holds 8.6-10.8 % water (*Shotcrete*, Winter 2009, pp. 22-27); bound
 water is about 0.23 g per g of cement (about 3.5-6 % of the dry mix, 0.4-0.6 % H), against H = 0.04 % in Table 3 of the SNOLAB report. A measurement
 on a core (oven-dry at 105 C, ignite at 1000 C) would settle it. The references are also at the bottom of the tab (A34:A36).
 
