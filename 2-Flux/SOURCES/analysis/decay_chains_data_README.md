@@ -78,12 +78,24 @@ Three blocks, one per seed: **Th-232** (header row 1, data rows 2-8), **U-238** 
 | L | Q-alpha (MeV). |
 | M | Notes. |
 
-Two definitions of "ppb" exist side by side:
+### ppb and ppm: the literature convention against the per-atom ppb used so far
 
-- **per-atom ppb** (E-G): 1 ppb = 1e-9 atoms of the seed per atom of matrix.
-- **ng/g ppb** (H-J): 1 ppb = 1e-9 g of the seed per g of matrix. Seed atoms/cm^3 = `1e-9 x rho x N_A / A_seed`;
-  for 1 ng/g in shotcrete that is 5.77e12 (Th-232) and 5.62e12 (U-238) atoms/cm^3. The two definitions differ by
-  about 11x for shotcrete (mean matrix mass about 21 g/mol).
+In the literature, and in the SNOLAB report behind Table I of the paper, ppm and ppb of U, Th (and K) in a material are
+**mass fractions**: 1 ppm = 1 ug/g, 1 ppb = 1 ng/g = 1e-9 g/g. (1 ppb U-238 = 12.4 mBq/kg and 1 ppb Th-232 = 4.06 mBq/kg,
+computed here.) Atom (mole) fractions are used for gases and dissolved impurities, for example ppt Kr in Xe, not for U/Th in a
+solid.
+
+The workbook carries both definitions side by side:
+
+- **ng/g ppb** (H-J) is the literature definition: 1 ppb = 1e-9 g of the seed per g of matrix. Seed atoms/cm^3 =
+  `1e-9 x rho x N_A / A_seed`; for 1 ng/g in shotcrete that is 5.77e12 (Th-232) and 5.62e12 (U-238) atoms/cm^3. **Use these
+  columns with a measured ppm x 1000.**
+- **per-atom ppb** (E-G) is *not* the literature ppb: 1 ppb = 1e-9 atoms of the seed per atom of matrix, which puts
+  A_matrix/A_seed too many seed atoms in. For shotcrete (mean matrix atom 21.1 g/mol) 1 per-atom ppb is 6.35e13 atoms/cm^3,
+  11.0 times (Th-232) and 11.3 times (U-238) the ng/g value. E-G are kept only to compare with the earlier results.
+
+Example: 15.24 ppm Th (Table I, shotcrete) is 8.8e16 Th-232 atoms/cm^3 by mass (15240 x J2) but 9.7e17 if read as per atom
+(15240 x G2). With the earlier matrix density (typed 10x too high) the absolute source was about 110x too large.
 
 U-235 is tied to U-238 by the natural abundance 0.007204 (by atoms), in both definitions.
 
