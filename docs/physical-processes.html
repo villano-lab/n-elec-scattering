@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scattering physics | Neutron-electron scattering backgrounds</title>
+<link rel="stylesheet" href="style.css">
+<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+</head>
+<body>
+<header>
+<a class="site" href="index.html">Neutron magnetic scattering backgrounds</a>
+<nav><a href="index.html">Overview</a> <a href="physical-processes.html" aria-current="page">Scattering physics</a> <a href="flux.html">Neutron flux</a> <a href="final-spectra.html">Final spectra</a> <a href="comparisons.html">Comparisons</a><a href="https://github.com/villano-lab/n-elec-scattering">GitHub</a></nav>
+</header>
+<main>
+<h1>Scattering physics</h1>
+<p class="lead">The two processes that compete at low recoil energy: neutron-nucleus elastic scattering and neutron-electron magnetic scattering.</p>
+
+<p>Folder: <a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/1-Physical-Processes"><code>1-Physical-Processes/</code></a>. The notebooks build up the cross
+sections, first for the neutron-nucleus process (the competing background), then for the neutron-electron process.</p>
+<div class="nb"><h3>A. Neutron-nucleus differential cross sections</h3>
+<p>Extracts the differential elastic scattering cross sections of the silicon and germanium isotopes from the ENDF/B-VIII.0 evaluated nuclear data files. These are the center-of-mass angular distributions that the next steps turn into recoil spectra.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/A-Differential-Neutron-Nucleus-XN.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/A-Differential-Neutron-Nucleus-XN.ipynb">Source on GitHub</a><code>1-Physical-Processes/A-Differential-Neutron-Nucleus-XN.ipynb</code></p></div>
+<div class="nb"><h3>B. The neutron-electron magnetic process</h3>
+<p>Single-scatter recoil spectrum of an electron struck by a neutron. In the center-of-mass frame the angular distribution is isotropic, so for a monoenergetic neutron the electron recoil spectrum is flat from 0 up to $E_r^{max} = 4m_em_n E_n/(m_e+m_n)^2$. The notebook computes the total magnetic cross section $\sigma = 8\pi m_n^2\gamma_n^2\mu_B^2/\hbar^2$ (in barns) and the differential cross section in recoil energy.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/B-Neutron-Electron-Process.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/B-Neutron-Electron-Process.ipynb">Source on GitHub</a><code>1-Physical-Processes/B-Neutron-Electron-Process.ipynb</code></p></div>
+<div class="nb"><h3>C. Incoherent scattering functions</h3>
+<p>Checks whether binding and local electron behavior change the cross section for scattering off electrons bound in atoms, by comparing incoherent scattering functions (including the Ribberfors and Berggren treatment).</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/C-Incoherent_Scattering_Function.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/C-Incoherent_Scattering_Function.ipynb">Source on GitHub</a><code>1-Physical-Processes/C-Incoherent_Scattering_Function.ipynb</code></p></div>
+<div class="nb"><h3>D. Neutron-nucleus recoil distributions</h3>
+<p>Turns the angular cross sections of notebook A into distributions of nuclear recoil energies for fixed neutron energies. This is the nuclear counterpart of the flat electron-recoil spectrum of notebook B.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/D-Neutron-Nucleus-Recoil-Distributions.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/1-Physical-Processes/D-Neutron-Nucleus-Recoil-Distributions.ipynb">Source on GitHub</a><code>1-Physical-Processes/D-Neutron-Nucleus-Recoil-Distributions.ipynb</code></p></div>
+
+</main>
+<footer>Documentation for the repository <a href="https://github.com/villano-lab/n-elec-scattering">villano-lab/n-elec-scattering</a>,
+which supports the paper &ldquo;Neutron magnetic scattering backgrounds for low-threshold rare-event searches&rdquo;.
+Links to notebooks point at the <code>develop</code> branch.</footer>
+</body>
+</html>

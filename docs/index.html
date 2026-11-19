@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neutron magnetic scattering backgrounds | Neutron-electron scattering backgrounds</title>
+<link rel="stylesheet" href="style.css">
+<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+</head>
+<body>
+<header>
+<a class="site" href="index.html">Neutron magnetic scattering backgrounds</a>
+<nav><a href="index.html" aria-current="page">Overview</a> <a href="physical-processes.html">Scattering physics</a> <a href="flux.html">Neutron flux</a> <a href="final-spectra.html">Final spectra</a> <a href="comparisons.html">Comparisons</a><a href="https://github.com/villano-lab/n-elec-scattering">GitHub</a></nav>
+</header>
+<main>
+<h1>Neutron magnetic scattering backgrounds</h1>
+<p class="lead">A guided tour of the analysis behind the paper, one notebook at a time.</p>
+
+<h2>What this is about</h2>
+<p>At high recoil energies the magnetic scattering of ambient neutrons on atomic electrons is much rarer than their
+elastic scattering on nuclei. In the 1&ndash;2&nbsp;keV range the order reverses, so a dark matter or other rare-event
+detector with a low enough threshold sees a neutron-electron background that must be accounted for. This repository
+holds the calculations: the neutron flux in the laboratory, the two scattering processes, the resulting recoil spectra,
+and their comparison with other backgrounds.</p>
+
+<h2>How the analysis fits together</h2>
+<ol class="pipeline">
+<li><b>Contamination.</b> The uranium and thorium content of the shotcrete and the norite rock around the cavern sets
+how many neutrons are made. <a href="flux.html#contamination">Neutron flux &rarr; contamination</a>.</li>
+<li><b>Neutron source.</b> SOURCES4A turns the contamination into (&alpha;,n) and spontaneous-fission neutron spectra.
+<a href="flux.html#sources">Neutron flux &rarr; SOURCES4A</a>.</li>
+<li><b>Flux in the cavern.</b> A slab-source and shielding calculation gives the neutron flux in neutrons/cm&sup2;/s.
+<a href="flux.html#slab">Neutron flux &rarr; slab source</a>.</li>
+<li><b>Scattering physics.</b> Cross sections for neutron-nucleus elastic scattering (evaluated nuclear data) and for
+neutron-electron magnetic scattering. <a href="physical-processes.html">Scattering physics</a>.</li>
+<li><b>Recoil spectra.</b> The flux is convolved with the cross sections and combined over the natural isotopes of the
+detector materials. <a href="flux.html#convolution">Neutron flux &rarr; convolution</a>.</li>
+<li><b>Scaling and comparison.</b> The flux is scaled to the shielded environments of published experiments and the
+neutron-electron rate is compared with other backgrounds. <a href="final-spectra.html">Final spectra</a>,
+<a href="comparisons.html">Comparisons</a>.</li>
+</ol>
+
+<h2>Repository map</h2>
+<table>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/1-Physical-Processes">1-Physical-Processes/</a></code></td><td>cross sections and recoil distributions</td></tr>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/2-Flux">2-Flux/</a></code></td><td>contamination, SOURCES4A, shielding, flux convolution</td></tr>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/3-Final-Spectra">3-Final-Spectra/</a></code></td><td>scaling the flux to published experiments</td></tr>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/Comparisons">Comparisons/</a></code></td><td>comparison with other backgrounds</td></tr>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/Final-Figures">Final-Figures/</a></code></td><td>figures for the paper</td></tr>
+<tr><td><code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/python">python/</a></code>, <code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/data_files">data_files/</a></code>, <code><a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/mplstyles">mplstyles/</a></code></td><td>shared modules, reference data, plot styles</td></tr>
+</table>
+
+<h2>Running the notebooks</h2>
+<pre><code>conda env create -f environment.yml
+conda activate nescatt_2025
+jupyter lab</code></pre>
+<p>The notebooks use paths relative to their own folder, so start them from where they live. The SOURCES4A code itself
+is not in this repository; see the <a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/SOURCES/README.md">SOURCES README</a> for how to obtain and run it.</p>
+
+</main>
+<footer>Documentation for the repository <a href="https://github.com/villano-lab/n-elec-scattering">villano-lab/n-elec-scattering</a>,
+which supports the paper &ldquo;Neutron magnetic scattering backgrounds for low-threshold rare-event searches&rdquo;.
+Links to notebooks point at the <code>develop</code> branch.</footer>
+</body>
+</html>

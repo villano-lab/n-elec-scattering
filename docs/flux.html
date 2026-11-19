@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neutron flux | Neutron-electron scattering backgrounds</title>
+<link rel="stylesheet" href="style.css">
+<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+</head>
+<body>
+<header>
+<a class="site" href="index.html">Neutron magnetic scattering backgrounds</a>
+<nav><a href="index.html">Overview</a> <a href="physical-processes.html">Scattering physics</a> <a href="flux.html" aria-current="page">Neutron flux</a> <a href="final-spectra.html">Final spectra</a> <a href="comparisons.html">Comparisons</a><a href="https://github.com/villano-lab/n-elec-scattering">GitHub</a></nav>
+</header>
+<main>
+<h1>Neutron flux</h1>
+<p class="lead">From the radioactivity of the surrounding rock to a recoil spectrum in the detector.</p>
+
+<p>Folder: <a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/2-Flux"><code>2-Flux/</code></a>. Notebooks A to C produce the neutron flux in the cavern; D and E
+convolve it with the cross sections of the previous section.</p>
+<h2 id="contamination">Contamination</h2>
+<div class="nb"><h3>A. Where the contamination numbers come from</h3>
+<p>Explains how the uranium and thorium contamination fed to SOURCES4A is obtained and why. 1&nbsp;ppb is a mass fraction (1&nbsp;ng/g) converted to atoms/cm&sup3;; the rest of each decay chain follows from half-lives and branching ratios under secular equilibrium; the shotcrete and norite compositions give the target atoms. The notebook reproduces the numbers in the workbook <code>decay_chains_data.xlsx</code>.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/2-Flux/A-Contamination-Estimates.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/A-Contamination-Estimates.ipynb">Source on GitHub</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/SOURCES/analysis/decay_chains_data_README.md">Workbook explained</a><code>2-Flux/A-Contamination-Estimates.ipynb</code></p></div>
+<p class="note">Cross-check material (Mathematica decay-chain notebooks and an earlier Python chain model) is kept in
+<a href="https://github.com/villano-lab/n-elec-scattering/tree/develop/2-Flux/archive/decay-chain-crosschecks">2-Flux/archive/decay-chain-crosschecks/</a>. The change history of the
+workbook is in its <a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/SOURCES/analysis/changelog.md">changelog</a>.</p>
+<h2 id="sources">SOURCES4A</h2>
+<div class="nb"><h3>B. Running SOURCES4A</h3>
+<p>SOURCES4A (with the Sheffield modifications) takes the contamination of a material and returns the neutron production per volume per second from (&alpha;,n) reactions and spontaneous fission. The notebook shows the input for 1&nbsp;ppb of the Th-232 chain, with its three stanzas: material composition, contaminant isotopes and their atom densities, and the (&alpha;,n) targets.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/2-Flux/B-SOURCES4A-Running.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/B-SOURCES4A-Running.ipynb">Source on GitHub</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/SOURCES/README.md">SOURCES folder README</a><code>2-Flux/B-SOURCES4A-Running.ipynb</code></p></div>
+<h2 id="slab">Flux in the cavern</h2>
+<div class="nb"><h3>C. Slab source and shielding</h3>
+<p>Combines the neutron production rate of the shotcrete with basic neutron transport to estimate the ambient flux in neutrons/cm&sup2;/s, adapting rectangular volume-source formulas from the gamma literature. The shielding by the norite behind the shotcrete is treated the same way, assuming a cavern made of norite of orthopyroxene and calcium-rich plagioclase.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/2-Flux/C-Slab-Source-and-Shielding.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/C-Slab-Source-and-Shielding.ipynb">Source on GitHub</a><code>2-Flux/C-Slab-Source-and-Shielding.ipynb</code></p></div>
+<h2 id="convolution">Recoil spectra</h2>
+<div class="nb"><h3>D. Flux convolution</h3>
+<p>Replaces the fixed neutron energies of the scattering-physics notebooks by the realistic flux spectrum, so that many neutron energies contribute to each recoil energy, and computes the predicted nuclear recoil spectrum.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/2-Flux/D-Flux-Convolution.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/D-Flux-Convolution.ipynb">Source on GitHub</a><code>2-Flux/D-Flux-Convolution.ipynb</code></p></div>
+<div class="nb"><h3>E. Isotope combinations</h3>
+<p>Weights the per-isotope spectra by the natural abundances to give the flux-convolved recoil spectrum for silicon and germanium detector materials.</p>
+<p class="links"><a href="https://nbviewer.org/github/villano-lab/n-elec-scattering/blob/develop/2-Flux/E-Isotope-Combinations.ipynb">View rendered</a><a href="https://github.com/villano-lab/n-elec-scattering/blob/develop/2-Flux/E-Isotope-Combinations.ipynb">Source on GitHub</a><code>2-Flux/E-Isotope-Combinations.ipynb</code></p></div>
+
+</main>
+<footer>Documentation for the repository <a href="https://github.com/villano-lab/n-elec-scattering">villano-lab/n-elec-scattering</a>,
+which supports the paper &ldquo;Neutron magnetic scattering backgrounds for low-threshold rare-event searches&rdquo;.
+Links to notebooks point at the <code>develop</code> branch.</footer>
+</body>
+</html>
