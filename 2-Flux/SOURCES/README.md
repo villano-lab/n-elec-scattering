@@ -13,7 +13,7 @@ composition for the attenuation.
 |---|---|
 | `inputs/` | SOURCES input files (`tape1-*`) for 1 ppb of each chain: `shotcrete/`, `hang/`, `pube/`, plus small `examples/`. `archive/` folders hold older versions |
 | `results/` | Saved SOURCES outputs (`_tape7` spectra and `*_summary_*.txt`) per material: `shotcrete/`, `hang/`, `pube/`, `supersim/`. Dated and `_old` copies are in `archive/` |
-| `analysis/` | `decay_chains_data.xlsx` ([explained](analysis/decay_chains_data_README.md)), `shielding.xlsx`, `mathematica_SE/` and the `stanzas2columns*.sh` helpers |
+| `analysis/` | `decay_chains_data.xlsx` ([explained](analysis/decay_chains_data_README.md)), `shielding.xlsx`, and the `stanzas2columns*.sh` helpers (the Mathematica cross-check notebooks moved to `../archive/decay-chain-crosschecks/`) |
 | `notebooks/` | Notebooks that read and plot SOURCES results (`nOutput-SOURCES4A-Sheffield*.ipynb`, `nShielding.ipynb`) |
 | `docs/` | SOURCES 4A and 4C manuals, `SOURCES-inputs.pdf`/`.pptx`, `shotcrete_comp.png`, and `SNOLAB-STR-2007-003-NoriteRock-Radioactivity.pdf` (I. T. Lawson, *Analysis of Rock Samples from the New Laboratory*, 2007: source of the shotcrete and norite composition and Th/U ppm) |
 | `norite/` | Inputs, results and script for the norite rock (self-contained, see its README) |
@@ -88,7 +88,7 @@ The git tag `pre-reorg` marks the layout before the move; `git log --follow <fil
 | `SNOLAB_Flux/data/*_summary_1ppb_*.txt` | `results/shotcrete/` (`_250609`), `results/cu/` (`_260130`), `results/hdpe/` (`_260115`); `_260116` in `results/cu/archive/` (Cu and HDPE removed 2026-11-16) |
 | `.../raw_sources_IO/-250609_tape7`, `SOURCES/.../data/tape1-Th232-SNOLAB_tape7` | `results/shotcrete/archive/` |
 | `.../raw_sources_IO/Hang_*`, `*Hang*`, `PuBe*`, `SuperSim_*` | `results/hang/`, `results/pube/`, `results/supersim/` (`_old` in `archive/`) |
-| `.../raw_sources_IO/decay_chains_data.xlsx`, `shielding.xlsx`, `mathematica_SE/`, `stanzas2columns*.sh`, `test.txt` | `analysis/` |
+| `.../raw_sources_IO/decay_chains_data.xlsx`, `shielding.xlsx`, `stanzas2columns*.sh`, `test.txt` | `analysis/` |
 | `SOURCES/sources_running/*.ipynb` | `notebooks/` |
 | `SNOLAB_Flux/SOURCES_manuals/`, `SNOLAB_Flux/SOURCES_images/`, `SOURCES/SOURCES-inputs.*` | `docs/` |
 
@@ -96,3 +96,5 @@ Nine files that were byte-identical to another copy were deleted (3 `_tape7`, 3 
 `stanzas2columns*.sh`); the kept copy is the one in the table above.
 
 **Removed 2026-11-16:** the Cu, Pb and HDPE shielding material is not needed for the n-electron scattering paper: `inputs/cu/`, `inputs/pb/`, `inputs/hdpe/`, `results/cu/` (with `archive/`), `results/hdpe/`, `2-Flux/Cu.ipynb` and `2-Flux/HDPE.ipynb`, and the Cu, Pb and HDPE tabs of `analysis/decay_chains_data.xlsx`. The `Shotcrete Hang` tab of that workbook, and column I of `Shotcrete Target Fractions` that depended on it, were removed too (the Hang SOURCES inputs and results in `inputs/hang/` and `results/hang/` are still here). They are kept, unchanged and at their original paths, in the private repository [`villano-lab/radioactive-contamination`](https://github.com/villano-lab/radioactive-contamination) (with the full 14-tab workbook), and in the git history of this one (`develop` up to `34792c4`).
+
+**Moved 2026-11-19:** `analysis/mathematica_SE/` is now `../archive/decay-chain-crosschecks/mathematica_SE/` (with the old `A-Decay-Chain-Modeling.ipynb` and `python/decay_chains.py`); see that folder's README.

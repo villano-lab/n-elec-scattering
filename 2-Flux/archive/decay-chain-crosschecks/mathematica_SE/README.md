@@ -1,7 +1,7 @@
 # Mathematica decay-chain notebooks (secular-equilibrium ratios)
 
 These notebooks are the origin of the typed ratio column in the `SE (1ppb)` tab (and the `Cu SE (1ppb)` tab, removed 2026-11-16) of
-`../decay_chains_data.xlsx` (column D there, "N/N_seed from Mathematica ...").
+`../../../SOURCES/analysis/decay_chains_data.xlsx` (column D there, "N/N_seed from Mathematica ...").
 
 They were copied from the public repository `villano-lab/L3He_paper2023`, folder
 `neutron-bknd-spectra/decay_chains/` (repository commit `126f262`, copied 2026-11-10), where they were written in 2023.
