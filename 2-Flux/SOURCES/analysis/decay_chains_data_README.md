@@ -34,6 +34,9 @@ Density tab -> Target Fractions tab -> (a,n) target isotopes, with abundance bou
 | 4 | `SE (1ppb)` | Shotcrete (norite) contamination: ratios, masses and atoms/cm^3, three blocks (see below). |
 | 5 | `Shotcrete Density` | Composition (mass %), density 2.2222 g/cm^3, molar masses, number densities, atom fractions. |
 | 6 | `Shotcrete Target Fractions` | For each element, the (a,n) target isotopes with CIAAW abundance bounds and the middle value (fraction of atoms). |
+| 7 | `Norite Density` | Norite composition from Layne Hellman's GEOROC oxide table (orthopyroxene + plagioclase, 50:50 by volume): mass %, density 3.0 g/cm^3, number densities, atom fractions. Added 2026-11-18. |
+| 8 | `Norite Target Fractions` | The 37 (a,n) target isotopes of norite with abundance bounds and the middle value (fraction of atoms). Added 2026-11-18. |
+| 9 | `SE Norite (1ppb)` | The `SE (1ppb)` tab with the norite density and atom density: atoms/cm^3 of every chain member per 1 ppb (by mass). Added 2026-11-18. |
 
 The Cu, Pb and HDPE tabs (`Cu SE (1ppb)`, `Cu Density`, `Cu Target Fractions`, `Pb Density`, `Pb Target Fractions`, `HDPE Density`,
 `HDPE Target Fractions`) were removed on 2026-11-16 because they are not needed for the n-electron scattering paper. Nothing else
@@ -43,6 +46,28 @@ referenced them. The full 14-tab workbook is in the history of this repository (
 The `Shotcrete Hang` tab (Hang's published atom fractions, renormalised, compared with the atom fractions of `Shotcrete Density`) was also
 removed on 2026-11-16, together with column I of `Shotcrete Target Fractions`, which multiplied by that tab's total (0.0474, Hang's
 normalisation). Both are in the same three places (the full workbook in the archive repository still has them).
+
+### Norite tabs (7-9, added 2026-11-18)
+
+Built from the norite numbers of Layne N. Hellman (`2-Flux/C-Slab-Source-and-Shielding.ipynb`, cell 10) that the SOURCES norite inputs
+(`../norite/`, `norite_sources.py`) already use, in the layout of the shotcrete tabs:
+
+- **`Norite Density`.** Rows 1-15 have the shotcrete layout (A-I) for the 13 elements of norite (O, Na, Mg, Al, Si, P, K, Ca, Ti, Cr, Mn, Fe, Ni;
+  no H or C, no water columns). The oxide inputs are in rows 24-54: GEOROC mean weight percent, molar mass and O and metal atoms per formula unit for
+  orthopyroxene (density 3.3 g/cm^3) and plagioclase (2.7), mixed 50:50 by volume (B19:B21). Column K turns them into atoms/cm^3 of each element, and the mass
+  fraction C and the atom fraction I follow from K, so everything is a live formula. Density `D2 = 3000 kg/m^3` is the rounded 50:50 mean ("just gonna say 3.0");
+  the oxide table implies 3.049 g/cm^3 (cell B56), 1.7 % higher, and the atom fractions do not depend on the density. **Iron is counted once, as FeOT**: the
+  notebook as written also adds the FeO and Fe2O3 entries, which double-counts iron (mass fractions sum to about 104 %). Those rows are listed with
+  `included = 0`; setting them to 1 reproduces the notebook. The result matches `norite/inputs/composition.csv` (mass %, atom fractions and number densities of all 13 elements).
+- **`Norite Target Fractions`.** Same as the shotcrete tab, with column B linked to the atom fractions of `Norite Density`. The isotopes are the 37 targets that have
+  data in the modified SOURCES tape3 (O-16, Ca-40 and Ni-58 have none). Abundance bounds for O, Na, Mg, Al, Si, K, Ca, Mn and Fe are copied from the shotcrete tab (CIAAW);
+  **for P, Ti, Cr and Ni (14 isotopes) the lower and upper bound are both the single IUPAC abundance of `norite_sources.py`**, until the CIAAW intervals are entered.
+- **`SE Norite (1ppb)`.** A copy of `SE (1ppb)` with rho = `'Norite Density'!E2` and the atom density K = `'Norite Density'!H15`. The ratios in column C are the same
+  (they come from the decay tabs); the old Mathematica column D is dropped, and the E, G and J columns are live formulas on every row. For 1 ng/g: J2 = 7.786E12 Th-232
+  and J11 = 7.589E12 U-238 atoms/cm^3, the head densities of the SOURCES norite inputs. One per-atom ppb is 8.33E13 atoms/cm^3 here (kept for comparison only; use H-J).
+
+The composition is a global GEOROC norite average, not Sudbury rock, and it differs from the norite column of Table I of the paper (for example O 44.7 against 47.5 %,
+Mg 8.2 against 7.6 %, Al 7.9 against 8.8 %; Fe 8.84 against 8.83 %). The three norite sources have not been reconciled (see `changelog.md`, "Still open").
 
 ### Decay tabs (1-3)
 

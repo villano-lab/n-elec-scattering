@@ -4,7 +4,7 @@ Everything done to the workbook since the version of **January 2026**, and why. 
 2026-01-14 (commit `173fbb2`, unchanged at `98263c6`, 2026-01-29). That file had 15 tabs (`Th232`, `U235`, `U238`,
 `SE Results`, `SE (1ppb)`, `Shotcrete Density`, `Shotcrete Hang`, `Shotcrete Target Fractions`, `HDPE Density`,
 `HDPE Target Fractions`, `Cu SE (1ppb)`, `Cu Density`, `Cu Target Fractions`, `Pb Density`, `Pb Target Fractions`).
-The current file has six (`Th232`, `U235`, `U238`, `SE (1ppb)`, `Shotcrete Density`, `Shotcrete Target Fractions`).
+The current file has nine (`Th232`, `U235`, `U238`, `SE (1ppb)`, `Shotcrete Density`, `Shotcrete Target Fractions`, and the three norite tabs added 2026-11-18: `Norite Density`, `Norite Target Fractions`, `SE Norite (1ppb)`).
 
 The explainer of the current state is [`decay_chains_data_README.md`](decay_chains_data_README.md). The Mathematica notebooks
 that produced the original equilibrium ratios are in [`mathematica_SE/`](mathematica_SE/README.md). Annotated pictures of every
@@ -91,6 +91,13 @@ pg 32 (`Shotcrete Density`, `Shotcrete Target Fractions`) and pg 33 (`SE (1ppb)`
 
 - Notes on the ppb/ppm convention in `SE (1ppb)` rows 47-49 and in the README (see the next section).
 
+### 2026-11-18 (norite tabs)
+
+- **Norite added (`Norite Density`, `Norite Target Fractions`, `SE Norite (1ppb)`).** Built from Layne Hellman's GEOROC oxide table and mineral densities
+  (`C-Slab-Source-and-Shielding.ipynb`, the numbers already used by `2-Flux/SOURCES/norite/norite_sources.py`), in the layout of the shotcrete tabs. Iron is counted once (FeOT; the
+  notebook as written double-counts it). The composition reproduces `norite/inputs/composition.csv` for all 13 elements; the head densities for 1 ng/g (J2 = 7.786E12 Th-232, J11 = 7.589E12 U-238 atoms/cm^3) match the SOURCES inputs.
+  P, Ti, Cr and Ni have no CIAAW abundance bounds yet (single values). No existing tab was changed. See the README section "Norite tabs".
+
 ## ppb and ppm: the definition used by the literature (mass fraction, not atom density)
 
 The `SE (1ppb)` tab used **1 ppb = 1e-9 atoms of the seed per atom of the matrix** (columns E-G; D2 = 1E-9 in the January file). In the
@@ -131,6 +138,6 @@ its definition of ppm was not checked in the text and should be read before the 
 
 - Re-run `U238_SE_ODE.nb` (and `U235_SE_ODE_short.nb`) in Mathematica; refresh column D of `SE (1ppb)` if wanted (the Rn-218 row is empty there).
 - Shotcrete water and hydrogen content (a core measurement, or SNOLAB): choose the f_w cases for the sensitivity run.
-- Norite: not in the workbook yet; three sources disagree (SNOLAB User's Handbook 3.3 ppm Th / 1.2 ppm U; SNOLAB-STR-2007-003 averages 5.56 / 1.11;
-  Table I of the paper 5.44 / 1.06).
+- Norite: in the workbook since 2026-11-18, but the composition is the GEOROC average, and three sources of the radioactivity and composition disagree (SNOLAB User's Handbook 3.3 ppm Th / 1.2 ppm U;
+  SNOLAB-STR-2007-003 averages 5.56 / 1.11; Table I of the paper 5.44 / 1.06). Enter the CIAAW abundance intervals for P, Ti, Cr and Ni on `Norite Target Fractions`.
 - The SOURCES inputs and results were built from the old values (changes 1-3 above) and must be regenerated from column C and the ng/g head densities.
