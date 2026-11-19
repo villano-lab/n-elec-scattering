@@ -118,8 +118,8 @@ U_decay_data = {
     },
     "Fr_223": {
         "half_life": 22 * 60,
-        "decay_modes": [("alpha", "Ra_223", 0.00006),
-                       ("beta", "At_219", 0.99994)]
+        "decay_modes": [("alpha", "At_219", 0.00006),
+                       ("beta", "Ra_223", 0.99994)]
     },
     "At_219": {
         "half_life": 56,
@@ -193,7 +193,7 @@ U238_decay_data = {
         "decay_modes": [("alpha", "Ra_226", 1.0)]
     },
     "Ra_226": {
-        "half_life": 1.602*365*24*3600,
+        "half_life": 1600*365*24*3600,
         "decay_modes": [("alpha", "Rn_222", 1.0)]
     },
     "Rn_222": {

@@ -7,7 +7,9 @@ Everything done to the workbook since the version of **January 2026**, and why. 
 The current file has nine (`Th232`, `U235`, `U238`, `SE (1ppb)`, `Shotcrete Density`, `Shotcrete Target Fractions`, and the three norite tabs added 2026-11-18: `Norite Density`, `Norite Target Fractions`, `SE Norite (1ppb)`).
 
 The explainer of the current state is [`decay_chains_data_README.md`](decay_chains_data_README.md). The Mathematica notebooks
-that produced the original equilibrium ratios are in [`mathematica_SE/`](mathematica_SE/README.md). Annotated pictures of every
+that produced the original equilibrium ratios are in [`mathematica_SE/`](../../archive/decay-chain-crosschecks/mathematica_SE/README.md). Annotated pictures of every
+
+**Moved 2026-11-19:** the Mathematica notebooks, `A-Decay-Chain-Modeling.ipynb` and `decay_chains.py` are cross-checks, not inputs, and now live in [`2-Flux/archive/decay-chain-crosschecks/`](../../archive/decay-chain-crosschecks/README.md). The equilibrium ratios come from the half-lives and branching ratios on the decay tabs; `2-Flux/A-Contamination-Estimates.ipynb` explains and recomputes them.
 changed tab (before against now) are on Trello, notebooks board, list N-MISC-26-002: pg 31 (`Th232`, `U235`, `U238`),
 pg 32 (`Shotcrete Density`, `Shotcrete Target Fractions`) and pg 33 (`SE (1ppb)`); the 2026-11-16 daily log has the same pictures.
 
